@@ -1,8 +1,20 @@
+import GenreTags from "./GenreTags";
 import Button from "./components/Button";
 import HamburgerMenu from "./components/hamburgerMenu";
 import InputField from "./InputField";
 
 function App() {
+  const selectedGenres = [
+    "Fantasy",
+    "Romance",
+    "Storico",
+    "Comedy",
+    "Horror",
+    "Drammatico",
+    "Thriller",
+    "Avventura",
+  ];
+
   return (
     <div className="p-8">
       <HamburgerMenu />
@@ -33,6 +45,7 @@ function App() {
           hover="brand-yellow-hover"
         />
       </div>
+      <GenreTags selectedGenres={selectedGenres} />;
     </div>
   );
 }
