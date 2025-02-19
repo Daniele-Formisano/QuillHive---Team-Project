@@ -1,5 +1,11 @@
+import HamburgerMenu from "./components/hamburgerMenu";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <HamburgerMenu />
+    </>
+  );
 }
 
 export default App;
