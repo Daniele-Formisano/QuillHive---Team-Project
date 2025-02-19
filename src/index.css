@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+.brand-yellow {
+  background-color: #f5c43d;
+}
+
+.brand-blue-text {
+  color: #203955;
+}
+
+.brand-yellow-border {
+  border: 3px solid #f5c43d;
+}
+
+.brand-yellow-hover:hover {
+  background-color: #f7d168;
+  border: 3px solid #f7d168;
+}
