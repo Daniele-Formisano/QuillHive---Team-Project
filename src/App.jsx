@@ -1,5 +1,4 @@
-import React from "react";
-import InputField from "./InputField"; // Assicurati che il percorso sia corretto
+import InputField from "./InputField"; 
 
 export function App() {
   return (
