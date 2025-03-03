@@ -1,1 +1,19 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+
+@font-face {
+  font-family: "Intelo";
+  src: url("./assets/fonts/Intelo-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --bg-brand-color: #fffcf5;
+  --primary-brand-color: #f5c43d;
+  --secondary-brand-color: #203955;
+  --stroke-brand-color: #faf5e6;
+  --input-text-brand-color: #232323;
+
+  --font-script: Intelo, sans-serif;
+}
