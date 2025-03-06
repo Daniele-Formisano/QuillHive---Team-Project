@@ -9,8 +9,14 @@
       "bio": "yolooo",
       "account_created_at": "12 PM",
       "pronouns": "she/her",
-      "languages": "italian",
+      "languages": [1],
       "artist_type": "writer"
+    }
+  ],
+  "languages": [
+    {
+      "id": 1,
+      "name": "italian"
     }
   ]
 }
