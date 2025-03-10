@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "clara",
+      "email": "m.clara.massaro@gmail.com",
+      "password": "yolo",
+      "profile_picture": "url",
+      "bio": "yolooo",
+      "account_created_at": "12 PM",
+      "pronouns": "she/her",
+      "languages": [1],
+      "artist_type": "writer"
+    }
+  ],
+  "languages": [
+    {
+      "id": 1,
+      "name": "italian"
+    }
+  ]
+}

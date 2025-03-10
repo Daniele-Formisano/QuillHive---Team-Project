@@ -1,8 +1,9 @@
-import Navbar from "./components/navbar/navbar";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
-  return <>
-  <Navbar/></>;
+export default function App() {
+  return (
+    <Routes>
+      <Route />
+    </Routes>
+  );
 }
-
-export default App;
