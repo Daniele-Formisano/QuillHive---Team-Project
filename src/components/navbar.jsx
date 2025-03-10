@@ -1,6 +1,6 @@
-export default function () {
+export default function Navbar() {
   return (
-    <nav className="relative flex justify-center gap-[21px] bg-secondary-brand w-61 h-14  mt-30 ml-60 rounded-[50px]" >
+    <nav className="relative flex justify-center gap-[21px] bg-secondary-brand w-61 h-14  mt-30 ml-60 rounded-[50px]">
       <button>
         <svg
           width="40"
@@ -63,7 +63,7 @@ export default function () {
         </svg>
       </button>
       <button className="h-[69px] w-[69px] bg-transparent"></button>
-      <button className= " flex bg-primary-brand rounded-full h-[69px] w-[69px] justify-center items-center absolute left-1/2 -translate-x-1/2 -top-1.5">
+      <button className=" flex bg-primary-brand rounded-full h-[69px] w-[69px] justify-center items-center absolute left-1/2 -translate-x-1/2 -top-1.5">
         <svg
           width="51"
           height="47"
