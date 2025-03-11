@@ -36,7 +36,7 @@
       "email": "manuelomaglio@gmail.com",
       "password": "RhgT20?Fox",
       "profile_picture": null,
-      "bio": "Tra gli sviluppatori del sito (quello coicapellirossi",
+      "bio": "Tra gli sviluppatori del sito (quello coicapellirossi)",
       "pronouns": "he/him",
       "account_created_at": null
     },
@@ -51,6 +51,7 @@
       "pronouns": "he/him"
     }
   ],
+
   "languages": [
     {
       "id": 1,
@@ -73,6 +74,7 @@
       "language": "russian"
     }
   ],
+
   "user_languages": [
     {
       "id": 1,
@@ -135,6 +137,7 @@
       "languageId": 5
     }
   ],
+
   "genres": [
     {
       "id": 1,
@@ -239,6 +242,72 @@
     {
       "id": 26,
       "name": "Psychology"
+    }
+  ],
+
+  "artist_type": [
+    {
+      "id": 1,
+      "type": "Writer"
+    },
+    {
+      "id": 2,
+      "type": "Photographer"
+    },
+    {
+      "id": 3,
+      "type": "Videomaker"
+    },
+    {
+      "id": 4,
+      "type": "Illustrator"
+    },
+    {
+      "id": 5,
+      "type": "Musician"
+    }
+  ],
+
+  "user_artist_type": [
+    {
+      "id": 1,
+      "userId": 1,
+      "artist_typeId": 1
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "artist_typeId": 1
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "artist_typeId": 5
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "artist_typeId": 2
+    },
+    {
+      "id": 5,
+      "userId": 3,
+      "artist_typeId": 3
+    },
+    {
+      "id": 6,
+      "userId": 4,
+      "artist_typeId": 1
+    },
+    {
+      "id": 7,
+      "userId": 4,
+      "artist_typeId": 4
+    },
+    {
+      "id": 8,
+      "userId": 5,
+      "artist_typeId": null
     }
   ]
 }
