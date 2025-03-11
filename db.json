@@ -5,18 +5,240 @@
       "username": "clara",
       "email": "m.clara.massaro@gmail.com",
       "password": "yolo",
-      "profile_picture": "url",
+      "profile_picture": null,
       "bio": "yolooo",
-      "account_created_at": "12 PM",
+      "account_created_at": null,
+      "pronouns": "she/her"
+    },
+    {
+      "id": 2,
+      "username": "daniele",
+      "email": "danieleformisano5@gmail.com",
+      "password": "Xyre23!FbAe256",
+      "profile_picture": null,
+      "bio": "Sono uno tra gli sviluppatori di questo sito :)",
+      "account_created_at": null,
+      "pronouns": "he/him"
+    },
+    {
+      "id": 3,
+      "username": "sara",
+      "email": "sararampazzo.ph@gmail.com",
+      "password": "B23mEt!Bg",
+      "profile_picture": null,
+      "bio": "Una delle sviluppatrici del sito!",
       "pronouns": "she/her",
-      "languages": [1],
-      "artist_type": "writer"
+      "account_created_at": null
+    },
+    {
+      "id": 4,
+      "username": "manuel",
+      "email": "manuelomaglio@gmail.com",
+      "password": "RhgT20?Fox",
+      "profile_picture": null,
+      "bio": "Tra gli sviluppatori del sito (quello coicapellirossi",
+      "pronouns": "he/him",
+      "account_created_at": null
+    },
+    {
+      "id": 5,
+      "username": "antonio",
+      "email": "antoniobuzzo002@gmail.com",
+      "password": "Fdc26!5hL#",
+      "profile_picture": null,
+      "bio": "Uno degli sviluppatori del sito",
+      "account_created_at": null,
+      "pronouns": "he/him"
     }
   ],
   "languages": [
     {
       "id": 1,
-      "name": "italian"
+      "language": "italian"
+    },
+    {
+      "id": 2,
+      "language": "english"
+    },
+    {
+      "id": 3,
+      "language": "french"
+    },
+    {
+      "id": 4,
+      "language": "spanish"
+    },
+    {
+      "id": 5,
+      "language": "russian"
+    }
+  ],
+  "user_languages": [
+    {
+      "id": 1,
+      "userId": 1,
+      "languageId": 1
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "languageId": 2
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "languageId": 1
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "languageId": 2
+    },
+    {
+      "id": 5,
+      "userId": 3,
+      "languageId": 3
+    },
+    {
+      "id": 6,
+      "userId": 4,
+      "languageId": 1
+    },
+    {
+      "id": 7,
+      "userId": 4,
+      "languageId": 4
+    },
+    {
+      "id": 8,
+      "userId": 5,
+      "languageId": 1
+    },
+    {
+      "id": 9,
+      "userId": 5,
+      "languageId": 2
+    },
+    {
+      "id": 10,
+      "userId": 5,
+      "languageId": 3
+    },
+    {
+      "id": 11,
+      "userId": 5,
+      "languageId": 4
+    },
+    {
+      "id": 12,
+      "userId": 5,
+      "languageId": 5
+    }
+  ],
+  "genres": [
+    {
+      "id": 1,
+      "name": "Action"
+    },
+    {
+      "id": 2,
+      "name": "Adventure"
+    },
+    {
+      "id": 3,
+      "name": "Fantasy"
+    },
+    {
+      "id": 4,
+      "name": "Sci-fi"
+    },
+    {
+      "id": 5,
+      "name": "Dystopian"
+    },
+    {
+      "id": 6,
+      "name": "Urban Fantasy"
+    },
+    {
+      "id": 7,
+      "name": "Supernatural"
+    },
+    {
+      "id": 8,
+      "name": "Crime"
+    },
+    {
+      "id": 9,
+      "name": "Horror"
+    },
+    {
+      "id": 10,
+      "name": "Historical Fiction"
+    },
+    {
+      "id": 11,
+      "name": "Romance"
+    },
+    {
+      "id": 12,
+      "name": "Comedy"
+    },
+    {
+      "id": 13,
+      "name": "True Crime"
+    },
+    {
+      "id": 14,
+      "name": "Paranormal"
+    },
+    {
+      "id": 15,
+      "name": "History"
+    },
+    {
+      "id": 16,
+      "name": "Magical Realism"
+    },
+    {
+      "id": 17,
+      "name": "Mystery"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 19,
+      "name": "Contemporary"
+    },
+    {
+      "id": 20,
+      "name": "Mythology"
+    },
+    {
+      "id": 21,
+      "name": "Thriller"
+    },
+    {
+      "id": 22,
+      "name": "Steampunk"
+    },
+    {
+      "id": 23,
+      "name": "Young Adult"
+    },
+    {
+      "id": 24,
+      "name": "Poetry"
+    },
+    {
+      "id": 25,
+      "name": "LGBTQ+"
+    },
+    {
+      "id": 26,
+      "name": "Psychology"
     }
   ]
 }
