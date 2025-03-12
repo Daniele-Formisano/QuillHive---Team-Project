@@ -1,6 +1,6 @@
 export default function Navbar() {
   return (
-    <nav className="relative flex justify-center gap-[21px] bg-secondary-brand w-61 h-14  mt-30 ml-60 rounded-[50px]">
+    <nav className="relative flex justify-center gap-[21px] bg-secondary-brand w-61 h-14  mt-30 ml-60 rounded-4xl">
       <button>
         <svg
           width="40"
