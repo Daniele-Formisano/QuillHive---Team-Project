@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-export default function InputField({ label, id, type, placeholder }) {
+export default function InputField({
+  label,
+  id,
+  type,
+  placeholder,
+  ...others
+}) {
   const [value, setValue] = useState("");
 
   const handleChange = (event) => {
@@ -8,7 +14,7 @@ export default function InputField({ label, id, type, placeholder }) {
   };
 
   return (
-    <div className="relative w-[320px] h-[48px] mb-10">
+    <div className="relative h-[48px] mb-10">
       <label
         htmlFor={id}
         className="absolute left-1 top-[-30px] text-sm font-normal text-secondary-brand"
@@ -28,6 +34,7 @@ export default function InputField({ label, id, type, placeholder }) {
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
+        {...others}
       />
     </div>
   );

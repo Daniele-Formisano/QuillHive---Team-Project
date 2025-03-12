@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function SaveButton() {
+export default function SaveButton({ id }) {
   const [isSaved, setIsSaved] = useState(false);
 
   const handleClick = () => {
@@ -91,8 +91,8 @@ export default function SaveButton() {
   );
 
   return (
-    <div onClick={handleClick} className="cursor-pointer">
+    <button type="button" onClick={handleClick} className="cursor-pointer">
       {isSaved ? IconClicked : IconUnclicked}
-    </div>
+    </button>
   );
 }
