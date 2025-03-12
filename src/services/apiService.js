@@ -10,6 +10,9 @@ export const apiService = createApi({
     getUsers: builder.query({
       query: () => "users",
     }),
+    getGenres: builder.query({
+      query: () => "genres",
+    }),
     /* addPosts: builder.mutation({
       query: (user) => ({
         url: "user",
@@ -20,4 +23,4 @@ export const apiService = createApi({
   }),
 });
 
-export const { useGetUsersQuery } = apiService;
+export const { useGetUsersQuery, useGetGenresQuery } = apiService;

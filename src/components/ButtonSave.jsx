@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useGetUsersQuery } from "../services/apiService";
 
 export default function SaveButton({ id }) {
   const [isSaved, setIsSaved] = useState(false);
+
+  const { data, isLoading, error } = useGetUsersQuery();
+
+  console.log(data);
 
   const handleClick = () => {
     setIsSaved(!isSaved);
