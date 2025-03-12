@@ -11,7 +11,7 @@ export default function InputField({ label, id, type, placeholder }) {
     <div className="relative w-[320px] h-[48px] mb-10">
       <label
         htmlFor={id}
-        className="absolute left-1 top-[-30px] text-sm font-normal text-[#2B4F76]"
+        className="absolute left-1 top-[-30px] text-sm font-normal text-secondary-brand"
         style={{
           fontFamily: "'Intelo', sans-serif",
           fontSize: "14px",
@@ -24,7 +24,7 @@ export default function InputField({ label, id, type, placeholder }) {
       <input
         id={id}
         type={type}
-        className="w-full h-full px-4 py-2 text-sm text-gray-800 border-2 border-[#FAF5E6] rounded-[50px] bg-white focus:outline-none focus:ring-2 focus:ring-[#ffdd54]"
+        className="w-full h-full px-4 py-2 text-sm text-gray-800 border-2 border-stroke-brand rounded-[50px] bg-white focus:outline-none focus:ring-2 focus:ring-primary-brand"
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
