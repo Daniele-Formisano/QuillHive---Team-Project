@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { useState } from "react";
 
 export default function Select_artist_type_item({ role, svg }) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false); // POI SI PASSA ALLA PAGE
 
   const handleClick = () => {
     setChecked((prevChecked) => !prevChecked);
@@ -10,7 +10,7 @@ export default function Select_artist_type_item({ role, svg }) {
 
   return (
     <label
-      className="flex items-center m-6 cursor-pointer rounded-full relative "
+      className="group flex items-center m-6 cursor-pointer rounded-full relative "
       onClick={handleClick}
     >
       <input
@@ -23,14 +23,16 @@ export default function Select_artist_type_item({ role, svg }) {
         className="opacity-0 absolute"
       />
 
-      <div className="absolute flex justify-center items-center z-20 transform -translate-x-5">
+      <div className="absolute group-hover:scale-115 duration-150 flex justify-center items-center z-20 transform -translate-x-5">
         {svg}
       </div>
 
       <span
         className={clsx(
-          "flex justify-center items-center text-secondary-brand font-medium border-3 rounded-full border-secondary-brand w-[230px] h-[33px] relative z-10",
-          checked && "bg-secondary-brand text-primary-brand"
+          "flex font-script justify-center items-center font-medium border-3 rounded-full border-secondary-brand w-[230px] h-[33px] relative z-10",
+          checked
+            ? "bg-secondary-brand text-primary-brand"
+            : " text-secondary-brand "
         )}
       >
         {role}
