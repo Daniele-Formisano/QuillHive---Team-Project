@@ -13,7 +13,7 @@ export const apiService = createApi({
     getGenres: builder.query({
       query: () => "genres",
     }),
-    /* addPosts: builder.mutation({
+    /* addStory: builder.mutation({
       query: (user) => ({
         url: "user",
         method: "POST",
