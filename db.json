@@ -630,5 +630,36 @@
       "created_at": null,
       "updated_at": null
     }
+  ],
+
+  "user_stories": [
+    {
+      "id": 1,
+      "userId": 1,
+      "storyId": 2,
+      "status": "reading",
+      "saved": true
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "storyId": 3,
+      "status": "completed",
+      "saved": false
+    },
+    {
+      "id": 3,
+      "userId": 2,
+      "storyId": 1,
+      "status": "reading",
+      "saved": true
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "storyId": 6,
+      "status": "reading",
+      "saved": false
+    }
   ]
 }
