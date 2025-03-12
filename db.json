@@ -248,23 +248,23 @@
   "artist_type": [
     {
       "id": 1,
-      "type": "Writer"
+      "name": "Writer"
     },
     {
       "id": 2,
-      "type": "Photographer"
+      "name": "Photographer"
     },
     {
       "id": 3,
-      "type": "Videomaker"
+      "name": "Videomaker"
     },
     {
       "id": 4,
-      "type": "Illustrator"
+      "name": "Illustrator"
     },
     {
       "id": 5,
-      "type": "Musician"
+      "name": "Musician"
     }
   ],
 
