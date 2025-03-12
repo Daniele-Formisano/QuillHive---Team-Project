@@ -1,11 +1,9 @@
-import ButtonSave from "./components/buttonSave";
+import { Routes, Route } from "react-router-dom";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <ButtonSave />
-    </div>
+    <Routes>
+      <Route />
+    </Routes>
   );
 }
-
-export default App;
