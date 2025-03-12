@@ -1,22 +1,9 @@
-import InputField from "./InputField"; 
+import { Routes, Route } from "react-router-dom";
 
-export function App() {
+export default function App() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      <InputField
-        label="E-mail or username"
-        id="username"
-        type="text"
-        placeholder="E-mail or username"
-      />
-      <InputField
-        label="Password"
-        id="password"
-        type="password"
-        placeholder="Password"
-      />
-    </div>
+    <Routes>
+      <Route />
+    </Routes>
   );
 }
-
-export default App;
