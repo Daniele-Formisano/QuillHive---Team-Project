@@ -660,6 +660,13 @@
       "storyId": 6,
       "status": "reading",
       "saved": false
+    },
+    {
+      "id": 5,
+      "userId": 4,
+      "storyId": 5,
+      "status": "reading",
+      "saved": false
     }
   ]
 }
