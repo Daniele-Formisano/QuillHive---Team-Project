@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import GenreList from "../components/GenresList";
+import toast from "react-hot-toast";
 
 const genreList = [
   {
@@ -115,7 +116,7 @@ export default function GenresTry() {
   function toggleGenre(id) {
     // avvisiamo l'utente che non può selezionare più di 5 generi, permettiamo di deselezionare i generi anche quando sono 5
     if (maxFive && !selected.includes(id)) {
-      alert("You can't select more than 5 genres");
+      toast.error("You can't select more than 5 genres");
       return;
     }
 
