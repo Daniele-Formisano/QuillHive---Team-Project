@@ -4,6 +4,8 @@ const initialState = {
   user: null,
   languages: [],
   selectedGenres: [],
+  artistType: [],
+  genres: [],
 };
 
 export const globalSlice = createSlice({
@@ -16,6 +18,12 @@ export const globalSlice = createSlice({
     setLanguages: (state, action) => {
       state.languages = action.payload;
     },
+    setGenres: (state, action) => {
+      state.genres = action.payload;
+    },
+    setArtistType: (state, action) => {
+      state.artistType = action.payload;
+    },
     toggleGenre: (state, action) => {
       state.selectedGenres = state.selectedGenres.includes(action.payload)
         ? state.selectedGenres.filter((genreId) => genreId !== action.payload)
@@ -25,6 +33,6 @@ export const globalSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, setLanguages, toggleGenre } = globalSlice.actions;
+export const { setUser, setLanguages, toggleGenre, setGenres, setArtistType } = globalSlice.actions;
 
 export default globalSlice.reducer;
