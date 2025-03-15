@@ -7,6 +7,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
+import ArtistTypesTry from "./pages/ArtistTypesTry";
 
 export default function App() {
   const {
@@ -49,11 +50,5 @@ export default function App() {
   if (dataArtist && dataLanguage && dataGenres) {
   }
 
-
-  
-  return (
-    <Routes>
-      <Route path="/" />
-    </Routes>
-  );
+  return <ArtistTypesTry />;
 }

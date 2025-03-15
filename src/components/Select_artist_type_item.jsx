@@ -1,11 +1,12 @@
 import clsx from "clsx";
-import { useState } from "react";
 
-export default function Select_artist_type_item({ role, svg }) {
-  const [checked, setChecked] = useState(false); // POI SI PASSA ALLA PAGE
-
+export default function Select_artist_type_item({
+  type,
+  selected,
+  toggleArtistType,
+}) {
   const handleClick = () => {
-    setChecked((prevChecked) => !prevChecked);
+    toggleArtistType(type.id);
   };
 
   return (
@@ -15,27 +16,28 @@ export default function Select_artist_type_item({ role, svg }) {
     >
       <input
         type="checkbox"
-        value={role.toLowerCase()}
+        value={type.name.toLowerCase()}
         name="artist_type"
-        id={role.toLowerCase()}
-        checked={checked}
+        id={type.name.toLowerCase()}
+        checked={selected}
         onChange={handleClick}
         className="opacity-0 absolute"
       />
 
-      <div className="absolute group-hover:scale-115 duration-150 flex justify-center items-center z-20 transform -translate-x-5">
-        {svg}
-      </div>
+      <img
+        src={`svg${type.name}.svg`}
+        className="absolute group-hover:scale-115 duration-150 flex justify-center items-center z-20 transform -translate-x-5"
+      />
 
       <span
         className={clsx(
           "flex font-script justify-center items-center font-medium border-3 rounded-full border-secondary-brand w-[230px] h-[33px] relative z-10",
-          checked
+          selected
             ? "bg-secondary-brand text-primary-brand"
             : " text-secondary-brand "
         )}
       >
-        {role}
+        {type.name}
       </span>
     </label>
   );
