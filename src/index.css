@@ -9,8 +9,8 @@
 }
 
 @font-face {
-  font-family: "Abril Fatface", serif;
-  src: url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+  font-family: "Abril Fatface";
+  src: url("./assets/fonts/AbrilFatface-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
