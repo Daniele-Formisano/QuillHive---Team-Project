@@ -49,8 +49,6 @@ export default function App() {
   if (dataArtist && dataLanguage && dataGenres) {
   }
 
-
-  
   return (
     <Routes>
       <Route path="/" />
