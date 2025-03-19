@@ -8,7 +8,8 @@ export const apiService = createApi({
 
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "users",
+      query: (login) =>
+        `users${login && `?email=${login.email}&password=${login.password}`}`,
     }),
     getGenres: builder.query({
       query: () => "genres",

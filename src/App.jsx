@@ -4,9 +4,10 @@ import {
   useGetGenresQuery,
   useGetLanguagesQuery,
 } from "./services/apiService";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
+import Login from "./pages/Login";
 
 export default function App() {
   const {
@@ -25,8 +26,6 @@ export default function App() {
     error: errorGenres,
   } = useGetGenresQuery();
 
-  const { genres } = useSelector((state) => state.global);
-  const { languages } = useSelector((state) => state.global);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,6 +51,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" />
+      <Route path="/login" element={<Login />} />
     </Routes>
   );
 }
