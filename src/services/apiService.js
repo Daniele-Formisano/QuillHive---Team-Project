@@ -19,6 +19,9 @@ export const apiService = createApi({
     getLanguages: builder.query({
       query: () => "languages",
     }),
+    getStories: builder.query({
+      query: ()=> "stories"
+    }),
     /* addStory: builder.mutation({
       query: (user) => ({
         url: "user",
@@ -34,4 +37,5 @@ export const {
   useGetGenresQuery,
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
+  useGetStoriesQuery, 
 } = apiService;
