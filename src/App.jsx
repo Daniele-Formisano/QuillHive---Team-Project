@@ -7,6 +7,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
+import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import SelectGenres from "./components/SelectGenres";
 
@@ -53,6 +54,7 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} />
+      <Route path="/editProfile" element={<EditProfile />} />
     </Routes>
   );
 }
