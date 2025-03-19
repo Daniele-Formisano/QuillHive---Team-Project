@@ -50,7 +50,6 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" />
       <Route path="/login" element={<Login />} />
     </Routes>
   );
