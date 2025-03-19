@@ -7,6 +7,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
+import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 
 export default function App() {
@@ -51,6 +52,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/editProfile" element={<EditProfile />} />
     </Routes>
   );
 }
