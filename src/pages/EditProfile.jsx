@@ -2,8 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UserForm from "../components/UserForm";
 import { setUser } from "../features/global/globalSlice";
 
-export default function EditProfile({ languages }) {
-  const user = useSelector((state) => state.global.user);
+export default function EditProfile() {
   console.log(user);
   return (
     <div>
@@ -13,7 +12,7 @@ export default function EditProfile({ languages }) {
          */}
       </nav>
       <section>
-        <UserForm loggedUser={user} languages={languages} />
+        <UserForm />
       </section>
     </div>
   );

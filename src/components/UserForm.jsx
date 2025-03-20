@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
 import { useGetLanguagesQuery } from "../services/apiService";
-import { useUserLanguages } from "../utils/useUserLanguages";
+import { useUserLanguages } from "../utils/useCustomHook";
 import InputField from "./InputField";
 
-export default function UserForm({ loggedUser }) {
-  const userLanguages = useUserLanguages();
+export default function UserForm() {
+  const loggedUser = useSelector((state) => state.global.user);
   function onChange() {}
 
   return (

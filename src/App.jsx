@@ -47,14 +47,16 @@ export default function App() {
   if (errorArtist || errorGenres || errorLanguage) {
     return <div>error</div>;
   }
-  if (dataArtist && dataLanguage && dataGenres) {
-  }
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} />
-      <Route path="/editProfile" element={<EditProfile />} />
-    </Routes>
+    dataArtist &&
+    dataLanguage &&
+    dataGenres && (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} />
+        <Route path="/editProfile" element={<EditProfile />} />
+      </Routes>
+    )
   );
 }
