@@ -54,7 +54,7 @@ export default function App() {
     dataGenres && (
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} />
+        {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

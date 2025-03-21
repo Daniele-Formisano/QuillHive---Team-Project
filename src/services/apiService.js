@@ -35,8 +35,10 @@ export const apiService = createApi({
 
 export const {
   useGetUsersQuery,
+  useLazyGetUsersQuery,
   useGetGenresQuery,
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
   useGetUserLanguagesQuery,
+  useLazyGetUserLanguagesQuery,
 } = apiService;

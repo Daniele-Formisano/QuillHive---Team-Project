@@ -15,6 +15,7 @@ export default function LoginForm({ inputsValue, onChange, onSubmit }) {
             value={inputsValue.email}
             onChange={onChange}
             name={"email"}
+            autoComplete={"username"}
           />
           <InputField
             label={"Password"}
@@ -24,12 +25,13 @@ export default function LoginForm({ inputsValue, onChange, onSubmit }) {
             value={inputsValue.password}
             onChange={onChange}
             name={"password"}
+            autoComplete={"current-password"}
           />
         </div>
         <div className=" flex flex-col gap-17">
           <div className="flex justify-end">
             <Link
-              to={"/forgot-Password"}
+              to="/forgot-password"
               className="text-sm text-[#2B4F76] font-script hover:underline visited:text-secondary-brand"
             >
               Forgot password?
