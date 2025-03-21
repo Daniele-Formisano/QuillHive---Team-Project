@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import LoginForm from "../components/LoginForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import {
   useLazyGetUserLanguagesQuery,
@@ -40,9 +40,6 @@ export default function Login() {
       console.error("Error fetching user languages:", error);
       return [];
     }
-
-    //console.log(languages);
-    return languages;
   }
 
   // funzione per inviare il form, verificare l'utente se esiste, nel caso settarlo in redux, e redirect alla home
@@ -191,10 +188,10 @@ export default function Login() {
           inputsValue={inputsValue}
         />
 
-        <p className="font-script text-center">
+        <p className="font-script text-center text-input-text-brand">
           Not a member?{" "}
           <Link
-            className="text-[#2B4F76] hover:underline visited:text-secondary-brand"
+            className="text-[#2B4F76] hover:underline visited:text-fuchsia-900"
             to="/signup"
           >
             Sign up now
