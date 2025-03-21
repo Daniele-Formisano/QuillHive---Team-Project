@@ -80,7 +80,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col gap-10 p-8 justify-center h-screen bg-[#FFFCF5]">
+    <div className="flex flex-col gap-10 p-8 justify-center h-screen bg-bg-brand">
       <div className="inline-flex justify-center">
         <svg
           width="238"
