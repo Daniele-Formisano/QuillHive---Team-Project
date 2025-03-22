@@ -40,6 +40,15 @@ export default function SelectGenres({ genres }) {
   const [isOpen, setIsOpen] = useState(false);
   // Stato per la selezione dei generi
   const [selectedGenres, setSelectedGenres] = useState([]);
+  const selectStyle = {
+    WebkitAppearance: "none", // NASCONDO LA FRECCIA
+    MozAppearance: "none",
+    appearance: "none",
+    paddingRight: "18px", // Lascia spazio per la freccia personalizzata
+    fontFamily: "'Intelo', sans-serif",
+    fontSize: "14px",
+    color: "#232323",
+  };
 
   // Funzione per gestire la selezione e deselezione dei generi
   const toggleGenre = (genre) => {
@@ -51,16 +60,6 @@ export default function SelectGenres({ genres }) {
         return [...prevSelected, genre]; // Aggiunge il genere alla selezione
       }
     });
-  };
-
-  const selectStyle = {
-    WebkitAppearance: "none", // NASCONDO LA FRECCIA
-    MozAppearance: "none",
-    appearance: "none",
-    paddingRight: "18px", // Lascia spazio per la freccia personalizzata
-    fontFamily: "'Intelo', sans-serif",
-    fontSize: "14px",
-    color: "#232323",
   };
 
   return (

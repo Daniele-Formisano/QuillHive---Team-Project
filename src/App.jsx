@@ -10,6 +10,7 @@ import { setGenres, setLanguages } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import SelectGenres from "./components/SelectGenres";
+import NewStory_1 from "./components/NewStory_1";
 
 export default function App() {
   const {
@@ -54,7 +55,10 @@ export default function App() {
     dataGenres && (
       <Routes>
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
+        <Route
+          path="/NewStory_1"
+          element={<NewStory_1 genres={dataGenres} />}
+        />
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
