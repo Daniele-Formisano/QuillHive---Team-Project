@@ -64,24 +64,20 @@ export default function SelectGenres({ genres }) {
 
   return (
     <div>
-      <label
-        htmlFor="genres"
-        className="font-medium font-script text-secondary-brand mb-4"
-      >
-        Add Tags
-      </label>
+      <label htmlFor="genres">Add Tags</label>
 
       {/* Area di selezione che attiva l'apertura del dropdown */}
       <div
         onClick={() => setIsOpen(!isOpen)}
         style={selectStyle}
-        className="w-full px-4 py-2 text-sm border-2 border-stroke-brand rounded-[50px] bg-white cursor-pointer flex justify-between items-center"
+        className="px-4 py-3 border-2 border-stroke-brand rounded-4xl bg-white focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all flex justify-between items-center"
       >
-        <span>
+        <span className="text-gray-500 text-sm">
           {selectedGenres.length === 0
             ? "Select genres"
             : selectedGenres.join(", ")}
         </span>
+
         <div className="flex items-center">
           {!isOpen && svgDown}
           {isOpen && svgUp}
