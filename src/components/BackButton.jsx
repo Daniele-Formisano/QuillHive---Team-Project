@@ -11,7 +11,7 @@ export default function BackButton({ pageURL }) {
         navigate(pageURL);
       }}
     >
-      <IconChevronLeft stroke={1} />
+      <IconChevronLeft stroke={1.2} />
     </button>
   );
 }
