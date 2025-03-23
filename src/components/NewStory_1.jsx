@@ -3,14 +3,15 @@ import BackButton from "./BackButton";
 import InputField from "./InputField";
 import LoadCoverImg from "./LoadCoverImg";
 import SelectGenres from "./SelectGenres";
+import Button from "./Button";
 
 export default function NewStory_1({ genres }) {
   // Stato per la selezione dei generi
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [storyGenres, setStoryGenres] = useState([]);
 
   // Funzione per gestire la selezione e deselezione dei generi
   const toggleGenre = (genre) => {
-    setSelectedGenres((prevSelected) => {
+    setStoryGenres((prevSelected) => {
       // Se il genere è già selezionato, lo rimuoviamo, altrimenti lo aggiungiamo
       if (prevSelected.includes(genre)) {
         return prevSelected.filter((g) => g !== genre); // Rimuove il genere dalla selezione
@@ -30,24 +31,34 @@ export default function NewStory_1({ genres }) {
         type="text"
         id="title"
         label="Title"
-        value=""
-        onChange=""
+        onChange="" /* devo aggiornare il title di storia */
       />
       <InputField
         placeholder="Write a brief description of your story"
         type="text"
         id="description"
         label="Description"
-        value=""
-        onChange=""
+        onChange="" /* devo aggiornare il plot di storia */
       />
       <SelectGenres
         genres={genres}
-        selectedGenres={selectedGenres}
+        storyGenres={storyGenres}
         toggleGenre={toggleGenre}
       />
-      {/* BackButton */}
-      {/* StartWritingButton */}
+      <Button
+        onClick=""
+        children="Start Writing"
+        type="submit"
+        isColorYellow={true}
+      />
+      <Button
+        onClick={() => {
+          navigate("url");
+        }} // inserisci un url
+        children="Back"
+        type="button"
+        isColorYellow={false}
+      />
     </form>
   );
 }
