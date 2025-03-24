@@ -9,7 +9,8 @@ import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import SignupPageForm from "./pages/SignupPageForm";
+import SignupPageGenres from "./pages/SignupPageGenres";
 
 export default function App() {
   const {
@@ -54,7 +55,11 @@ export default function App() {
     dataGenres && (
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<SignupPageForm />} />
+        <Route
+          path="/signupGenres"
+          element={<SignupPageGenres genres={dataGenres} />}
+        />
         {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>

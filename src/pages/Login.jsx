@@ -45,10 +45,12 @@ export default function Login() {
   // funzione per inviare il form, verificare l'utente se esiste, nel caso settarlo in redux, e redirect alla home
   function handleSubmit(e) {
     e.preventDefault();
-    if (inputsValue.email.trim() == "" || inputsValue.password.trim() == "") {
+
+    /* CHIEDERE A MARCO LA SOLUZIONE MIGLIORE, SE CON REQUIRED OPPURE IL CODICE SOTTO
+     if (inputsValue.email.trim() == "" || inputsValue.password.trim() == "") {
       toast.error(<b>fill in all fields</b>);
       return;
-    }
+    } */
 
     toast.promise(
       async () => {
@@ -80,7 +82,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col gap-10 p-8 justify-center h-screen bg-bg-brand">
+    <div className="flex flex-col gap-10 p-8 justify-center min-h-screen overflow-auto bg-bg-brand">
       <div className="inline-flex justify-center">
         <svg
           width="238"
@@ -183,8 +185,8 @@ export default function Login() {
 
       <div className="flex flex-col gap-7">
         <LoginForm
-          onSubmit={(e) => handleSubmit(e)}
-          onChange={(e) => handleChange(e)}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
           inputsValue={inputsValue}
         />
 
