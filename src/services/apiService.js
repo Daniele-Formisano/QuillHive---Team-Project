@@ -8,7 +8,8 @@ export const apiService = createApi({
 
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "users",
+      query: (login) =>
+        `users${login && `?email=${login.email}&password=${login.password}`}`,
     }),
     getGenres: builder.query({
       query: () => "genres",
@@ -18,6 +19,12 @@ export const apiService = createApi({
     }),
     getLanguages: builder.query({
       query: () => "languages",
+    }),
+    getUserLanguages: builder.query({
+      query: (userId) => `userLanguages?userId=${userId}`,
+    }),
+    getStories: builder.query({
+      query: ()=> "stories"
     }),
     /* addStory: builder.mutation({
       query: (user) => ({
@@ -31,7 +38,11 @@ export const apiService = createApi({
 
 export const {
   useGetUsersQuery,
+  useLazyGetUsersQuery,
   useGetGenresQuery,
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
+  useGetUserLanguagesQuery,
+  useLazyGetUserLanguagesQuery,
+  useGetStoriesQuery, 
 } = apiService;
