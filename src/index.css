@@ -1,10 +1,23 @@
 @import "tailwindcss";
-/* @import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap"); */
 
 @font-face {
   font-family: "Intelo";
   src: url("./assets/fonts/Intelo-Medium.ttf") format("truetype");
   font-weight: medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Intelo-semibold";
+  src: url("./assets/fonts/Intelo-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Intelo-bold";
+  src: url("./assets/fonts/Intelo-Bold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 
@@ -21,7 +34,10 @@
   --color-secondary-brand: #203955;
   --color-stroke-brand: #faf5e6;
   --color-input-text-brand: #232323;
+  --color-hr-brand: #dfe0de;
 
   --font-script: Intelo, sans-serif;
+  --font-script-semibold: Intelo-semibold, sans-serif;
+  --font-script-bold: Intelo-bold, sans-serif;
   --font-title: Abril Fatface, serif;
 }

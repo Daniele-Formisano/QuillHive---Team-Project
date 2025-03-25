@@ -11,7 +11,7 @@ export default function InputField({
     <div className="flex flex-col gap-1">
       <label
         htmlFor={id}
-        className="text-sm text-secondary-brand font-script text-[14px]"
+        className="text-sm text-secondary-brand font-script-semibold text-[14px]"
       >
         {label}
       </label>
@@ -19,7 +19,7 @@ export default function InputField({
       <input
         id={id}
         type={type}
-        className="px-4 py-3 text-sm text-gray-800 border-2 border-stroke-brand rounded-4xl bg-white focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all"
+        className="px-4 py-3 text-sm border-2 border-stroke-brand rounded-4xl bg-white focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all text-input-text-brand placeholder:text-gray-500"
         placeholder={placeholder}
         value={value}
         onChange={onChange}

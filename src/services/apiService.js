@@ -20,6 +20,9 @@ export const apiService = createApi({
     getLanguages: builder.query({
       query: () => "languages",
     }),
+    getUserLanguages: builder.query({
+      query: (userId) => `userLanguages?userId=${userId}`,
+    }),
     getStories: builder.query({
       query: ()=> "stories"
     }),
@@ -35,8 +38,11 @@ export const apiService = createApi({
 
 export const {
   useGetUsersQuery,
+  useLazyGetUsersQuery,
   useGetGenresQuery,
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
+  useGetUserLanguagesQuery,
+  useLazyGetUserLanguagesQuery,
   useGetStoriesQuery, 
 } = apiService;

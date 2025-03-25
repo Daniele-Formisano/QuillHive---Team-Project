@@ -7,7 +7,10 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
+import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
+import SelectGenres from "./components/SelectGenres";
+import NewStory_1 from "./components/NewStory_1";
 
 export default function App() {
   const {
@@ -45,12 +48,19 @@ export default function App() {
   if (errorArtist || errorGenres || errorLanguage) {
     return <div>error</div>;
   }
-  if (dataArtist && dataLanguage && dataGenres) {
-  }
 
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    dataArtist &&
+    dataLanguage &&
+    dataGenres && (
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/NewStory_1"
+          element={<NewStory_1 genres={dataGenres} />}
+        />
+        <Route path="/editProfile" element={<EditProfile />} />
+      </Routes>
+    )
   );
 }
