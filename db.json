@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "username": "Umbero Eco",
+      "username": "Umberto Eco",
       "email": "umbertoeco@gmail.com",
       "password": "Xyre23!FbAe256",
       "profile_picture": null,
@@ -668,5 +668,11 @@
       "status": "reading",
       "saved": false
     }
+  ],
+
+  "userGenres": [
+    { "id": 1, "userId": 1, "genreId": 1 },
+    { "id": 2, "userId": 1, "genreId": 4 },
+    { "id": 3, "userId": 1, "genreId": 17 }
   ]
 }
