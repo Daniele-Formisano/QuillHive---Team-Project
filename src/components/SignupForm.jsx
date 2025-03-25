@@ -29,6 +29,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             onChange={onChange}
             onBlur={onBlur}
             required
+            minLength="4"
           />
           <InputField
             label={"Password"}
@@ -40,6 +41,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.password}
             onChange={onChange}
             required
+            minLength="6"
           />
           <InputField
             label={"Confirm password"}
@@ -51,6 +53,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.confirmPassword}
             onChange={onChange}
             required
+            minLength="6"
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}

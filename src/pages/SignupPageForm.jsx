@@ -34,7 +34,7 @@ export default function SignupPageForm() {
     }
   }
 
-  // funzione per la funzione handleBlur per eseguire requestAPI per verifica valori già presenti nel db json
+  // funzione per eseguire requestAPI per verifica valori già presenti nel db json
   async function checkValue(name, messageError) {
     const response = await triggerGetUser({
       [name]: formValues[name].trim(),
@@ -42,6 +42,9 @@ export default function SignupPageForm() {
 
     if (response.data.length) {
       toast.error(messageError);
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -69,10 +72,35 @@ export default function SignupPageForm() {
   }
 
   // funzione per l'invio del form
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    //navigate("/signupGenres"); // attualmente disabilitato per evitare redirect
+    // controllo se non è stata accettata la privacy
+    if (!formValues.acceptPrivacy) {
+      toast.error(
+        "plese read and accept the terms and conditions of QuillHive to continue"
+      );
+      return;
+    }
+
+    // controllo se ci sono email e password già
+    const checkMail = await checkValue(
+      "email",
+      "This email is already associated with another account"
+    );
+
+    const checkUsername = await checkValue(
+      "username",
+      "This username is already used, please choose another one"
+    );
+
+    if (!checkMail || !checkUsername) return;
+
+    if (formValues.password !== formValues.confirmPassword) {
+      toast.error("The password and confirmation password do not match");
+    }
+
+    navigate("/signupGenres"); // attualmente disabilitato per evitare redirect
   }
 
   return (

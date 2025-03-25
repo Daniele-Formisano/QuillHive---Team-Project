@@ -19,7 +19,7 @@ export default function Login({ languages }) {
   const navigate = useNavigate();
 
   const [triggerGetUser] = useLazyGetUsersQuery();
-  const [triggerGetUserLenguages] = useLazyGetUserLanguagesQuery();
+  const [triggerGetUserLanguages] = useLazyGetUserLanguagesQuery();
 
   // funzione per modifcare lo stato che controlla gli inputs del form
   function handleChange(e) {
@@ -30,9 +30,9 @@ export default function Login({ languages }) {
     }));
   }
 
-  async function fetchUserLenguages(id) {
+  async function fetchUserLanguages(id) {
     try {
-      const response = await triggerGetUserLenguages(id);
+      const response = await triggerGetUserLanguages(id);
 
       // per estrarre solo l'id dalla tabella userLanguages
       const userLanguagesId = response.data.map(
@@ -65,11 +65,11 @@ export default function Login({ languages }) {
           }
 
           const [user] = response.data;
-          const userLanguages = await fetchUserLenguages(user.id);
-          const userWithLenguages = { ...user, languages: userLanguages };
+          const userLanguages = await fetchUserLanguages(user.id);
+          const userWithLanguages = { ...user, languages: userLanguages };
 
-          dispatch(setUser(userWithLenguages)); // impostare l'utente nel redux con le lingue parlate
-          localStorage.setItem("user", JSON.stringify(userWithLenguages)); // salva l'utente nel local storage
+          dispatch(setUser(userWithLanguages)); // impostare l'utente nel redux con le lingue parlate
+          localStorage.setItem("user", JSON.stringify(userWithLanguages)); // salva l'utente nel local storage
           //navigate("/home"); //attualmente disabilitato per evitare il redirect
           return response;
         } catch (error) {
