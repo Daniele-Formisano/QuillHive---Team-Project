@@ -5,30 +5,76 @@ import {
   setInputsValue,
   setAcceptPrivacy,
 } from "../features/signup/signupSlice";
+import { useLazyGetUsersQuery } from "../services/apiService";
+import toast from "react-hot-toast";
 
 export default function SignupPageForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formValues = useSelector((state) => state.signup);
+  const [triggerGetUser] = useLazyGetUsersQuery();
 
+  // funzione per settare i valori e cambiamenti dei campi del form nel redux in tempo reale
   function handleChange(e) {
     const { name, value } = e.target;
-    if (
-      name === "email" ||
-      name === "username" ||
-      name === "password" ||
-      name === "confirmPassword"
-    ) {
-      dispatch(setInputsValue({ field: name, value: value }));
-    } else if (name === "policy") {
-      dispatch(setAcceptPrivacy(!formValues.acceptPrivacy));
+
+    switch (name) {
+      case "email":
+      case "username":
+      case "password":
+      case "confirmPassword":
+        dispatch(setInputsValue({ field: name, value: value }));
+
+        break;
+
+      case "policy":
+        dispatch(setAcceptPrivacy(!formValues.acceptPrivacy));
+
+        break;
     }
   }
 
+  // funzione per la funzione handleBlur per eseguire requestAPI per verifica valori già presenti nel db json
+  async function checkValue(name, messageError) {
+    const response = await triggerGetUser({
+      [name]: formValues[name].trim(),
+    });
+
+    if (response.data.length) {
+      toast.error(messageError);
+    }
+  }
+
+  // funzione per verificare che dopo essere uscito da un campo che si presuppone unique richiama la funzione checkValue
+  function handleBlur(e) {
+    const { name, value } = e.target;
+
+    if (value.trim() !== "") {
+      switch (name) {
+        case "email":
+          checkValue(
+            name,
+            "This email is already associated with another account"
+          );
+          break;
+
+        case "username":
+          checkValue(
+            name,
+            "This username is already used, please choose another one"
+          );
+          break;
+      }
+    }
+  }
+
+  // funzione per l'invio del form
   function handleSubmit(e) {
     e.preventDefault();
-    //navigate("/signupGenres");
+
+    //navigate("/signupGenres"); // attualmente disabilitato per evitare redirect
   }
+
   return (
     <div className="flex flex-col gap-10 p-8 bg-bg-brand min-h-screen justify-center">
       <div>
@@ -42,6 +88,7 @@ export default function SignupPageForm() {
           onSubmit={handleSubmit}
           onChange={handleChange}
           formValues={formValues}
+          onBlur={handleBlur}
         />
 
         <p className="text-center font-script text-input-text-brand">

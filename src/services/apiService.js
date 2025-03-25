@@ -8,8 +8,16 @@ export const apiService = createApi({
 
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: (login) =>
-        `users${login && `?email=${login.email}&password=${login.password}`}`,
+      query: (user) => {
+        /* `users${login && `?email=${login.email}&password=${login.password}`}`, */
+        let params = new URLSearchParams();
+
+        if (user.email) params.append("email", user.email);
+        if (user.password) params.append("password", user.password);
+        if (user.username) params.append("username", user.username);
+
+        return `users${params.toString() ? `?${params.toString()}` : ""}`;
+      },
     }),
     getGenres: builder.query({
       query: () => "genres",

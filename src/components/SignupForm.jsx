@@ -3,7 +3,7 @@ import Checkbox from "./Checkbox";
 import InputField from "./InputField";
 import Button from "./Button";
 
-export default function SignupForm({ onSubmit, formValues, onChange }) {
+export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
   return (
     <div>
       <form action="" className="flex flex-col gap-8" onSubmit={onSubmit}>
@@ -16,6 +16,8 @@ export default function SignupForm({ onSubmit, formValues, onChange }) {
             name={"email"}
             value={formValues.email}
             onChange={onChange}
+            onBlur={onBlur}
+            required
           />
           <InputField
             label={"Username"}
@@ -25,6 +27,8 @@ export default function SignupForm({ onSubmit, formValues, onChange }) {
             name={"username"}
             value={formValues.username}
             onChange={onChange}
+            onBlur={onBlur}
+            required
           />
           <InputField
             label={"Password"}
@@ -35,6 +39,7 @@ export default function SignupForm({ onSubmit, formValues, onChange }) {
             autoComplete={"new-password"}
             value={formValues.password}
             onChange={onChange}
+            required
           />
           <InputField
             label={"Confirm password"}
@@ -45,6 +50,7 @@ export default function SignupForm({ onSubmit, formValues, onChange }) {
             autoComplete={"new-password"}
             value={formValues.confirmPassword}
             onChange={onChange}
+            required
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}
