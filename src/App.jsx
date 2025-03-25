@@ -54,7 +54,7 @@ export default function App() {
     dataLanguage &&
     dataGenres && (
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login languages={dataLanguage} />} />
         <Route path="/signup" element={<SignupPageForm />} />
         <Route
           path="/signupGenres"
