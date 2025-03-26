@@ -34,7 +34,7 @@ function Home() {
 
   const limitedStories = stories.slice(0, 7);
 
-  console.log(users);
+  // console.log(users);
   debugger
   return (
     <div className="flex flex-col justify-center  bg-bg-brand ">
@@ -49,13 +49,13 @@ function Home() {
           <p className="text-secondary-brand font-title text-center text-2xl ">
             Travel in the hive
           </p>
-          <ul>
+          {/* <ul>
             {users.map((user) => (
               <li key={user.id}>
                 <AuthorIconButton user={user} />
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
 
         <div className="flex flex-col justify-center">
