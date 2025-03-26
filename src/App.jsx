@@ -6,10 +6,17 @@ import {
 } from "./services/apiService";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setGenres, setLanguages } from "./features/global/globalSlice";
+import {
+  setGenres,
+  setLanguages,
+  setUser,
+} from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
+import SelectGenres from "./components/SelectGenres";
+import SignupPageForm from "./pages/SignupPageForm";
+import SignupPageGenres from "./pages/SignupPageGenres";
 
 export default function App() {
   const {
@@ -49,16 +56,26 @@ export default function App() {
     return <div>error</div>;
   }
 
+  if (localStorage.getItem("user")) {
+    dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
+  }
+
   return (
     dataArtist &&
     dataLanguage &&
     dataGenres && (
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login languages={dataLanguage} />} />
+        <Route path="/signup" element={<SignupPageForm />} />
+        <Route
+          path="/signupGenres"
+          element={<SignupPageGenres genres={dataGenres} />}
+        />
         <Route
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
+        {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

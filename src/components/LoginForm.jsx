@@ -4,7 +4,7 @@ import InputField from "./InputField";
 
 export default function LoginForm({ inputsValue, onChange, onSubmit }) {
   return (
-    <div className="flex flex-col">
+    <div>
       <form action="" className="flex flex-col gap-2" onSubmit={onSubmit}>
         <div className="flex flex-col gap-5">
           <InputField
@@ -16,6 +16,7 @@ export default function LoginForm({ inputsValue, onChange, onSubmit }) {
             onChange={onChange}
             name={"email"}
             autoComplete={"username"}
+            required
           />
           <InputField
             label={"Password"}
@@ -26,6 +27,7 @@ export default function LoginForm({ inputsValue, onChange, onSubmit }) {
             onChange={onChange}
             name={"password"}
             autoComplete={"current-password"}
+            required
           />
         </div>
         <div className=" flex flex-col gap-17">

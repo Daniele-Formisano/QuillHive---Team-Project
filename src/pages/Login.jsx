@@ -9,7 +9,7 @@ import {
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/global/globalSlice";
 
-export default function Login() {
+export default function Login({ languages }) {
   const [inputsValue, setinputsValue] = useState({
     email: "",
     password: "",
@@ -33,9 +33,18 @@ export default function Login() {
   async function fetchUserLenguages(id) {
     try {
       const response = await triggerGetUserLenguages(id);
-      const languages = response.data;
 
-      return languages;
+      // per estrarre solo l'id dalla tabella userLanguages
+      const userLanguagesId = response.data.map(
+        (userLanguages) => userLanguages.languageId
+      );
+
+      //metch tra l'id delle lingue e quello presente nella tabella userLanguages
+      const userLanguages = languages.filter((language) =>
+        userLanguagesId.includes(Number(language.id))
+      );
+
+      return userLanguages;
     } catch (error) {
       console.error("Error fetching user languages:", error);
       return [];
@@ -45,10 +54,6 @@ export default function Login() {
   // funzione per inviare il form, verificare l'utente se esiste, nel caso settarlo in redux, e redirect alla home
   function handleSubmit(e) {
     e.preventDefault();
-    if (inputsValue.email.trim() == "" || inputsValue.password.trim() == "") {
-      toast.error(<b>fill in all fields</b>);
-      return;
-    }
 
     toast.promise(
       async () => {
@@ -60,8 +65,8 @@ export default function Login() {
           }
 
           const [user] = response.data;
-          const languages = await fetchUserLenguages(user.id);
-          const userWithLenguages = { ...user, languages: languages };
+          const userLanguages = await fetchUserLenguages(user.id);
+          const userWithLenguages = { ...user, languages: userLanguages };
 
           dispatch(setUser(userWithLenguages)); // impostare l'utente nel redux con le lingue parlate
           localStorage.setItem("user", JSON.stringify(userWithLenguages)); // salva l'utente nel local storage
@@ -80,7 +85,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col gap-10 p-8 justify-center h-screen bg-bg-brand">
+    <div className="flex flex-col gap-10 p-8 justify-center min-h-screen overflow-auto bg-bg-brand">
       <div className="inline-flex justify-center">
         <svg
           width="238"
@@ -183,8 +188,8 @@ export default function Login() {
 
       <div className="flex flex-col gap-7">
         <LoginForm
-          onSubmit={(e) => handleSubmit(e)}
-          onChange={(e) => handleChange(e)}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
           inputsValue={inputsValue}
         />
 
