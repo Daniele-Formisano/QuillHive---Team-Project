@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { setGenres, setLanguages } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
-import NewStory_1 from "./components/NewStory_1";
+import NewStory_1 from "./pages/NewStory_1";
 
 export default function App() {
   const {
@@ -42,6 +42,7 @@ export default function App() {
   });
 
   if (isLoadingArtist || isLoadingGenres || isLoadingLanguage) {
+    // RICORDIAMOCI DI METTERE QUALCOSA DI CARINO PER IL LOADING
     return <div>Loading</div>;
   }
   if (errorArtist || errorGenres || errorLanguage) {
