@@ -6,7 +6,11 @@ import {
 } from "./services/apiService";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setGenres, setLanguages } from "./features/global/globalSlice";
+import {
+  setGenres,
+  setLanguages,
+  setUser,
+} from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import SelectGenres from "./components/SelectGenres";
@@ -49,6 +53,10 @@ export default function App() {
   }
   if (errorArtist || errorGenres || errorLanguage) {
     return <div>error</div>;
+  }
+
+  if (localStorage.getItem("user")) {
+    dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
   }
 
   return (
