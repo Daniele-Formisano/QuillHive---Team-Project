@@ -14,10 +14,10 @@ import AuthorIconButton from "../components/AuthorIconButton";
 // footer navbar z index position fixed
 
 function Home() {
-  const { data: users, isLoading, error } = useGetUsersQuery();
-  if (isLoading) return <p>Loading</p>;
-  if (error) return <p>Error </p>;
-  if (!stories || stories.length === 0) return <p>No users</p>;
+  // const { data: users, isLoading, error } = useGetUsersQuery();
+  // if (isLoading) return <p>Loading</p>;
+  // if (error) return <p>Error </p>;
+  // if (!stories || stories.length === 0) return <p>No users</p>;
 
   const {
     data: stories,
