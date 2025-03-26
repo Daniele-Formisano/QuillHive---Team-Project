@@ -1,7 +1,10 @@
+import { useDispatch } from "react-redux";
 import Card from "../components/Card";
+import HamburgerMenu from "../components/hamburgherMenu";
 import Navbar from "../components/navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
+import { setStories } from "../features/global/globalSlice";
 
 //div Header (hamburger menu, search, profile)
 //travel in the hive(div( map of componet that displys authors))
@@ -21,16 +24,21 @@ function Home() {
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
 
+const dispatch= useDispatch();  
+dispatch(setStories(stories))
+
   if (storiesLoading) return <p>Loading</p>;
   if (storiesError) return <p>Error </p>;
   if (!stories || stories.length === 0) return <p>No stories</p>;
 
   const limitedStories = stories.slice(0, 7);
 
+
   return (
     <div className="flex flex-col justify-center  bg-bg-brand ">
-      <header className="flex flex-row justify-center items-center fixed top-0 left-0 right-0 bg-bg-brand">
-        <button className="w-9 h-9 ">H</button>
+      <header className="flex flex-row gap-2 justify-between items-center fixed top-0 left-0 right-0 bg-bg-brand ">
+        <div className="w-9 h-7"></div>
+        <HamburgerMenu />
         <Searchbar />
         <button className="w-[54px] h-[54]">P</button>
       </header>

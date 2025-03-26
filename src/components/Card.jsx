@@ -33,7 +33,7 @@ function Card({ story }) {
           onMouseLeave={() => setShowTooltip(false)}>
           {story.title}
           {showTooltip && (
-            <span className="absolute bottom-10 bg-black text-white p-1 text-xs rounded z-50">
+            <span className="absolute bottom-10 bg-black text-white p-1 text-xs rounded z-10">
               {story.title}
             </span>
           )}
