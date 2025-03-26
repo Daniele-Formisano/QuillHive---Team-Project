@@ -24,19 +24,31 @@ export const apiService = createApi({
       query: (userId) => `userLanguages?userId=${userId}`,
     }),
     getStories: builder.query({
-      query: ()=> "stories"
+      query: () => "stories",
     }),
-    /* addStory: builder.mutation({
-      query: (user) => ({
-        url: "user",
+    /*  addStory: builder.mutation({
+      query: () => ({
+        url: "",
         method: "POST",
-        body: user,
+        body: {
+          id: ,
+          title: "",
+          plot: "",
+          usersId: ,
+          cover_image: "",
+          status: "",
+          likes: ,
+          created_at: ,
+          updated_at: ,
+          languageId: ,
+        },
       }),
     }), */
   }),
 });
 
 export const {
+  useAddStoryMutation,
   useGetUsersQuery,
   useLazyGetUsersQuery,
   useGetGenresQuery,
@@ -44,5 +56,5 @@ export const {
   useGetLanguagesQuery,
   useGetUserLanguagesQuery,
   useLazyGetUserLanguagesQuery,
-  useGetStoriesQuery, 
+  useGetStoriesQuery,
 } = apiService;

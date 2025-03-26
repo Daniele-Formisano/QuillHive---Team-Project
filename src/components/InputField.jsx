@@ -11,7 +11,7 @@ export default function InputField({
     <div className="flex flex-col gap-1">
       <label
         htmlFor={id}
-        className="text-sm text-secondary-brand font-script-semibold text-[14px]"
+        className="text-sm text-secondary-brand font-script-semibold"
       >
         {label}
       </label>
