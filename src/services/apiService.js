@@ -34,24 +34,14 @@ export const apiService = createApi({
     getStories: builder.query({
       query: () => "stories",
     }),
-    /*  addStory: builder.mutation({
-      query: () => ({
-        url: "",
+    addStory: builder.mutation({
+      query: (story) => ({
+        url: "stories",
         method: "POST",
-        body: {
-          id: ,
-          title: "",
-          plot: "",
-          usersId: ,
-          cover_image: "",
-          status: "",
-          likes: ,
-          created_at: ,
-          updated_at: ,
-          languageId: ,
-        },
+        body: story,
       }),
-    }), */
+      // getUserStories:
+    }),
   }),
 });
 

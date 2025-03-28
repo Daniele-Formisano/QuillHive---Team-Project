@@ -51,7 +51,6 @@
       "pronouns": "he/him"
     }
   ],
-
   "languages": [
     {
       "id": 1,
@@ -74,7 +73,6 @@
       "language": "russian"
     }
   ],
-
   "userLanguages": [
     {
       "id": 1,
@@ -137,7 +135,6 @@
       "languageId": 5
     }
   ],
-
   "genres": [
     {
       "id": 1,
@@ -244,7 +241,6 @@
       "name": "Psychology"
     }
   ],
-
   "artistTypes": [
     {
       "id": 1,
@@ -267,7 +263,6 @@
       "name": "Musician"
     }
   ],
-
   "userArtistTypes": [
     {
       "id": 1,
@@ -631,7 +626,6 @@
       "updated_at": null
     }
   ],
-
   "userStories": [
     {
       "id": 1,
@@ -669,10 +663,21 @@
       "saved": false
     }
   ],
-
   "userGenres": [
-    { "id": 1, "userId": 1, "genreId": 1 },
-    { "id": 2, "userId": 1, "genreId": 4 },
-    { "id": 3, "userId": 1, "genreId": 17 }
+    {
+      "id": 1,
+      "userId": 1,
+      "genreId": 1
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "genreId": 4
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "genreId": 17
+    }
   ]
 }

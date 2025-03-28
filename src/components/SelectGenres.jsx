@@ -30,7 +30,9 @@ export default function SelectGenres({
         className="px-4 py-3 pr-4.5 border-2 border-stroke-brand rounded-4xl bg-white focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all flex justify-between items-center"
       >
         <span className="text-gray-500 text-sm">
-          {arraySelectedItems.length === 0 ? placeholder : join(", ")}
+          {arraySelectedItems.length === 0
+            ? placeholder
+            : arraySelectedItems.join(", ")}
         </span>
 
         <div className="flex items-center">

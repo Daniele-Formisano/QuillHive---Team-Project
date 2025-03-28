@@ -48,6 +48,7 @@ export const {
   setGenres,
   setArtistType,
   setStoryGenres,
+  setStories,
 } = globalSlice.actions;
 
 export default globalSlice.reducer;

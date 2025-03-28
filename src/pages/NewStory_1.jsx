@@ -6,6 +6,8 @@ import SelectGenres from "../components/SelectGenres";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useAddStoryMutation } from "../services/apiService";
+import toast from "react-hot-toast";
 
 export default function NewStory_1({ genres }) {
   const navigate = useNavigate();
@@ -60,6 +62,28 @@ export default function NewStory_1({ genres }) {
     addStory(newStory);
   }; */
 
+  const [addStoryMutation] = useAddStoryMutation();
+
+  const createStory = () => {
+    const fakeStory = {
+      title: "Harry Potter",
+      plot: "Una critica alla società totalitaria e al controllo della mente.",
+      userId: 1,
+      cover_image: "https://example.com/1984.jpg",
+      status: "draft",
+      likes: 0,
+      created_at: null,
+      updated_at: null,
+      languageId: 1,
+    };
+
+    toast.promise(addStoryMutation(fakeStory).unwrap(), {
+      loading: "Creating story...",
+      success: "Story created",
+      error: "Error",
+    });
+  };
+
   return (
     // IL SUBMIT MANDA I NUOVI DATI AL DB
     <form
@@ -91,13 +115,7 @@ export default function NewStory_1({ genres }) {
         toggleItems={toggleGenre}
       />
       <div className="flex flex-col gap-5 mt-30">
-        <Button
-          onClick={() => {
-            navigate("/NewStory_2");
-          }}
-          type="submit"
-          isColorYellow={true}
-        >
+        <Button onClick={createStory} type="submit" isColorYellow={true}>
           Start Writing
         </Button>
         <Button
