@@ -315,7 +315,7 @@
       "id": 1,
       "title": "1984",
       "plot": "Una critica alla società totalitaria e al controllo della mente.",
-      "usersId": 1,
+      "userId": 1,
       "cover_image": "https://example.com/1984.jpg",
       "status": "completato",
       "likes": 3574,
