@@ -20,7 +20,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             required
           />
           <InputField
-            label={"Username"}
+            label={"Username (max. 14 characters)"}
             id={"username"}
             type={"text"}
             placeholder={"Enter a username"}
@@ -30,6 +30,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             onBlur={onBlur}
             required
             minLength="4"
+            maxLength="14"
           />
           <InputField
             label={"Password"}
@@ -41,7 +42,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.password}
             onChange={onChange}
             required
-            minLength="6"
+            minLength="8"
           />
           <InputField
             label={"Confirm password"}
@@ -53,7 +54,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.confirmPassword}
             onChange={onChange}
             required
-            minLength="6"
+            minLength="8"
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}

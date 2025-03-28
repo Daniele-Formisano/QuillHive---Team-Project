@@ -21,14 +21,14 @@ export const globalSlice = createSlice({
     setGenres: (state, action) => {
       state.genres = action.payload;
     },
-    setArtistType: (state, action) => {
+    setArtistTypes: (state, action) => {
       state.artistType = action.payload;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setUser, setLanguages, setGenres, setArtistType } =
+export const { setUser, setLanguages, setGenres, setArtistTypes } =
   globalSlice.actions;
 
 export default globalSlice.reducer;

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 
-export default function SignupPageGenres({ genres }) {
+export default function SignupPageGenres({ genres, nextPage }) {
   const { selectedGenres } = useSelector((state) => state.signup);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function SignupPageGenres({ genres }) {
       return;
     }
 
-    //navigate("/") // attualmente disabilitato per evitare redirect
+    nextPage();
   }
 
   return (

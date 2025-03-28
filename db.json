@@ -2,7 +2,7 @@
   "users": [
     {
       "id": 1,
-      "username": "George Orwell",
+      "username": "GeorgeOrwell",
       "email": "georgeorwell@gmail.com",
       "password": "Th3Ys3Eus!",
       "profile_picture": null,
@@ -12,7 +12,7 @@
     },
     {
       "id": 2,
-      "username": "Umberto Eco",
+      "username": "UmbertoEco",
       "email": "umbertoeco@gmail.com",
       "password": "Xyre23!FbAe256",
       "profile_picture": null,
@@ -22,7 +22,7 @@
     },
     {
       "id": 3,
-      "username": "Jane Austen",
+      "username": "JaneAusten",
       "email": "janeausten@gmail.com",
       "password": "B23mEt!Bg",
       "profile_picture": null,
@@ -32,7 +32,7 @@
     },
     {
       "id": 4,
-      "username": "Antoine de Saint-Exupéry",
+      "username": "AntoineSaint-Exupéry",
       "email": "antoineexupery@gmail.com",
       "password": "RhgT20?Fox",
       "profile_picture": null,
@@ -42,7 +42,7 @@
     },
     {
       "id": 5,
-      "username": "Herman Melville",
+      "username": "HermanMelville",
       "email": "hermanmelville@gmail.com",
       "password": "Fdc26!5hL#",
       "profile_picture": null,

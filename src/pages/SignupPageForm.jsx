@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignupForm from "../components/SignupForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,8 +8,7 @@ import {
 import { useLazyGetUsersQuery } from "../services/apiService";
 import toast from "react-hot-toast";
 
-export default function SignupPageForm() {
-  const navigate = useNavigate();
+export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => state.signup);
   const [triggerGetUser] = useLazyGetUsersQuery();
@@ -23,7 +22,11 @@ export default function SignupPageForm() {
       case "username":
       case "password":
       case "confirmPassword":
-        dispatch(setInputsValue({ field: name, value: value }));
+        if (value.includes(" ")) {
+          toast.error("This field only accepts characters without spaces");
+        }
+
+        dispatch(setInputsValue({ field: name, value: value.trim() }));
 
         break;
 
@@ -100,7 +103,7 @@ export default function SignupPageForm() {
       toast.error("The password and confirmation password do not match");
     }
 
-    navigate("/signupGenres"); // attualmente disabilitato per evitare redirect
+    nextPage();
   }
 
   return (
