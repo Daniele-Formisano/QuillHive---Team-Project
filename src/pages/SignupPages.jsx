@@ -8,8 +8,8 @@ export default function SignupPages({ genres, artistTypes }) {
   const [stepSignup, setStepSingup] = useState(1);
   const navigate = useNavigate();
 
-  function nextPage() {
-    setStepSingup(stepSignup + 1);
+  function nextPage(page) {
+    setStepSingup(page);
   }
 
   useEffect(() => {

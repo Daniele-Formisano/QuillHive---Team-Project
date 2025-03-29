@@ -10,13 +10,11 @@ import {
   setGenres,
   setLanguages,
   setUser,
+  setArtistTypes,
 } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import SelectGenres from "./components/SelectGenres";
-import SignupPageForm from "./pages/SignupPageForm";
-import SignupPageArtistTypes from "./pages/SignupPageArtistTypes";
 import SignupPages from "./pages/SignupPages";
 
 export default function App() {
@@ -74,12 +72,10 @@ export default function App() {
           path="/signup"
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
-        <Route path="/signupArtistTypes" element={<SignupPageArtistTypes />} />
         <Route
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
-        {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

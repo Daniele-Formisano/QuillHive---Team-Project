@@ -7,6 +7,7 @@ import {
 } from "../features/signup/signupSlice";
 import { useLazyGetUsersQuery } from "../services/apiService";
 import toast from "react-hot-toast";
+import BackButton from "../components/BackButton";
 
 export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
@@ -103,34 +104,40 @@ export default function SignupPageForm({ nextPage }) {
       toast.error("The password and confirmation password do not match");
     }
 
-    nextPage();
+    nextPage(2);
   }
 
   return (
-    <div className="flex flex-col gap-10 p-8 bg-bg-brand min-h-screen justify-center">
-      <div>
-        <h1 className="font-title text-4xl text-secondary-brand text-center">
-          Signup
-        </h1>
+    <div className="bg-bg-brand min-h-screen relative">
+      <div className="mt-2 absolute">
+        <BackButton pageURL={"/"} />
       </div>
 
-      <div className="flex flex-col gap-7">
-        <SignupForm
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-          formValues={formValues}
-          onBlur={handleBlur}
-        />
+      <div className="flex flex-col gap-10 p-8 min-h-screen justify-center">
+        <header>
+          <h1 className="font-title text-4xl text-secondary-brand text-center">
+            Signup
+          </h1>
+        </header>
 
-        <p className="text-center font-script text-input-text-brand">
-          Already a member?{" "}
-          <Link
-            to={"/login"}
-            className="text-[#2B4F76] hover:underline visited:text-fuchsia-900"
-          >
-            Login now
-          </Link>
-        </p>
+        <main className="flex flex-col gap-7">
+          <SignupForm
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            formValues={formValues}
+            onBlur={handleBlur}
+          />
+
+          <p className="text-center font-script text-input-text-brand">
+            Already a member?{" "}
+            <Link
+              to={"/login"}
+              className="text-[#2B4F76] hover:underline visited:text-fuchsia-900"
+            >
+              Login now
+            </Link>
+          </p>
+        </main>
       </div>
     </div>
   );

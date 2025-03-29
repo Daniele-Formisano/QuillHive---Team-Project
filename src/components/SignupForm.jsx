@@ -67,7 +67,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
           />
         </div>
 
-        <div className="flex flex-col gap-15">
+        <div className="flex flex-col gap-10">
           <Checkbox
             id={"policy"}
             name={"policy"}
