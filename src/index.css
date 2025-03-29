@@ -41,3 +41,6 @@
   --font-script-bold: Intelo-bold, sans-serif;
   --font-title: Abril Fatface, serif;
 }
+.scrollbar-hide{
+  scrollbar-width: none;
+}

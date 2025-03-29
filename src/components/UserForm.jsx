@@ -1,95 +1,136 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetLanguagesQuery } from "../services/apiService";
 /* import { useUserLanguages } from "../utils/useCustomHook"; */
 import InputField from "./InputField";
+import { useState } from "react";
+import ProfileIcon from "./ProfileIcon";
+import { setUser } from "../features/global/globalSlice";
+import Button from "./Button";
 
 export default function UserForm() {
   const loggedUser = useSelector((state) => state.global.user);
-  function onChange() {}
+  const [isEditing, setIsEditing] = useState(true);
+  const [userData, setUserData] = useState(loggedUser);
+  const dispatch = useDispatch();
+
+  /* Funzione che permette il change dell'input */
+  function handleChangeInput(e) {
+    const { name, value } = e.target;
+
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  /* Funzione che aggiorna i dati dell'utente con i nuovi inseriti nell'input */
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const updatedUser = { ...loggedUser, ...userData };
+
+    dispatch(setUser(updatedUser));
+    localStorage.setItem("user", JSON.stringify(updatedUser));
+    setIsEditing(false);
+  }
+
+  console.log(loggedUser);
 
   return (
-    <div className="flex flex-col">
-      <form className="flex flex-col items-center justify-center">
+    <div className="flex flex-col justify-center items-center overflow-scroll">
+      <form className="flex flex-col items-center justify-center gap-8">
         {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
-        <div>
-          <svg
-            width="200"
-            height="200"
-            viewBox="0 0 200 200"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-          >
-            <path
-              d="M197.113 105C198.9 101.906 198.9 98.094 197.113 95L152.887 18.3975C151.1 15.3035 147.799 13.3975 144.226 13.3975H55.7735C52.2008 13.3975 48.8996 15.3035 47.1133 18.3975L2.88675 95C1.10042 98.094 1.10042 101.906 2.88675 105L47.1133 181.603C48.8996 184.697 52.2009 186.603 55.7735 186.603H144.227C147.799 186.603 151.1 184.697 152.887 181.603L197.113 105Z"
-              fill="#F5C43D"
-            />
-            {/* Immagine all'interno dell'esagono */}
-            <image
-              href={loggedUser.profile_picture} // Usa la prop imageUrl per caricare l'immagine
-              width="200" // Larghezza dell'immagine
-              height="200" // Altezza dell'immagine
-              clipPath="url(#hexClip)" // Applica un ritaglio a forma di esagono
-            />
+        <div className="flex flex-col items-center mb-10">
+          <ProfileIcon width={200} height={200} />
 
-            {/* Clip-path per ritagliare l'immagine a forma di esagono */}
-            <defs>
-              <clipPath id="hexClip">
-                <path d="M197.113 105C198.9 101.906 198.9 98.094 197.113 95L152.887 18.3975C151.1 15.3035 147.799 13.3975 144.226 13.3975H55.7735C52.2008 13.3975 48.8996 15.3035 47.1133 18.3975L2.88675 95C1.10042 98.094 1.10042 101.906 2.88675 105L47.1133 181.603C48.8996 184.697 52.2009 186.603 55.7735 186.603H144.227C147.799 186.603 151.1 184.697 152.887 181.603L197.113 105Z" />
-              </clipPath>
-            </defs>
-          </svg>
+          <div>
+            <h2 className="text-4xl  text-secondary-brand">
+              {loggedUser.username}
+            </h2>
+            {isEditing ? (
+              <input
+                value={userData.pronouns || ""}
+                name="pronouns"
+                onChange={handleChangeInput}
+              ></input>
+            ) : (
+              <span className="text-secondary-brand text-sm ml-4">
+                {loggedUser.pronouns}
+              </span>
+            )}
+          </div>
+
+          <h3>Writer</h3>
         </div>
 
-        <div className="flex flex-col gap-3">
-          <h3 className="font-title text-2xl font-bold text-secondary-brand">
-            Bio
-          </h3>
-          <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
-          <InputField
-            id={1}
-            type={"text"}
-            value={loggedUser.bio}
-            onChange={onChange}
-          />
+        {/* Sezione che contiene la bio dell'utente */}
+        <div className="flex flex-col gap-3 w-full">
+          <h3 className="font-title text-2xl  text-secondary-brand">Bio</h3>
+          <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
+          {isEditing ? (
+            <div>
+              <textarea
+                value={userData.bio || ""}
+                name="bio"
+                onChange={handleChangeInput}
+                className="w-full p-2 border rounded-md resize-none overflow-hidden"
+                rows={3} // Numero minimo di righe visibili
+              />
+              <Button isColorYellow={true} onClick={handleSubmit}>
+                Save
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <span>{loggedUser.bio}</span>
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-3">
-          <h3 className="font-title text-2xl font-bold text-secondary-brand">
-            Email
-          </h3>
-          <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
-          <InputField
-            id={2}
-            type={"email"}
-            value={loggedUser.email}
-            onChange={onChange}
-          />
+
+        {/* Sezione che contiene la email dell'utente */}
+        <div className="flex flex-col gap-3 w-full">
+          <h3 className="font-title text-2xl  text-secondary-brand">Email</h3>
+          <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
+          <div>
+            <span>{loggedUser.email}</span>
+          </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <h3 className="font-title text-2xl font-bold text-secondary-brand">
-            Language
-          </h3>
-          <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
-          <InputField
-            id={3}
-            type={"select"}
-            value={
-              <ul>
-                {userLanguages.map((language) => (
-                  <li key={language.id}>{language.name}</li>
-                ))}
-              </ul>
-            } /* Qui dovrà andare il valore delle lingua in qualche modo */
-            onChange={onChange}
-          />
+
+        {/* Sezione che contiene le lignue dell'utente */}
+        <div className="flex flex-col gap-3 w-full">
+          <h3 className="font-title text-2xl text-secondary-brand">Language</h3>
+          <hr className="bg-hr-brand h-1 border-0 rounded-4xl " />
+          {isEditing ? (
+            <InputField
+              id={3}
+              type={"select"}
+              value={
+                <ul>
+                  {loggedUser.languages.map((language) => (
+                    <li key={language.id}>{language.language}</li>
+                  ))}
+                </ul>
+              }
+              onChange={handleChangeInput}
+            />
+          ) : (
+            <ul>
+              {loggedUser.languages.map((language) => (
+                <li key={language.id}>{language.language}</li>
+              ))}
+            </ul>
+          )}
         </div>
-        <div>
-          <h3 className="font-title text-2xl font-bold text-secondary-brand">
+
+        {/* Sezione che contiene i progetti dell'utente */}
+        <div className="flex flex-col gap-3 w-full">
+          <h3 className="font-title text-2xl text-secondary-brand">
             My Projects
           </h3>
           <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
           <ul>{}</ul>
-          {/* Mettere un map che recuperi gli user_id da tutte le stories Per poi
+          {/* Mettere un map che recuperi gli userId da tutte le stories Per poi
           visualizzare solo quelle che corrispondono a quell'user */}
         </div>
       </form>

@@ -7,12 +7,14 @@ import {
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
-  setArtistTypes,
   setGenres,
   setLanguages,
+  setUser,
 } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
+import NewStory_1 from "./pages/NewStory_1";
+import SelectGenres from "./components/SelectGenres";
 import SignupPageForm from "./pages/SignupPageForm";
 import SignupPageArtistTypes from "./pages/SignupPageArtistTypes";
 import SignupPages from "./pages/SignupPages";
@@ -51,10 +53,15 @@ export default function App() {
   });
 
   if (isLoadingArtist || isLoadingGenres || isLoadingLanguage) {
+    // RICORDIAMOCI DI METTERE QUALCOSA DI CARINO PER IL LOADING
     return <div>Loading</div>;
   }
   if (errorArtist || errorGenres || errorLanguage) {
     return <div>error</div>;
+  }
+
+  if (localStorage.getItem("user")) {
+    dispatch(setUser(JSON.parse(localStorage.getItem("user"))));
   }
 
   return (
@@ -68,6 +75,10 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/signupArtistTypes" element={<SignupPageArtistTypes />} />
+        <Route
+          path="/NewStory_1"
+          element={<NewStory_1 genres={dataGenres} />}
+        />
         {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>

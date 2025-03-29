@@ -1,6 +1,6 @@
 function Searchbar() {
   return (
-    <div className=" flex justify-center items-center rounded-4xl border border-stroke-brand gap-[10px] ">
+    <div className=" flex justify-center items-center rounded-4xl border border-stroke-brand gap-[10px] bg-white  pl-5">
       <button>
         <svg
           width="15"
@@ -17,7 +17,7 @@ function Searchbar() {
 
       <input
         type="text"
-        className="placeholder-secondary-brand placeholder:text-[12px]  border border-transparent focus:outline-none"
+        className="placeholder-secondary-brand placeholder:text-[12px]  border border-transparent focus:outline-none "
         placeholder="Search a book or author..."
       />
     </div>
