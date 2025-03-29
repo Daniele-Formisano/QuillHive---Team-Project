@@ -12,7 +12,7 @@ export default function GenrePreference({ genre, selected, toggleGenre }) {
         />
         <span
           className={clsx(
-            "rounded-4xl text-sm px-4 py-2 flex justify-center font-semibold items-center border-2 border-secondary-brand",
+            "rounded-4xl text-sm px-4 py-2 flex justify-center font-script-bold items-center border-2 border-secondary-brand transition-all",
             selected
               ? "bg-secondary-brand text-primary-brand "
               : "border-secondary-brand text-secondary-brand"

@@ -3,12 +3,10 @@ import GenreList from "../components/GenresList";
 import { toggleGenre } from "../features/signup/signupSlice";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
 
 export default function SignupPageGenres({ genres, nextPage }) {
   const { selectedGenres } = useSelector((state) => state.signup);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   function toggleGenreAction(id) {
     // avvisiamo l'utente che non può selezionare più di 5 generi, permettiamo di deselezionare i generi anche quando sono 5

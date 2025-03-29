@@ -1,6 +1,26 @@
-import ArtistTypeItem from "../components/ArtistTypeItem";
+import { useDispatch, useSelector } from "react-redux";
+import ArtistTypesList from "../components/ArtistTypesList";
+import { toggleArtistType } from "../features/signup/signupSlice";
+import Button from "../components/Button";
+import toast from "react-hot-toast";
 
-export default function SignupPageArtistTypes({ artistTypes }) {
+export default function SignupPageArtistTypes({ artistTypes, nextPage }) {
+  const { selectedArtistTypes } = useSelector((state) => state.signup);
+  const dispatch = useDispatch();
+
+  function toggleArtistTypeAction(id) {
+    if (selectedArtistTypes.length >= 2 && !selectedArtistTypes.includes(id)) {
+      toast.error("You can't select more than 2 artist types");
+      return;
+    }
+
+    dispatch(toggleArtistType(id));
+  }
+
+  function handleClick() {
+    nextPage();
+  }
+
   return (
     <div className="flex flex-col gap-10 p-8 min-h-screen bg-bg-brand justify-center">
       <div className="flex flex-col gap-4">
@@ -14,7 +34,22 @@ export default function SignupPageArtistTypes({ artistTypes }) {
         </h3>
       </div>
 
-      <ArtistTypeItem />
+      <div>
+        <ArtistTypesList
+          artistTypes={artistTypes}
+          selected={selectedArtistTypes}
+          toggleArtistType={toggleArtistTypeAction}
+        />
+      </div>
+
+      <div className="flex flex-col gap-5">
+        <Button type={"button"} isColorYellow={true} onClick={handleClick}>
+          Continue
+        </Button>
+        <Button type={"button"} isColorYellow={false} onClick={handleClick}>
+          Explore as a Reader
+        </Button>
+      </div>
     </div>
   );
 }
