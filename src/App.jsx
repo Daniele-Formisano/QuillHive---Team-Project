@@ -14,7 +14,7 @@ import {
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import SelectGenres from "./components/SelectGenres";
+import NewStory_2 from "./pages/NewStory_2";
 import SignupPageForm from "./pages/SignupPageForm";
 import SignupPageGenres from "./pages/SignupPageGenres";
 
@@ -75,7 +75,7 @@ export default function App() {
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
-        {/* <Route path="/NewStory_1" element={<SelectGenres genres={genres} />} /> */}
+        <Route path="/NewStory_2" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

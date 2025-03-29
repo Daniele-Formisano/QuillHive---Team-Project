@@ -22,7 +22,7 @@ export default function NewStory_1({ genres }) {
       // Se il genere è già selezionato, lo rimuoviamo, altrimenti lo aggiungiamo
       if (prevSelected.includes(genre)) {
         console.log(storyGenres);
-        return prevSelected.filter((g) => g !== genre); // Rimuove il genere dalla selezione
+        return prevSelected.filter((g) => g.id !== genre.id); // Rimuove il genere dalla selezione
       } else {
         console.log(storyGenres);
         return [...prevSelected, genre]; // Aggiunge il genere alla selezione
@@ -97,14 +97,12 @@ export default function NewStory_1({ genres }) {
         type="text"
         id="title"
         label="Title"
-        onChange="" /* devo aggiornare il title di storia */
       />
       <InputField
         placeholder="Write a brief description of your story"
         type="textarea"
         id="description"
         label="Description"
-        onChange="" /* devo aggiornare il plot di storia */
       />
       <SelectGenres
         selectTitle="Add genres"
@@ -115,7 +113,14 @@ export default function NewStory_1({ genres }) {
         toggleItems={toggleGenre}
       />
       <div className="flex flex-col gap-5 mt-30">
-        <Button onClick={createStory} type="submit" isColorYellow={true}>
+        <Button
+          onClick={() => {
+            createStory();
+            navigate("/NewStory_2");
+          }}
+          type="submit"
+          isColorYellow={true}
+        >
           Start Writing
         </Button>
         <Button

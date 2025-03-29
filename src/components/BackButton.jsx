@@ -5,7 +5,7 @@ export default function BackButton({ pageURL }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center">
       <button
         type="button"
         onClick={() => {
