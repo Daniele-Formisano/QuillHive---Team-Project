@@ -5,79 +5,60 @@ import LoadCoverImg from "../components/LoadCoverImg";
 import SelectGenres from "../components/SelectGenres";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useAddStoryMutation } from "../services/apiService";
 import toast from "react-hot-toast";
 
 export default function NewStory_1({ genres }) {
   const navigate = useNavigate();
-  // Stato per la selezione dei generi
-  const [storyGenres, setStoryGenres] = useState([]);
-  /*const {storyGenres} = useSelector((state) => state.storyGenres);
-  const dispatch = useDispatch();*/
+  const [addStoryMutation] = useAddStoryMutation();
+  const [storyGenres, setStoryGenres] = useState([]); // Stato per la selezione dei generi
+  const [newStory, setNewStory] = useState({
+    title: "",
+    plot: "",
+    usersId: 1, // ID dell'utente loggato (esempio statico)
+    cover_image: null,
+    status: "draft",
+    likes: 0,
+    created_at: null,
+    updated_at: null,
+    languageId: 1, // ID della lingua scelta
+  });
 
   // Funzione per gestire la selezione e deselezione dei generi
   const toggleGenre = (genre) => {
+    if (storyGenres.length >= 5 && !storyGenres.includes(genre)) {
+      toast.error("You can't select more than 5 genres");
+      return;
+    }
+
     setStoryGenres((prevSelected) => {
-      // Se il genere è già selezionato, lo rimuoviamo, altrimenti lo aggiungiamo
       if (prevSelected.includes(genre)) {
-        console.log(storyGenres);
-        return prevSelected.filter((g) => g.id !== genre.id); // Rimuove il genere dalla selezione
+        return prevSelected.filter((g) => g.id !== genre.id);
       } else {
-        console.log(storyGenres);
-        return [...prevSelected, genre]; // Aggiunge il genere alla selezione
+        return [...prevSelected, genre];
       }
     });
   };
 
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+
+    setNewStory((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  };
+    const storyData = { ...newStory, genres: storyGenres };
 
-  /* 
-    setLoading(true);
-
-    const newStory = {
-      title: e.target.title.value,
-      plot: e.target.description.value,
-      usersId: 1, // ID dell'utente loggato
-      cover_image: e.target.cover_image.value,
-      status: e.target.status.value,
-      likes: parseInt(e.target.likes.value), 
-      languageId: 1, // ID della lingua scelta
-    };
-
-    try {
-      const response = await addStory(newStory).unwrap();
-      toast.success('Storia creata con successo!', { duration: 3000 });
-    } catch (error) {
-      toast.error(''Errore durante la creazione della storia', { duration: 3000 });
+    if (storyData.plot.trim() === "" || storyData.title.trim() === "") {
+      toast.error("This field cannot be empty.");
+      return;
     }
-      finally {
-      setLoading(false);
-    }
-  };
 
-    // Chiama la mutazione per aggiungere la storia
-    addStory(newStory);
-  }; */
-
-  const [addStoryMutation] = useAddStoryMutation();
-
-  const createStory = () => {
-    const fakeStory = {
-      title: "Harry Potter",
-      plot: "Una critica alla società totalitaria e al controllo della mente.",
-      userId: 1,
-      cover_image: "https://example.com/1984.jpg",
-      status: "draft",
-      likes: 0,
-      created_at: null,
-      updated_at: null,
-      languageId: 1,
-    };
-
-    toast.promise(addStoryMutation(fakeStory).unwrap(), {
+    toast.promise(addStoryMutation(storyData).unwrap(), {
       loading: "Creating story...",
       success: "Story created",
       error: "Error",
@@ -85,24 +66,27 @@ export default function NewStory_1({ genres }) {
   };
 
   return (
-    // IL SUBMIT MANDA I NUOVI DATI AL DB
     <form
       className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
       onSubmit={handleSubmit}
     >
-      <BackButton pageUrl="" /> {/* DEVI COLLEGARE IL PATH */}
+      <BackButton pageUrl="" /> {/* DEVI COLLEGARE IL PATH della libreria */}
       <LoadCoverImg />
       <InputField
         placeholder="Choose a title"
         type="text"
         id="title"
         label="Title"
+        value={newStory.title}
+        onChange={handleInputChange}
       />
       <InputField
         placeholder="Write a brief description of your story"
-        type="textarea"
-        id="description"
+        type="text"
+        id="plot"
         label="Description"
+        value={newStory.plot}
+        onChange={handleInputChange}
       />
       <SelectGenres
         selectTitle="Add genres"
@@ -115,7 +99,7 @@ export default function NewStory_1({ genres }) {
       <div className="flex flex-col gap-5 mt-30">
         <Button
           onClick={() => {
-            createStory();
+            // createStory();
             navigate("/NewStory_2");
           }}
           type="submit"
