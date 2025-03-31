@@ -4,15 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setInputsValue,
   setAcceptPrivacy,
+  togglePronouns,
 } from "../features/signup/signupSlice";
 import { useLazyGetUsersQuery } from "../services/apiService";
 import toast from "react-hot-toast";
 import BackButton from "../components/BackButton";
+import { useEffect, useState } from "react";
+
+const pronouns = [
+  { id: 1, name: "He/Him" },
+  { id: 2, name: "She/Her" },
+  { id: 3, name: "They/Them" },
+  { id: 4, name: "Prefer not to say" },
+];
 
 export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => state.signup);
   const [triggerGetUser] = useLazyGetUsersQuery();
+  const [selectPronoun, setPronoun] = useState([]);
 
   // funzione per settare i valori e cambiamenti dei campi del form nel redux in tempo reale
   function handleChange(e) {
@@ -75,6 +85,20 @@ export default function SignupPageForm({ nextPage }) {
     }
   }
 
+  function togglePronounsAction(pronoun) {
+    setPronoun((prevSelected) => {
+      if (prevSelected.includes(pronoun)) {
+        return prevSelected.filter((p) => p.id !== pronoun.id);
+      } else {
+        return [pronoun];
+      }
+    });
+  }
+
+  useEffect(() => {
+    dispatch(togglePronouns(selectPronoun));
+  }, [selectPronoun]);
+
   // funzione per l'invio del form
   async function handleSubmit(e) {
     e.preventDefault();
@@ -126,6 +150,9 @@ export default function SignupPageForm({ nextPage }) {
             onChange={handleChange}
             formValues={formValues}
             onBlur={handleBlur}
+            dataSelect={pronouns}
+            arraySelectedItems={selectPronoun}
+            toggleItems={togglePronounsAction}
           />
 
           <p className="text-center font-script text-input-text-brand">

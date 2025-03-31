@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import InputField from "./InputField";
 import Button from "./Button";
+import SelectGenres from "./SelectGenres";
 
-export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
+export default function SignupForm({
+  onSubmit,
+  formValues,
+  onChange,
+  onBlur,
+  dataSelect,
+  toggleItems,
+  arraySelectedItems,
+}) {
   return (
     <div>
       <form action="" className="flex flex-col gap-8" onSubmit={onSubmit}>
@@ -58,12 +67,12 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}
-          <InputField
-            label={"ciao"}
-            id={"null"}
-            type={"password"}
-            placeholder={"Confirm pasword"}
-            autoComplete={"new-password"}
+          <SelectGenres
+            selectTitle={"Pronouns (optional)"}
+            placeholder={"Pronouns (optional)"}
+            dataSelect={dataSelect}
+            arraySelectedItems={arraySelectedItems}
+            toggleItems={toggleItems}
           />
         </div>
 

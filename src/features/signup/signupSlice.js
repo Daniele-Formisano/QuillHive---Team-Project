@@ -5,7 +5,7 @@ const initialState = {
   username: "",
   password: "",
   confirmPassword: "",
-  pronouns: null,
+  pronouns: [],
   acceptPrivacy: false,
   selectedGenres: [],
   selectedArtistTypes: [],
@@ -39,6 +39,10 @@ export const signupSlice = createSlice({
           )
         : [...state.selectedArtistTypes, action.payload];
     },
+
+    togglePronouns: (state, action) => {
+      state.pronouns = [action.payload];
+    },
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   setInputsValue,
   setAcceptPrivacy,
   toggleArtistType,
+  togglePronouns,
 } = signupSlice.actions;
 
 export default signupSlice.reducer;
