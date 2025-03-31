@@ -99,7 +99,6 @@ export default function NewStory_1({ genres }) {
       <div className="flex flex-col gap-5 mt-30">
         <Button
           onClick={() => {
-            // createStory();
             navigate("/NewStory_2");
           }}
           type="submit"
