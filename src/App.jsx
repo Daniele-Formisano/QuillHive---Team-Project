@@ -16,6 +16,7 @@ import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
 import SignupPages from "./pages/SignupPages";
+import NewStory_2 from "./pages/NewStory_2";
 
 export default function App() {
   const {
@@ -76,6 +77,7 @@ export default function App() {
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
+        <Route path="/NewStory_2" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

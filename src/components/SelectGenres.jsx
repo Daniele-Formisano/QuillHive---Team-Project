@@ -27,12 +27,12 @@ export default function SelectGenres({
       {/* Area di selezione che attiva l'apertura del dropdown */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-3 pr-4.5 border-2 border-stroke-brand rounded-4xl bg-white focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all flex justify-between items-center"
+        className="px-4 py-3 pr-4.5 border-2 border-stroke-brand rounded-4xl bg-white transition-all flex justify-between items-center"
       >
-        <span className="text-gray-500 text-sm">
+        <span className="text-gray-500 text-sm font-script">
           {arraySelectedItems.length === 0
             ? placeholder
-            : arraySelectedItems.join(", ")}
+            : arraySelectedItems.map((item) => item.name).join(", ")}
         </span>
 
         <div className="flex items-center">
@@ -43,19 +43,19 @@ export default function SelectGenres({
 
       {/* Dropdown menu personalizzato */}
       {isOpen && (
-        <div className="w-full rounded-[10px] shadow-lg mt-2 max-h-50 overflow-scroll">
+        <div className="w-full rounded-[10px] shadow-lg mt-2 max-h-50 overflow-x-hidden">
           <ul>
             {dataSelect.map((dataItem) => (
               <li
                 key={dataItem.id}
                 className={clsx(
                   "flex justify-between px-4 py-2 text-sm cursor-pointer font-script text-secondary-brand hover:bg-gray-100",
-                  arraySelectedItems.includes(dataItem.id) && "bg-gray-100"
+                  arraySelectedItems.includes(dataItem) && "bg-gray-100"
                 )}
-                onClick={() => toggleItems(dataItem.id)} // Cliccando sull'elemento si seleziona/deseleziona
+                onClick={() => toggleItems(dataItem)}
               >
                 {dataItem.name}
-                {arraySelectedItems.includes(dataItem.id) && (
+                {arraySelectedItems.includes(dataItem) && (
                   <IconCheck stroke={1.2} />
                 )}
               </li>
