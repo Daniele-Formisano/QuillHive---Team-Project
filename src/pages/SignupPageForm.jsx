@@ -22,7 +22,7 @@ export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => state.signup);
   const [triggerGetUser] = useLazyGetUsersQuery();
-  const [selectPronoun, setPronoun] = useState([]);
+  const [selectPronoun, setPronoun] = useState([]); // per controllare lo stato della select dei pronomi
 
   // funzione per settare i valori e cambiamenti dei campi del form nel redux in tempo reale
   function handleChange(e) {
@@ -85,6 +85,7 @@ export default function SignupPageForm({ nextPage }) {
     }
   }
 
+  // per controllare lo stato dei pronomi
   function togglePronounsAction(pronoun) {
     setPronoun((prevSelected) => {
       if (prevSelected.includes(pronoun)) {
@@ -95,8 +96,9 @@ export default function SignupPageForm({ nextPage }) {
     });
   }
 
+  // aggiornare lo stato nel redux dei pronomi
   useEffect(() => {
-    dispatch(togglePronouns(selectPronoun));
+    dispatch(togglePronouns(selectPronoun[0]?.name));
   }, [selectPronoun]);
 
   // funzione per l'invio del form
