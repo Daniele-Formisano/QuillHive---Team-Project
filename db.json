@@ -53,261 +53,256 @@
   ],
   "languages": [
     {
-      "id": "1",
+      "id": 1,
       "language": "italian"
     },
     {
-      "id": "2",
+      "id": 2,
       "language": "english"
     },
     {
-      "id": "3",
+      "id": 3,
       "language": "french"
     },
     {
-      "id": "4",
+      "id": 4,
       "language": "spanish"
     },
     {
-      "id": "5",
+      "id": 5,
       "language": "russian"
     }
   ],
   "userLanguages": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "languageId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 1,
       "languageId": 2
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 2,
       "languageId": 1
     },
     {
-      "id": "4",
+      "id": 4,
       "userId": 3,
       "languageId": 2
     },
     {
-      "id": "5",
+      "id": 5,
       "userId": 3,
       "languageId": 3
     },
     {
-      "id": "6",
+      "id": 6,
       "userId": 4,
       "languageId": 1
     },
     {
-      "id": "7",
+      "id": 7,
       "userId": 4,
       "languageId": 4
     },
     {
-      "id": "8",
+      "id": 8,
       "userId": 5,
       "languageId": 1
     },
     {
-      "id": "9",
+      "id": 9,
       "userId": 5,
       "languageId": 2
     },
     {
-      "id": "10",
+      "id": 10,
       "userId": 5,
       "languageId": 3
     },
     {
-      "id": "11",
+      "id": 11,
       "userId": 5,
       "languageId": 4
     },
     {
-      "id": "12",
+      "id": 12,
       "userId": 5,
       "languageId": 5
     }
   ],
   "genres": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Action"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Adventure"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Fantasy"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Sci-fi"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Dystopian"
     },
     {
-      "id": "6",
+      "id": 6,
       "name": "Urban Fantasy"
     },
     {
-      "id": "7",
+      "id": 7,
       "name": "Supernatural"
     },
     {
-      "id": "8",
+      "id": 8,
       "name": "Crime"
     },
     {
-      "id": "9",
+      "id": 9,
       "name": "Horror"
     },
     {
-      "id": "10",
+      "id": 10,
       "name": "Historical Fiction"
     },
     {
-      "id": "11",
+      "id": 11,
       "name": "Romance"
     },
     {
-      "id": "12",
+      "id": 12,
       "name": "Comedy"
     },
     {
-      "id": "13",
+      "id": 13,
       "name": "True Crime"
     },
     {
-      "id": "14",
+      "id": 14,
       "name": "Paranormal"
     },
     {
-      "id": "15",
+      "id": 15,
       "name": "History"
     },
     {
-      "id": "16",
+      "id": 16,
       "name": "Magical Realism"
     },
     {
-      "id": "17",
+      "id": 17,
       "name": "Mystery"
     },
     {
-      "id": "18",
+      "id": 18,
       "name": "Drama"
     },
     {
-      "id": "19",
+      "id": 19,
       "name": "Contemporary"
     },
     {
-      "id": "20",
+      "id": 20,
       "name": "Mythology"
     },
     {
-      "id": "21",
+      "id": 21,
       "name": "Thriller"
     },
     {
-      "id": "22",
+      "id": 22,
       "name": "Steampunk"
     },
     {
-      "id": "23",
+      "id": 23,
       "name": "Young Adult"
     },
     {
-      "id": "24",
+      "id": 24,
       "name": "Poetry"
     },
     {
-      "id": "25",
+      "id": 25,
       "name": "LGBTQ+"
     },
     {
-      "id": "26",
+      "id": 26,
       "name": "Psychology"
     }
   ],
   "artistTypes": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Writer"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Photographer"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Videomaker"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Illustrator"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Musician"
     }
   ],
   "userArtistTypes": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "artist_typeId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 2,
       "artist_typeId": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 2,
       "artist_typeId": 5
     },
     {
-      "id": "4",
+      "id": 4,
       "userId": 3,
       "artist_typeId": 2
     },
     {
-      "id": "5",
+      "id": 5,
       "userId": 3,
       "artist_typeId": 3
     },
     {
-      "id": "6",
+      "id": 6,
       "userId": 4,
       "artist_typeId": 1
     },
     {
-      "id": "7",
+      "id": 7,
       "userId": 4,
       "artist_typeId": 4
-    },
-    {
-      "id": "8",
-      "userId": 5,
-      "artist_typeId": null
     }
   ],
   "stories": [
     {
-      "id": "1",
+      "id": 1,
       "title": "1984",
       "plot": "Una critica alla società totalitaria e al controllo della mente.",
       "userId": 1,
@@ -319,7 +314,7 @@
       "languageId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "title": "Il nome della rosa",
       "content": "Un romanzo storico con elementi di giallo e filosofia medievale.",
       "userId": 2,
@@ -331,7 +326,7 @@
       "languageId": 1
     },
     {
-      "id": "3",
+      "id": 3,
       "title": "Orgoglio e pregiudizio",
       "plot": "Una storia d'amore e di critica sociale nell'Inghilterra del XIX secolo.",
       "userId": 3,
@@ -343,7 +338,7 @@
       "languageId": 1
     },
     {
-      "id": "4",
+      "id": 4,
       "title": "Il piccolo principe",
       "plot": "Un racconto filosofico e poetico sulla vita e l'amicizia.",
       "userId": 4,
@@ -355,7 +350,7 @@
       "languageId": 1
     },
     {
-      "id": "5",
+      "id": 5,
       "title": "Moby Dick",
       "plot": "La storia della caccia ossessiva alla balena bianca.",
       "userId": 5,
@@ -367,7 +362,7 @@
       "languageId": 1
     },
     {
-      "id": "6",
+      "id": 6,
       "title": "Il signore degli anelli",
       "plot": "Un'epica avventura fantasy per salvare la Terra di Mezzo.",
       "userId": 5,
@@ -381,54 +376,54 @@
   ],
   "storyGenres": [
     {
-      "id": "1",
+      "id": 1,
       "storyId": 1,
       "genreId": 5
     },
     {
-      "id": "2",
+      "id": 2,
       "storyId": 2,
       "genreId": 10
     },
     {
-      "id": "3",
+      "id": 3,
       "storyId": 2,
       "genreId": 15
     },
     {
-      "id": "4",
+      "id": 4,
       "storyId": 3,
       "genreId": 11
     },
     {
-      "id": "5",
+      "id": 5,
       "storyId": 4,
       "genreId": 2
     },
     {
-      "id": "6",
+      "id": 6,
       "storyId": 4,
       "genreId": 3
     },
     {
-      "id": "7",
+      "id": 7,
       "storyId": 4,
       "genreId": 4
     },
     {
-      "id": "8",
+      "id": 8,
       "storyId": 5,
       "genreId": 2
     },
     {
-      "id": "9",
+      "id": 9,
       "storyId": 6,
       "genreId": 3
     }
   ],
   "chapters": [
     {
-      "id": "1",
+      "id": 1,
       "storyId": 1,
       "title": "Capitolo 1",
       "order": 1,
@@ -437,7 +432,7 @@
       "updated_at": null
     },
     {
-      "id": "2",
+      "id": 2,
       "storyId": 1,
       "title": "Capitolo 2",
       "order": 2,
@@ -446,7 +441,7 @@
       "updated_at": null
     },
     {
-      "id": "3",
+      "id": 3,
       "storyId": 1,
       "title": "Capitolo 3",
       "order": 3,
@@ -455,7 +450,7 @@
       "updated_at": null
     },
     {
-      "id": "4",
+      "id": 4,
       "storyId": 1,
       "title": "Capitolo 4",
       "order": 4,
@@ -464,7 +459,7 @@
       "updated_at": null
     },
     {
-      "id": "5",
+      "id": 5,
       "storyId": 1,
       "title": "Capitolo 5",
       "order": 5,
@@ -473,7 +468,7 @@
       "updated_at": null
     },
     {
-      "id": "6",
+      "id": 6,
       "storyId": 2,
       "title": "Capitolo 1",
       "order": 1,
@@ -482,7 +477,7 @@
       "updated_at": null
     },
     {
-      "id": "7",
+      "id": 7,
       "storyId": 2,
       "title": "Capitolo 2",
       "order": 2,
@@ -491,7 +486,7 @@
       "updated_at": null
     },
     {
-      "id": "8",
+      "id": 8,
       "storyId": 2,
       "title": "Capitolo 3",
       "order": 1,
@@ -500,7 +495,7 @@
       "updated_at": null
     },
     {
-      "id": "9",
+      "id": 9,
       "storyId": 2,
       "title": "Capitolo 4",
       "order": 4,
@@ -509,7 +504,7 @@
       "updated_at": null
     },
     {
-      "id": "10",
+      "id": 10,
       "storyId": 2,
       "title": "Capitolo 5",
       "order": 5,
@@ -518,7 +513,7 @@
       "updated_at": null
     },
     {
-      "id": "11",
+      "id": 11,
       "storyId": 2,
       "title": "Capitolo 6",
       "order": 6,
@@ -527,7 +522,7 @@
       "updated_at": null
     },
     {
-      "id": "12",
+      "id": 12,
       "storyId": 3,
       "title": "Capitolo 1",
       "order": 1,
@@ -536,7 +531,7 @@
       "updated_at": null
     },
     {
-      "id": "13",
+      "id": 13,
       "storyId": 4,
       "title": "Capitolo 1",
       "order": 1,
@@ -545,7 +540,7 @@
       "updated_at": null
     },
     {
-      "id": "14",
+      "id": 14,
       "storyId": 4,
       "title": "Capitolo 2",
       "order": 2,
@@ -554,7 +549,7 @@
       "updated_at": null
     },
     {
-      "id": "15",
+      "id": 15,
       "storyId": 4,
       "title": "Capitolo 3",
       "order": 3,
@@ -563,7 +558,7 @@
       "updated_at": null
     },
     {
-      "id": "16",
+      "id": 16,
       "storyId": 4,
       "title": "Capitolo 4",
       "order": 4,
@@ -572,7 +567,7 @@
       "updated_at": null
     },
     {
-      "id": "17",
+      "id": 17,
       "storyId": 5,
       "title": "Capitolo 1",
       "order": 1,
@@ -581,7 +576,7 @@
       "updated_at": null
     },
     {
-      "id": "18",
+      "id": 18,
       "storyId": 5,
       "title": "Capitolo 2",
       "order": 2,
@@ -590,7 +585,7 @@
       "updated_at": null
     },
     {
-      "id": "19",
+      "id": 19,
       "storyId": 5,
       "title": "Capitolo 3",
       "order": 3,
@@ -599,7 +594,7 @@
       "updated_at": null
     },
     {
-      "id": "20",
+      "id": 20,
       "storyId": 6,
       "title": "Capitolo 1",
       "order": 1,
@@ -608,7 +603,7 @@
       "updated_at": null
     },
     {
-      "id": "21",
+      "id": 21,
       "storyId": 6,
       "title": "Capitolo 2",
       "order": 2,
@@ -617,7 +612,7 @@
       "updated_at": null
     },
     {
-      "id": "22",
+      "id": 22,
       "storyId": 6,
       "title": "Capitolo 3",
       "order": 3,
@@ -628,35 +623,35 @@
   ],
   "userStories": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "storyId": 2,
       "status": "reading",
       "saved": true
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 1,
       "storyId": 3,
       "status": "completed",
       "saved": false
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 2,
       "storyId": 1,
       "status": "reading",
       "saved": true
     },
     {
-      "id": "4",
+      "id": 4,
       "userId": 3,
       "storyId": 6,
       "status": "reading",
       "saved": false
     },
     {
-      "id": "5",
+      "id": 5,
       "userId": 4,
       "storyId": 5,
       "status": "reading",
@@ -665,17 +660,17 @@
   ],
   "userGenres": [
     {
-      "id": "1",
+      "id": 1,
       "userId": 1,
       "genreId": 1
     },
     {
-      "id": "2",
+      "id": 2,
       "userId": 1,
       "genreId": 4
     },
     {
-      "id": "3",
+      "id": 3,
       "userId": 1,
       "genreId": 17
     }

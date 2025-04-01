@@ -9,31 +9,68 @@ export const apiService = createApi({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: (user) => {
-        /* `users${login && `?email=${login.email}&password=${login.password}`}`, */
         let params = new URLSearchParams();
 
-        if (user.email) params.append("email", user.email);
-        if (user.password) params.append("password", user.password);
-        if (user.username) params.append("username", user.username);
+        if (user?.email) params.append("email", user.email);
+        if (user?.password) params.append("password", user.password);
+        if (user?.username) params.append("username", user.username);
 
         return `users${params.toString() ? `?${params.toString()}` : ""}`;
       },
     }),
+
+    addUsers: builder.mutation({
+      query: (user) => ({
+        url: "users",
+        method: "POST",
+        body: user,
+      }),
+    }),
+
+    getUserGenres: builder.query({
+      query: () => "userGenres",
+    }),
+
+    addUserGenres: builder.mutation({
+      query: (userGenre) => ({
+        url: "userGenres",
+        method: "POST",
+        body: userGenre,
+      }),
+    }),
+
+    getUserArtistTypes: builder.query({
+      query: () => "userArtistTypes",
+    }),
+
+    addUserArtistTypes: builder.mutation({
+      query: (userArtistType) => ({
+        url: "userArtistTypes",
+        method: "POST",
+        body: userArtistType,
+      }),
+    }),
+
     getGenres: builder.query({
       query: () => "genres",
     }),
+
     getArtistType: builder.query({
       query: () => "artistTypes",
     }),
+
     getLanguages: builder.query({
       query: () => "languages",
     }),
+
     getUserLanguages: builder.query({
       query: (userId) => `userLanguages?userId=${userId}`,
     }),
+
     getStories: builder.query({
       query: () => "stories",
     }),
+
     addStory: builder.mutation({
       query: (story) => ({
         url: "stories",
@@ -55,4 +92,10 @@ export const {
   useGetUserLanguagesQuery,
   useLazyGetUserLanguagesQuery,
   useGetStoriesQuery,
+  useAddUsersMutation,
+  useGetUserGenresQuery,
+  useLazyGetUserGenresQuery,
+  useAddUserGenresMutation,
+  useLazyGetUserArtistTypesQuery,
+  useAddUserArtistTypesMutation,
 } = apiService;

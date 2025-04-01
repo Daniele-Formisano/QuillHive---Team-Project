@@ -41,7 +41,12 @@ export const signupSlice = createSlice({
     },
 
     togglePronouns: (state, action) => {
-      state.pronouns = [action.payload];
+      if (action.payload !== undefined) {
+        state.pronouns = [action.payload];
+        return;
+      }
+
+      state.pronouns = [];
     },
   },
 });
