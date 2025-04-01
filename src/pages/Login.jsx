@@ -41,7 +41,7 @@ export default function Login({ languages }) {
 
       //metch tra l'id delle lingue e quello presente nella tabella userLanguages
       const userLanguages = languages.filter((language) =>
-        userLanguagesId.includes(Number(language.id))
+        userLanguagesId.includes(language.id)
       );
 
       return userLanguages;
@@ -69,6 +69,7 @@ export default function Login({ languages }) {
           const userWithLanguages = { ...user, languages: userLanguages };
 
           dispatch(setUser(userWithLanguages)); // impostare l'utente nel redux con le lingue parlate
+          console.log(userWithLanguages);
           localStorage.setItem("user", JSON.stringify(userWithLanguages)); // salva l'utente nel local storage
           //navigate("/home"); //attualmente disabilitato per evitare il redirect
           return response;

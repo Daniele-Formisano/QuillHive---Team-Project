@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 export default function SignupPages({ genres, artistTypes }) {
-  const [stepSignup, setStepSingup] = useState(2);
+  const [stepSignup, setStepSingup] = useState(1);
   const [triggerGetUser] = useLazyGetUsersQuery();
   const [triggerGetUserGenres] = useLazyGetUserGenresQuery();
   const [triggerUserArtistTypes] = useLazyGetUserArtistTypesQuery();
@@ -41,7 +41,7 @@ export default function SignupPages({ genres, artistTypes }) {
     const userId = responseUsers.data.length + 1;
 
     const newUser = {
-      id: userId,
+      id: String(userId),
       username: formValues.username,
       email: formValues.email,
       password: formValues.password,
@@ -64,12 +64,10 @@ export default function SignupPages({ genres, artistTypes }) {
 
           for (const genre of formValues.selectedGenres) {
             const userGenre = {
-              id: userGenresId++,
-              userId: userId,
-              genreId: genre,
+              id: String(userGenresId++),
+              userId: String(userId),
+              genreId: String(genre),
             };
-
-            console.log(userGenre);
 
             await addUserGenres(userGenre).unwrap();
           }
@@ -82,12 +80,10 @@ export default function SignupPages({ genres, artistTypes }) {
 
             for (const artistType of formValues.selectedArtistTypes) {
               const userArtistType = {
-                id: userArtistTypesId++,
-                userId: userId,
-                artist_typeId: artistType,
+                id: String(userArtistTypesId++),
+                userId: String(userId),
+                artist_typeId: String(artistType),
               };
-
-              console.log(userArtistType);
 
               await AddUserArtistTypes(userArtistType);
             }
@@ -108,8 +104,8 @@ export default function SignupPages({ genres, artistTypes }) {
     //console.log(stepSignup);
 
     if (stepSignup > 3) {
-      //navigate("");
       submitData();
+      //navigate("");
       setStepSingup(1);
     }
   }, [stepSignup]);

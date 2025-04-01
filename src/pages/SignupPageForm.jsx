@@ -98,6 +98,7 @@ export default function SignupPageForm({ nextPage }) {
 
   // aggiornare lo stato nel redux dei pronomi
   useEffect(() => {
+    console.log(selectPronoun);
     dispatch(togglePronouns(selectPronoun[0]?.name));
   }, [selectPronoun]);
 
