@@ -34,6 +34,10 @@ export default function Login({ languages }) {
     try {
       const response = await triggerGetUserLanguages(id);
 
+      if (!response.data.length) {
+        return [];
+      }
+
       // per estrarre solo l'id dalla tabella userLanguages
       const userLanguagesId = response.data.map(
         (userLanguages) => userLanguages.languageId
