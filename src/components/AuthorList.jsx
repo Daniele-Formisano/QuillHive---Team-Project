@@ -1,4 +1,4 @@
-import { useGetUsersQuery } from "../services/apiService";
+
   import AuthorIconButton from "./AuthorIconButton";
   
   export default function AuthorList({ users }) {

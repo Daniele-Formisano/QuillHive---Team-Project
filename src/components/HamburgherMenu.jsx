@@ -11,7 +11,7 @@ export default function HamburgerMenu() {
   return (
     <div className="flex items-center ">
       <button
-        className="fixed left-0 top-0 z-50"
+        className="fixed left-0 top-0 z-101"
         type="button"
         onClick={handleHamburgherMenu}
       >
@@ -38,9 +38,9 @@ export default function HamburgerMenu() {
       </button>
 
       <div
-        className={`fixed top-0 w-full h-full bg-yellow-100 text-blue-800 flex flex-col justify-center z-49 
-          transition-all duration-500 ease-in-out ${
-            toggle ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"
+        className={`fixed top-0 w-full h-full bg-yellow-100 text-blue-800 flex flex-col justify-center z-50
+          transition-transform duration-500 ease-in-out transform ${
+            toggle ? "translate-x-0 " : "-translate-x-full "
           }`}
       >
         {toggle && (
