@@ -58,11 +58,8 @@ export default function NewStory_1({ genres }) {
       return;
     }
 
-    toast.promise(addStoryMutation(storyData).unwrap(), {
-      loading: "Creating story...",
-      success: "Story created",
-      error: "Error",
-    });
+    const createdStory = await addStoryMutation(storyData);
+    console.log(createdStory);
   };
 
   return (

@@ -71,7 +71,7 @@ export default function UserForm() {
     const updatedUser = { ...loggedUser, ...userData };
 
     dispatch(setUser(updatedUser));
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+
     setIsEditing(false);
   }
 
@@ -97,7 +97,6 @@ export default function UserForm() {
   function handleLangSave() {
     const updatedUser = { ...loggedUser, languages: selectedIdLanguages };
     dispatch(setUser(updatedUser));
-    localStorage.setItem("user", JSON.stringify(updatedUser));
   }
 
   return (

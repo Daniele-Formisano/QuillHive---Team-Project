@@ -298,6 +298,16 @@
       "id": "7",
       "userId": "4",
       "artist_typeId": "4"
+    },
+    {
+      "id": "8",
+      "userId": "6",
+      "artist_typeId": "5"
+    },
+    {
+      "id": "9",
+      "userId": "6",
+      "artist_typeId": "4"
     }
   ],
   "stories": [
@@ -306,7 +316,7 @@
       "title": "1984",
       "plot": "Una critica alla società totalitaria e al controllo della mente.",
       "userId": "1",
-      "cover_image": "https://example.com/1984.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
       "likes": 3574,
       "created_at": null,
@@ -318,7 +328,7 @@
       "title": "Il nome della rosa",
       "content": "Un romanzo storico con elementi di giallo e filosofia medievale.",
       "userId": "2",
-      "cover_image": "https://example.com/il-nome-della-rosa.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
       "likes": 6542,
       "created_at": null,
@@ -330,7 +340,7 @@
       "title": "Orgoglio e pregiudizio",
       "plot": "Una storia d'amore e di critica sociale nell'Inghilterra del XIX secolo.",
       "userId": "3",
-      "cover_image": "https://example.com/orgoglio-e-pregiudizio.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
       "likes": 9852,
       "created_at": null,
@@ -342,7 +352,7 @@
       "title": "Il piccolo principe",
       "plot": "Un racconto filosofico e poetico sulla vita e l'amicizia.",
       "userId": "4",
-      "cover_image": "https://example.com/il-piccolo-principe.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
       "likes": 15321,
       "created_at": null,
@@ -354,7 +364,7 @@
       "title": "Moby Dick",
       "plot": "La storia della caccia ossessiva alla balena bianca.",
       "userId": "5",
-      "cover_image": "https://example.com/moby-dick.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "non completato",
       "likes": 6431,
       "created_at": null,
@@ -366,7 +376,7 @@
       "title": "Il signore degli anelli",
       "plot": "Un'epica avventura fantasy per salvare la Terra di Mezzo.",
       "userId": "5",
-      "cover_image": "https://example.com/il-signore-degli-anelli.jpg",
+      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
       "likes": 54313,
       "created_at": null,
@@ -673,6 +683,21 @@
       "id": "3",
       "userId": "1",
       "genreId": "17"
+    },
+    {
+      "id": "4",
+      "userId": "6",
+      "genreId": "10"
+    },
+    {
+      "id": "5",
+      "userId": "6",
+      "genreId": "11"
+    },
+    {
+      "id": "6",
+      "userId": "6",
+      "genreId": "8"
     }
   ]
 }
