@@ -77,7 +77,18 @@ export const apiService = createApi({
         method: "POST",
         body: story,
       }),
-      // getUserStories:
+    }),
+
+    getUserProjects: builder.query({
+      query: (userId) => `stories?userId=${userId}`,
+    }),
+
+    addBio: builder.mutation({
+      query: (bio) => ({
+        url: "users",
+        method: "UPDATE",
+        body: bio,
+      }),
     }),
   }),
 });
@@ -98,4 +109,7 @@ export const {
   useAddUserGenresMutation,
   useLazyGetUserArtistTypesQuery,
   useAddUserArtistTypesMutation,
+  useGetUserProjectsQuery,
+  useLazyGetUserProjectsQuery,
+  useAddBioMutation,
 } = apiService;

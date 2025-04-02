@@ -17,7 +17,7 @@ export default function EditProfile() {
       <section>
         <UserForm />
       </section>
-      <section>{/* Sezioen che contiene il footer */}</section>
+      <section>{/* Sezione che contiene il footer */}</section>
     </div>
   );
 }

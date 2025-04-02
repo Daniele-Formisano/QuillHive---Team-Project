@@ -69,19 +69,17 @@ export default function App() {
     dataLanguage &&
     dataGenres && (
       <Routes>
-      {/* //   <Route path="/login" element={<Login languages={dataLanguage} />} />
-      //   <Route 
-           path="/signup"
-           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
-       /> */}
-        <Route path="/home" element={<Home/>}> 
-        </Route>
+        <Route path="/login" element={<Login languages={dataLanguage} />} />
+        <Route
+          path="/signup"
+          element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
+        />
+        <Route path="/home" element={<Home />}></Route>
         <Route
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
-        
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
