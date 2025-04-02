@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
 import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
+import Home from "./pages/Home";
 
 export default function App() {
   const {
@@ -68,16 +69,19 @@ export default function App() {
     dataLanguage &&
     dataGenres && (
       <Routes>
-        <Route path="/login" element={<Login languages={dataLanguage} />} />
-        <Route
-          path="/signup"
-          element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
-        />
+      {/* //   <Route path="/login" element={<Login languages={dataLanguage} />} />
+      //   <Route 
+           path="/signup"
+           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
+       /> */}
+        <Route path="/home" element={<Home/>}> 
+        </Route>
         <Route
           path="/NewStory_1"
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
+        
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
