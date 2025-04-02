@@ -40,7 +40,6 @@ export const apiService = createApi({
         method: "POST",
         body: story,
       }),
-      // getUserStories:
     }),
   }),
 });

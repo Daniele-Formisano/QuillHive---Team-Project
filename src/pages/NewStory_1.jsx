@@ -2,26 +2,27 @@ import { useState } from "react";
 import BackButton from "../components/BackButton";
 import InputField from "../components/InputField";
 import LoadCoverImg from "../components/LoadCoverImg";
-import SelectGenres from "../components/SelectGenres";
+import SelectOptions from "../components/SelectOptions";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useAddStoryMutation } from "../services/apiService";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 export default function NewStory_1({ genres }) {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.global.user);
   const [addStoryMutation] = useAddStoryMutation();
   const [storyGenres, setStoryGenres] = useState([]); // Stato per la selezione dei generi
   const [newStory, setNewStory] = useState({
     title: "",
     plot: "",
-    usersId: 1, // ID dell'utente loggato (esempio statico)
+    usersId: user.id,
     cover_image: null,
     status: "draft",
     likes: 0,
-    created_at: null,
+    created_at: new Date(),
     updated_at: null,
-    languageId: 1, // ID della lingua scelta
   });
 
   // Funzione per gestire la selezione e deselezione dei generi
@@ -60,7 +61,7 @@ export default function NewStory_1({ genres }) {
 
     toast.promise(addStoryMutation(storyData).unwrap(), {
       loading: "Creating story...",
-      success: "Story created",
+      success: "Story created and added successfully",
       error: "Error",
     });
   };
@@ -88,7 +89,7 @@ export default function NewStory_1({ genres }) {
         value={newStory.plot}
         onChange={handleInputChange}
       />
-      <SelectGenres
+      <SelectOptions
         selectTitle="Add genres"
         paragraph="Select your creative role-choose at least 1 option, up to 5, or just continue as a reader"
         dataSelect={genres}

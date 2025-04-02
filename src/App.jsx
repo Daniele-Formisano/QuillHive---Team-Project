@@ -2,12 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import {
   useGetArtistTypeQuery,
   useGetGenresQuery,
+  useGetStoriesQuery,
   useGetLanguagesQuery,
 } from "./services/apiService";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   setGenres,
+  setStories,
   setLanguages,
   setUser,
 } from "./features/global/globalSlice";
@@ -34,6 +36,11 @@ export default function App() {
     isLoading: isLoadingGenres,
     error: errorGenres,
   } = useGetGenresQuery();
+  const {
+    data: dataStories,
+    isLoading: isLoadingStories,
+    error: errorStories,
+  } = useGetStoriesQuery();
 
   const dispatch = useDispatch();
 
@@ -47,12 +54,22 @@ export default function App() {
       dispatch(setLanguages(dataLanguage));
     }
   });
+  useEffect(() => {
+    if (dataStories) {
+      dispatch(setStories(dataStories));
+    }
+  });
 
-  if (isLoadingArtist || isLoadingGenres || isLoadingLanguage) {
+  if (
+    isLoadingArtist ||
+    isLoadingGenres ||
+    isLoadingStories ||
+    isLoadingLanguage
+  ) {
     // RICORDIAMOCI DI METTERE QUALCOSA DI CARINO PER IL LOADING
     return <div>Loading</div>;
   }
-  if (errorArtist || errorGenres || errorLanguage) {
+  if (errorArtist || errorGenres || errorStories || errorLanguage) {
     return <div>error</div>;
   }
 
@@ -63,7 +80,8 @@ export default function App() {
   return (
     dataArtist &&
     dataLanguage &&
-    dataGenres && (
+    dataGenres &&
+    dataStories && (
       <Routes>
         <Route path="/login" element={<Login languages={dataLanguage} />} />
         <Route path="/signup" element={<SignupPageForm />} />
