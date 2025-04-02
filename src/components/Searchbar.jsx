@@ -1,6 +1,6 @@
 function Searchbar() {
   return (
-    <div className=" flex justify-center items-center rounded-4xl border border-stroke-brand gap-[10px] bg-white  pl-5">
+    <div className=" flex justify-center items-center rounded-4xl border border-stroke-brand gap-[10px] bg-white pb-3 pt-3 pl-5">
       <button>
         <svg
           width="15"

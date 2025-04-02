@@ -36,10 +36,10 @@ function Home() {
   // console.log(users);
 
   return (
-    <div className="flex flex-col justify-center  bg-bg-brand ">
-      <header className="flex flex-row gap-2 justify-between items-center fixed top-0 left-0 right-0 bg-bg-brand ">
-        <div>
-          <HamburgerMenu />
+    <div className="flex flex-col justify-center  bg-bg-brand min-h-screen ">
+      <header className="flex flex-row gap-2 justify-around items-center fixed top-0 left-0 right-0 bg-bg-brand ">
+        <div >
+          <HamburgerMenu/>
         </div>
 
         <Searchbar />
@@ -69,7 +69,7 @@ function Home() {
             </ul>
           </div>
         </div>
-        {/* <div className="flex flex-col justify-center">
+         <div className="flex flex-col justify-center">
           <p className="text-secondary-brand font-title text-2xl">
             Hive's choices
           </p>
@@ -81,7 +81,7 @@ function Home() {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col justify-center mb-10">
+        {/*<div className="flex flex-col justify-center mb-10">
           <p className="text-secondary-brand font-title text-2xl ">
             Trending now
           </p>
@@ -119,7 +119,7 @@ function Home() {
         </div> */}
         <footer>Footer</footer>
       </main>
-      <div className=" flex justify-center fixed font-title bottom-0 left-0 right-0 z-50">
+      <div className=" flex justify-center fixed font-title bottom-0 left-0 right-0 ">
         <Navbar />
       </div>
     </div>
