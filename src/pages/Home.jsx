@@ -1,9 +1,3 @@
-//div Header (hamburger menu, search, profile)
-//travel in the hive(div( map of componet that displys authors))
-// buzzing for you (no display if not logged) (div(map of card book component))
-//hive's choice (div(map of card book component))
-// footer navbar z index position fixed
-import { useDispatch } from "react-redux";
 import Card from "../components/Card";
 import HamburgerMenu from "../components/hamburgherMenu";
 import Navbar from "../components/navbar";
@@ -11,15 +5,19 @@ import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
 import { setStories } from "../features/global/globalSlice";
 import AuthorIconButton from "../components/AuthorIconButton";
+import ProfileIcon from "../components/ProfileIcon";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
-
+  
   const {
     data: stories,
     error: storiesError,
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
+  
+  const navigate= useNavigate();
 
   if (isLoading) return <p>Loading</p>;
   if (error) return <p>Error </p>;
@@ -30,20 +28,20 @@ function Home() {
   if (!stories || stories.length === 0) return <p>No stories</p>;
 
   const limitedStories = stories.slice(0, 6);
-  // const dispatch= useDispatch();
-  // dispatch(setStories(stories))
 
-  // console.log(users);
+  const handleProfileClick=()=>{ navigate("/editProfile")};//reindirezzamento al proprio profilo 
 
   return (
     <div className="flex flex-col justify-center  bg-bg-brand min-h-screen ">
       <header className="flex flex-row gap-2 justify-around items-center fixed top-0 left-0 right-0 bg-bg-brand ">
-        <div >
-          <HamburgerMenu/>
+        <div>
+          <HamburgerMenu />
         </div>
 
         <Searchbar />
-        <button className="w-[54px] h-[54]">P</button>
+        <div>
+          <ProfileIcon width={50} height={50} onClick={handleProfileClick}/>
+        </div>
       </header>
       <main className=" flex flex-col justify-center overflow-y-scroll pl-5 pb-16 pt-16 scrollbar-hide ">
         <div className="flex flex-col gap-8 mb-5 ">
@@ -69,7 +67,7 @@ function Home() {
             </ul>
           </div>
         </div>
-         <div className="flex flex-col justify-center">
+        {/* <div className="flex flex-col justify-center">
           <p className="text-secondary-brand font-title text-2xl">
             Hive's choices
           </p>
@@ -81,7 +79,7 @@ function Home() {
             </ul>
           </div>
         </div>
-        {/*<div className="flex flex-col justify-center mb-10">
+        <div className="flex flex-col justify-center mb-10">
           <p className="text-secondary-brand font-title text-2xl ">
             Trending now
           </p>
