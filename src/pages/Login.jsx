@@ -75,7 +75,7 @@ export default function Login({ languages }) {
           dispatch(setUser(userWithLanguages)); // impostare l'utente nel redux con le lingue parlate
           console.log(userWithLanguages);
           localStorage.setItem("user", JSON.stringify(userWithLanguages)); // salva l'utente nel local storage
-          //navigate("/home"); //attualmente disabilitato per evitare il redirect
+          navigate("/home");
           return response;
         } catch (error) {
           throw error;

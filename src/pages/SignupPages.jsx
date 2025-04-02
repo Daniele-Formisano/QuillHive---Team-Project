@@ -105,7 +105,7 @@ export default function SignupPages({ genres, artistTypes }) {
 
     if (stepSignup > 3) {
       submitData();
-      //navigate("");
+      navigate("/home");
       setStepSingup(1);
     }
   }, [stepSignup]);
