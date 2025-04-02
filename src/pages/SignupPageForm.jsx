@@ -129,6 +129,7 @@ export default function SignupPageForm({ nextPage }) {
 
     if (formValues.password !== formValues.confirmPassword) {
       toast.error("The password and confirmation password do not match");
+      return;
     }
 
     nextPage(2);
