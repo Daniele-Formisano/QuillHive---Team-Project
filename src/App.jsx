@@ -17,8 +17,8 @@ import {
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
+import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 
 export default function App() {
@@ -93,9 +93,10 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
-        <Route path="story/create" element={<NewStory_1 genres={dataGenres} />}>
+        {/* <Route path="story/create" element={<NewStory_1 genres={dataGenres} />}>
           <Route path=":id/edit" element={<NewStory_2 />} />
-        </Route>
+        </Route> */}
+        <Route path="/edit" element={<NewStory_2 />} />
 
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>

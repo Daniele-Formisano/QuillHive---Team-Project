@@ -1,10 +1,11 @@
 import BackButton from "../components/BackButton";
 import Button from "../components/Button";
-import { useNavigate, useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 import ChapInput from "../components/ChapInput";
 import ChapDropdown from "../components/ChapDropdown";
 import { useState } from "react";
 import { useAddChapterMutation } from "../services/apiService";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function NewStory_2({ stories }) {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function NewStory_2({ stories }) {
 
   const [newChapter, setNewChapter] = useState({
     id: "1",
-    storyId: id,
+    storyId: "1",
     title: "Capitolo 1",
     order: 1,
     content: "",
@@ -34,6 +35,7 @@ export default function NewStory_2({ stories }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(newChapter);
     if (!newChapter.content.trim()) {
       toast.error("Content cannot be empty.");
       return;
@@ -43,6 +45,7 @@ export default function NewStory_2({ stories }) {
       const response = await addChapterMutation(newChapter);
       if (response?.data?.id) {
         toast.success("Chapter created successfully!");
+
         navigate("URL-LIBRERIA");
       } else {
         toast.error("Failed to create chapter."); // qui gestisce l'errore relativo ad un id non esistente o non valido

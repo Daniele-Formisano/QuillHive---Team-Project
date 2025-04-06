@@ -96,7 +96,7 @@ export const apiService = createApi({
 
     addChapter: builder.mutation({
       query: (chapter) => ({
-        url: "chapter",
+        url: "chapters",
         method: "POST",
         body: chapter,
       }),
