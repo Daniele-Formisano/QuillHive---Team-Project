@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import InputField from "./InputField";
 import Button from "./Button";
+import SelectGenres from "./SelectGenres";
 
-export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
+export default function SignupForm({
+  onSubmit,
+  formValues,
+  onChange,
+  onBlur,
+  dataSelect,
+  toggleItems,
+  arraySelectedItems,
+}) {
   return (
     <div>
       <form action="" className="flex flex-col gap-8" onSubmit={onSubmit}>
@@ -20,7 +29,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             required
           />
           <InputField
-            label={"Username"}
+            label={"Username (max. 14 characters)"}
             id={"username"}
             type={"text"}
             placeholder={"Enter a username"}
@@ -29,6 +38,8 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             onChange={onChange}
             onBlur={onBlur}
             required
+            minLength="4"
+            maxLength="14"
           />
           <InputField
             label={"Password"}
@@ -40,6 +51,7 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.password}
             onChange={onChange}
             required
+            minLength="8"
           />
           <InputField
             label={"Confirm password"}
@@ -51,19 +63,20 @@ export default function SignupForm({ onSubmit, formValues, onChange, onBlur }) {
             value={formValues.confirmPassword}
             onChange={onChange}
             required
+            minLength="8"
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}
-          <InputField
-            label={"ciao"}
-            id={"null"}
-            type={"password"}
-            placeholder={"Confirm pasword"}
-            autoComplete={"new-password"}
+          <SelectGenres
+            selectTitle={"Pronouns (optional)"}
+            placeholder={"Pronouns (optional)"}
+            dataSelect={dataSelect}
+            arraySelectedItems={arraySelectedItems}
+            toggleItems={toggleItems}
           />
         </div>
 
-        <div className="flex flex-col gap-15">
+        <div className="flex flex-col gap-10">
           <Checkbox
             id={"policy"}
             name={"policy"}

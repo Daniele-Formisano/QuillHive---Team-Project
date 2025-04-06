@@ -23,7 +23,7 @@ export const globalSlice = createSlice({
     setGenres: (state, action) => {
       state.genres = action.payload;
     },
-    setArtistType: (state, action) => {
+    setArtistTypes: (state, action) => {
       state.artistType = action.payload;
     },
     setStories: (state, action) => {
@@ -32,11 +32,6 @@ export const globalSlice = createSlice({
     setStoryGenres: (state, action) => {
       state.storyGenres = action.payload;
     },
-    toggleGenre: (state, action) => {
-      state.selectedGenres = state.selectedGenres.includes(action.payload)
-        ? state.selectedGenres.filter((genreId) => genreId !== action.payload)
-        : [...state.selectedGenres, action.payload];
-    },
   },
 });
 
@@ -44,9 +39,8 @@ export const globalSlice = createSlice({
 export const {
   setUser,
   setLanguages,
-  toggleGenre,
   setGenres,
-  setArtistType,
+  setArtistTypes,
   setStoryGenres,
   setStories,
 } = globalSlice.actions;

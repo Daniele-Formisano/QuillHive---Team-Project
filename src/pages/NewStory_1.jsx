@@ -64,6 +64,8 @@ export default function NewStory_1({ genres }) {
       success: "Story created and added successfully",
       error: "Error",
     });
+    const createdStory = await addStoryMutation(storyData);
+    console.log(createdStory);
   };
 
   return (

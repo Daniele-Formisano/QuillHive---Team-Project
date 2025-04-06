@@ -1,18 +1,28 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SignupForm from "../components/SignupForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setInputsValue,
   setAcceptPrivacy,
+  togglePronouns,
 } from "../features/signup/signupSlice";
 import { useLazyGetUsersQuery } from "../services/apiService";
 import toast from "react-hot-toast";
+import BackButton from "../components/BackButton";
+import { useEffect, useState } from "react";
 
-export default function SignupPageForm() {
-  const navigate = useNavigate();
+const pronouns = [
+  { id: 1, name: "He/Him" },
+  { id: 2, name: "She/Her" },
+  { id: 3, name: "They/Them" },
+  { id: 4, name: "Prefer not to say" },
+];
+
+export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => state.signup);
   const [triggerGetUser] = useLazyGetUsersQuery();
+  const [selectPronoun, setPronoun] = useState([]); // per controllare lo stato della select dei pronomi
 
   // funzione per settare i valori e cambiamenti dei campi del form nel redux in tempo reale
   function handleChange(e) {
@@ -23,7 +33,11 @@ export default function SignupPageForm() {
       case "username":
       case "password":
       case "confirmPassword":
-        dispatch(setInputsValue({ field: name, value: value }));
+        if (value.includes(" ")) {
+          toast.error("This field only accepts characters without spaces");
+        }
+
+        dispatch(setInputsValue({ field: name, value: value.trim() }));
 
         break;
 
@@ -34,7 +48,7 @@ export default function SignupPageForm() {
     }
   }
 
-  // funzione per la funzione handleBlur per eseguire requestAPI per verifica valori già presenti nel db json
+  // funzione per eseguire requestAPI per verifica valori già presenti nel db json
   async function checkValue(name, messageError) {
     const response = await triggerGetUser({
       [name]: formValues[name].trim(),
@@ -42,6 +56,9 @@ export default function SignupPageForm() {
 
     if (response.data.length) {
       toast.error(messageError);
+      return false;
+    } else {
+      return true;
     }
   }
 
@@ -68,38 +85,90 @@ export default function SignupPageForm() {
     }
   }
 
+  // per controllare lo stato dei pronomi
+  function togglePronounsAction(pronoun) {
+    setPronoun((prevSelected) => {
+      if (prevSelected.includes(pronoun)) {
+        return prevSelected.filter((p) => p.id !== pronoun.id);
+      } else {
+        return [pronoun];
+      }
+    });
+  }
+
+  // aggiornare lo stato nel redux dei pronomi
+  useEffect(() => {
+    console.log(selectPronoun);
+    dispatch(togglePronouns(selectPronoun[0]?.name));
+  }, [selectPronoun]);
+
   // funzione per l'invio del form
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    //navigate("/signupGenres"); // attualmente disabilitato per evitare redirect
+    // controllo se non è stata accettata la privacy
+    if (!formValues.acceptPrivacy) {
+      toast.error(
+        "plese read and accept the terms and conditions of QuillHive to continue"
+      );
+      return;
+    }
+
+    // controllo se ci sono email e password già
+    const checkMail = await checkValue(
+      "email",
+      "This email is already associated with another account"
+    );
+
+    const checkUsername = await checkValue(
+      "username",
+      "This username is already used, please choose another one"
+    );
+
+    if (!checkMail || !checkUsername) return;
+
+    if (formValues.password !== formValues.confirmPassword) {
+      toast.error("The password and confirmation password do not match");
+      return;
+    }
+
+    nextPage(2);
   }
 
   return (
-    <div className="flex flex-col gap-10 p-8 bg-bg-brand min-h-screen justify-center">
-      <div>
-        <h1 className="font-title text-4xl text-secondary-brand text-center">
-          Signup
-        </h1>
+    <div className="bg-bg-brand min-h-screen relative">
+      <div className="mt-2 absolute">
+        <BackButton pageURL={"/"} />
       </div>
 
-      <div className="flex flex-col gap-7">
-        <SignupForm
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-          formValues={formValues}
-          onBlur={handleBlur}
-        />
+      <div className="flex flex-col gap-10 p-8 min-h-screen justify-center">
+        <header>
+          <h1 className="font-title text-4xl text-secondary-brand text-center">
+            Signup
+          </h1>
+        </header>
 
-        <p className="text-center font-script text-input-text-brand">
-          Already a member?{" "}
-          <Link
-            to={"/login"}
-            className="text-[#2B4F76] hover:underline visited:text-fuchsia-900"
-          >
-            Login now
-          </Link>
-        </p>
+        <main className="flex flex-col gap-7">
+          <SignupForm
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            formValues={formValues}
+            onBlur={handleBlur}
+            dataSelect={pronouns}
+            arraySelectedItems={selectPronoun}
+            toggleItems={togglePronounsAction}
+          />
+
+          <p className="text-center font-script text-input-text-brand">
+            Already a member?{" "}
+            <Link
+              to={"/login"}
+              className="text-[#2B4F76] hover:underline visited:text-fuchsia-900"
+            >
+              Login now
+            </Link>
+          </p>
+        </main>
       </div>
     </div>
   );

@@ -20,9 +20,11 @@ export default function SelectGenres({
       <span className="text-secondary-brand font-script-semibold text-sm">
         {selectTitle}
       </span>
-      <p className="text-[14px] font-script text-secondary-brand pb-1.5">
-        {paragraph}
-      </p>
+      {paragraph && (
+        <p className="text-[14px] font-script text-secondary-brand pb-1.5">
+          {paragraph}
+        </p>
+      )}
 
       {/* Area di selezione che attiva l'apertura del dropdown */}
       <div
@@ -36,8 +38,8 @@ export default function SelectGenres({
         </span>
 
         <div className="flex items-center">
-          {!isOpen && <IconChevronDown stroke={1.2} />}
-          {isOpen && <IconChevronUp stroke={1.2} />}
+          {!isOpen && <IconChevronDown stroke={1.5} color="#203955" />}
+          {isOpen && <IconChevronUp stroke={1.5} color="#203955" />}
         </div>
       </div>
 

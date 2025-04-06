@@ -12,13 +12,14 @@ import {
   setStories,
   setLanguages,
   setUser,
+  setArtistTypes,
 } from "./features/global/globalSlice";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
+import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
-import SignupPageForm from "./pages/SignupPageForm";
-import SignupPageGenres from "./pages/SignupPageGenres";
+import Home from "./pages/Home";
 
 export default function App() {
   const {
@@ -48,10 +49,13 @@ export default function App() {
     if (dataGenres) {
       dispatch(setGenres(dataGenres));
     }
-  });
-  useEffect(() => {
+
     if (dataLanguage) {
       dispatch(setLanguages(dataLanguage));
+    }
+
+    if (dataArtist) {
+      dispatch(setArtistTypes(dataArtist));
     }
   });
   useEffect(() => {
@@ -84,16 +88,15 @@ export default function App() {
     dataStories && (
       <Routes>
         <Route path="/login" element={<Login languages={dataLanguage} />} />
-        <Route path="/signup" element={<SignupPageForm />} />
         <Route
-          path="/signupGenres"
-          element={<SignupPageGenres genres={dataGenres} />}
+          path="/signup"
+          element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
-        <Route
-          path="/NewStory_1"
-          element={<NewStory_1 genres={dataGenres} />}
-        />
-        <Route path="/NewStory_2" element={<NewStory_2 />} />
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/create" element={<NewStory_1 genres={dataGenres} />}>
+          <Route path=":id/edit" element={<NewStory_2 />} />
+        </Route>
+
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
