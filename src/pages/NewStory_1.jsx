@@ -4,7 +4,7 @@ import InputField from "../components/InputField";
 import LoadCoverImg from "../components/LoadCoverImg";
 import SelectOptions from "../components/SelectOptions";
 import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAddStoryMutation } from "../services/apiService";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -59,64 +59,70 @@ export default function NewStory_1({ genres }) {
       return;
     }
 
-    toast.promise(addStoryMutation(storyData).unwrap(), {
-      loading: "Creating story...",
-      success: "Story created and added successfully",
-      error: "Error",
-    });
-    const createdStory = await addStoryMutation(storyData);
-    console.log(createdStory);
+    try {
+      const response = await addStoryMutation(storyData);
+
+      if (response?.data?.id) {
+        const createdStoryId = response.data.id;
+        toast.success("Story created successfully!");
+
+        navigate(`/story/${createdStoryId}/edit`);
+      } else {
+        toast.error("Failed to create the story."); // qui gestisce l'errore relativo ad un id non esistente o non valido
+      }
+    } catch (error) {
+      toast.error("An error occurred while creating the story.");
+      console.error(error);
+    }
   };
 
   return (
-    <form
-      className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
-      onSubmit={handleSubmit}
-    >
-      <BackButton pageUrl="" /> {/* DEVI COLLEGARE IL PATH della libreria */}
-      <LoadCoverImg />
-      <InputField
-        placeholder="Choose a title"
-        type="text"
-        id="title"
-        label="Title"
-        value={newStory.title}
-        onChange={handleInputChange}
-      />
-      <InputField
-        placeholder="Write a brief description of your story"
-        type="text"
-        id="plot"
-        label="Description"
-        value={newStory.plot}
-        onChange={handleInputChange}
-      />
-      <SelectOptions
-        selectTitle="Add genres"
-        paragraph="Select your creative role-choose at least 1 option, up to 5, or just continue as a reader"
-        dataSelect={genres}
-        placeholder="Select genres"
-        arraySelectedItems={storyGenres}
-        toggleItems={toggleGenre}
-      />
-      <div className="flex flex-col gap-5 mt-30">
-        <Button
-          onClick={() => {
-            navigate("/NewStory_2");
-          }}
-          type="submit"
-          isColorYellow={true}
-        >
-          Start Writing
-        </Button>
-        <Button
-          onClick={() => {
-            navigate("url");
-          }}
-        >
-          Back
-        </Button>
-      </div>
-    </form>
+    <div>
+      <form
+        className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
+        onSubmit={handleSubmit}
+      >
+        <BackButton pageUrl="" /> {/* DEVI COLLEGARE IL PATH della libreria */}
+        <LoadCoverImg />
+        <InputField
+          placeholder="Choose a title"
+          type="text"
+          id="title"
+          label="Title"
+          value={newStory.title}
+          onChange={handleInputChange}
+        />
+        <InputField
+          placeholder="Write a brief description of your story"
+          type="text"
+          id="plot"
+          label="Description"
+          value={newStory.plot}
+          onChange={handleInputChange}
+        />
+        <SelectOptions
+          selectTitle="Add genres"
+          paragraph="Select your creative role-choose at least 1 option, up to 5, or just continue as a reader"
+          dataSelect={genres}
+          placeholder="Select genres"
+          arraySelectedItems={storyGenres}
+          toggleItems={toggleGenre}
+        />
+        <div className="flex flex-col gap-5 mt-30">
+          <Button onClick={handleSubmit} type="submit" isColorYellow={true}>
+            Start Writing
+          </Button>
+          <Button
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Back
+          </Button>
+        </div>
+      </form>
+
+      <Outlet />
+    </div>
   );
 }

@@ -382,6 +382,23 @@
       "created_at": null,
       "updated_at": null,
       "languageId": "1"
+    },
+    {
+      "id": "d234",
+      "title": "test",
+      "plot": "this is a test",
+      "usersId": "1",
+      "cover_image": null,
+      "status": "draft",
+      "likes": 0,
+      "created_at": "2025-04-06T19:59:33.744Z",
+      "updated_at": null,
+      "genres": [
+        {
+          "id": "1",
+          "name": "Action"
+        }
+      ]
     }
   ],
   "storyGenres": [

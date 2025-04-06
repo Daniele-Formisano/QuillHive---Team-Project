@@ -90,6 +90,17 @@ export const apiService = createApi({
         body: bio,
       }),
     }),
+    getChapters: builder.query({
+      query: () => "chapters",
+    }),
+
+    addChapter: builder.mutation({
+      query: (chapter) => ({
+        url: "chapter",
+        method: "POST",
+        body: chapter,
+      }),
+    }),
   }),
 });
 
@@ -112,4 +123,6 @@ export const {
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
   useAddBioMutation,
+  useGetChaptersQuery,
+  useAddChapterMutation,
 } = apiService;

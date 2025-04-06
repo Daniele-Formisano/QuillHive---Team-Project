@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Checkbox from "./Checkbox";
 import InputField from "./InputField";
 import Button from "./Button";
-import SelectGenres from "./SelectGenres";
+import SelectOptions from "./SelectOptions";
 
 export default function SignupForm({
   onSubmit,
@@ -67,7 +67,7 @@ export default function SignupForm({
           />
 
           {/* DA SOSTITUIRE CON LA SELECT */}
-          <SelectGenres
+          <SelectOptions
             selectTitle={"Pronouns (optional)"}
             placeholder={"Pronouns (optional)"}
             dataSelect={dataSelect}

@@ -93,7 +93,7 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
-        <Route path="/create" element={<NewStory_1 genres={dataGenres} />}>
+        <Route path="story/create" element={<NewStory_1 genres={dataGenres} />}>
           <Route path=":id/edit" element={<NewStory_2 />} />
         </Route>
 
