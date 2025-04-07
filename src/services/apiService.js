@@ -90,14 +90,23 @@ export const apiService = createApi({
         body: bio,
       }),
     }),
-    getChapters: builder.query({
+    /* getChapters: builder.query({
       query: () => "chapters",
+    }), */
+    getChaptersByStoryId: builder.query({
+      query: (storyId) => `chapters?storyId=${storyId}`, // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
-
     addChapter: builder.mutation({
       query: (chapter) => ({
         url: "chapters",
         method: "POST",
+        body: chapter,
+      }),
+    }),
+    updateChapter: builder.mutation({
+      query: (chapter) => ({
+        url: `chapters/${chapter.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
+        method: "PUT",
         body: chapter,
       }),
     }),
@@ -123,6 +132,8 @@ export const {
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
   useAddBioMutation,
-  useGetChaptersQuery,
+  /*  useGetChaptersQuery */
+  useGetChaptersByStoryIdQuery,
   useAddChapterMutation,
+  useUpdateChapterMutation,
 } = apiService;
