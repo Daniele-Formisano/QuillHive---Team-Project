@@ -27,7 +27,7 @@ export default function ChapDropdown({
   };
 
   return (
-    <div className="flex items-center pb-2">
+    <div className="flex items-center pb-2 relative">
       <IconPencil stroke={2} />
       <div
         className="flex gap-2 items-center"
@@ -41,7 +41,7 @@ export default function ChapDropdown({
 
         {/* Dropdown menu personalizzato */}
         {isOpen && (
-          <div className="w-[7rem] rounded-[10px] shadow-lg mt-2 overflow-x-hidden">
+          <div className="w-[7rem] rounded-[10px] shadow-lg mt-2 overflow-x-hidden absolute z-[99] bg-white left-0 translate-x-[150px] translate-y-[-10px]">
             <ul className="font-script flex flex-col p-4 pr-4 pt-2 pb-2 gap-1.5 text-sm text-secondary-brand">
               {isLoading && <li>Loading...</li>}
               {isError && <li>Error loading chapters.</li>}

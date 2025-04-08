@@ -7,11 +7,10 @@ import { useState, useEffect } from "react";
 import { useAddChapterMutation } from "../services/apiService";
 import { useGetChaptersByStoryIdQuery } from "../services/apiService";
 import { useUpdateChapterMutation } from "../services/apiService";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export default function NewStory_2({ stories }) {
+export default function NewStory_2() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const [addChapterMutation] = useAddChapterMutation();
   const [updateChapterMutation] = useUpdateChapterMutation();
   const {
@@ -19,7 +18,6 @@ export default function NewStory_2({ stories }) {
     isLoading,
     isError,
   } = useGetChaptersByStoryIdQuery(id);
-  /* const currentUser = useSelector((state) => state.global.user); */
 
   const [newChapter, setNewChapter] = useState({
     storyId: id,
@@ -91,7 +89,6 @@ export default function NewStory_2({ stories }) {
           }));
 
           toast.success("Chapter created successfully!");
-          navigate("/libreria");
         } else {
           toast.error("Failed to create chapter.");
         }
@@ -108,7 +105,6 @@ export default function NewStory_2({ stories }) {
         const response = await updateChapterMutation(newChapter);
         if (response?.data?.id) {
           toast.success("Chapter updated successfully!");
-          navigate("/URL-LIBRERIA");
         } else {
           toast.error("Failed to update chapter.");
         }

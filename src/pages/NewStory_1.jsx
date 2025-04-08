@@ -4,7 +4,7 @@ import InputField from "../components/InputField";
 import LoadCoverImg from "../components/LoadCoverImg";
 import SelectOptions from "../components/SelectOptions";
 import Button from "../components/Button";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAddStoryMutation } from "../services/apiService";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -121,8 +121,6 @@ export default function NewStory_1({ genres }) {
           </Button>
         </div>
       </form>
-
-      <Outlet />
     </div>
   );
 }
