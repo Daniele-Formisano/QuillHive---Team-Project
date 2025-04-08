@@ -18,6 +18,7 @@ import NewStory_1 from "./pages/NewStory_1";
 import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
 import Home from "./pages/Home";
+import UserLibrary from "./pages/UserLibrary";
 
 export default function App() {
   const {
@@ -81,6 +82,7 @@ export default function App() {
         />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/library" element={<UserLibrary />} />
       </Routes>
     )
   );

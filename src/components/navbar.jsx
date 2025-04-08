@@ -1,83 +1,87 @@
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
   return (
     <nav className="h-[68px] flex items-center justify-center w-full bg-bg-brand">
       <div className="relative flex justify-center items-center gap-27 bg-secondary-brand w-61 h-14  rounded-4xl ">
         <button
           className="flex items-center justify-center "
-          onClick={() => navigate("")}>
+          onClick={() => navigate("")}
+        >
           <svg
             width="40"
             height="40"
             viewBox="0 0 40 40"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M8.3335 8.33317C8.3335 7.89114 8.50909 7.46722 8.82165 7.15466C9.13421 6.8421 9.55814 6.6665 10.0002 6.6665H13.3335C13.7755 6.6665 14.1994 6.8421 14.512 7.15466C14.8246 7.46722 15.0002 7.89114 15.0002 8.33317V31.6665C15.0002 32.1085 14.8246 32.5325 14.512 32.845C14.1994 33.1576 13.7755 33.3332 13.3335 33.3332H10.0002C9.55814 33.3332 9.13421 33.1576 8.82165 32.845C8.50909 32.5325 8.3335 32.1085 8.3335 31.6665V8.33317Z"
               fill="#F5C43D"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M15 8.33317C15 7.89114 15.1756 7.46722 15.4882 7.15466C15.8007 6.8421 16.2246 6.6665 16.6667 6.6665H20C20.442 6.6665 20.866 6.8421 21.1785 7.15466C21.4911 7.46722 21.6667 7.89114 21.6667 8.33317V31.6665C21.6667 32.1085 21.4911 32.5325 21.1785 32.845C20.866 33.1576 20.442 33.3332 20 33.3332H16.6667C16.2246 33.3332 15.8007 33.1576 15.4882 32.845C15.1756 32.5325 15 32.1085 15 31.6665V8.33317Z"
               fill="#F5C43D"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M8.3335 13.3335H15.0002"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M15 26.6665H21.6667"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M23.0051 7.60023L26.6451 6.7169C27.5818 6.4919 28.5335 7.03357 28.7818 7.9369L34.9401 30.3002C35.0488 30.7097 35.0007 31.1449 34.8052 31.5207C34.6098 31.8965 34.281 32.1858 33.8835 32.3319L33.6618 32.4002L30.0218 33.2836C29.0851 33.5086 28.1335 32.9669 27.8851 32.0636L21.7268 9.70023C21.6181 9.29082 21.6663 8.85559 21.8617 8.47979C22.0572 8.10399 22.3859 7.8147 22.7835 7.66857L23.0051 7.60023Z"
               fill="#F5C43D"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M23.3335 15.0002L30.0002 13.3335"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M26.6665 26.6665L33.2048 25.0332"
               stroke="#203955"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </button>
 
         <button
           onClick={() => navigate("/home")}
-          className=" flex bg-primary-brand rounded-full h-[68px] w-[68px] justify-center items-center absolute left-1/2 -translate-x-1/2 -top-1.5">
+          className=" flex bg-primary-brand rounded-full h-[68px] w-[68px] justify-center items-center absolute left-1/2 -translate-x-1/2 -top-1.5"
+        >
           <svg
             width="51"
             height="47"
             viewBox="0 0 51 47"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path
               d="M50.1395 18.2413C50.1449 18.7094 49.6559 19.0063 49.2636 18.7735C46.177 16.9434 43.1797 15.1699 40.1867 13.3883C35.4646 10.5773 30.7388 7.77334 26.0349 4.93034C25.3817 4.53588 24.8976 4.52141 24.2316 4.91336C16.4678 9.4877 8.68515 14.0293 0.90494 18.5735C0.900074 18.5766 0.895208 18.5791 0.889735 18.5823C0.495615 18.8195 0.00174998 18.5282 0.00661565 18.0563C0.0169552 17.0409 0.0309436 16.0293 0.00053319 15.0196C-0.0164967 14.4357 0.377623 14.3175 0.723086 14.1149C5.60457 11.2606 10.4897 8.4119 15.3712 5.55821C18.394 3.791 21.4229 2.03575 24.4238 0.230801C24.9797 -0.103263 25.3647 -0.0579667 25.8944 0.259111C33.6716 4.9121 41.4561 9.5525 49.2588 14.1589C49.9661 14.5767 50.2404 15.0189 50.1778 15.8544C50.1194 16.6314 50.1297 17.4134 50.1395 18.2401V18.2413Z"
               fill="#203955"
@@ -107,20 +111,22 @@ export default function Navbar() {
 
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate("/NewStory_1")}>
+          onClick={() => navigate("/NewStory_1")}
+        >
           <svg
             width="40"
             height="40"
             viewBox="0 0 40 40"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_16973_1017)">
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_16973_1017)">
               <path
                 d="M18.3136 13.25L9.62799 15.8043C9.19845 15.9306 8.98369 15.9938 8.80627 16.1125C8.64923 16.2176 8.51413 16.3539 8.40887 16.5134C8.28995 16.6935 8.22427 16.9133 8.09289 17.3527L2.81748 35M2.81748 35L19.9625 29.57C20.3895 29.4349 20.603 29.3672 20.7781 29.2448C20.933 29.1365 21.0654 28.9974 21.1676 28.8358C21.2828 28.6532 21.3442 28.4321 21.4669 27.99L23.9486 19.05M2.81748 35L12.0954 25.4502M4.22622 14.7V6M0 10.35H8.45244M27.9897 14.5095L22.7249 9.09049C22.1671 8.51626 21.888 8.22916 21.5664 8.12158C21.2835 8.02696 20.9787 8.02696 20.6958 8.12158C20.3742 8.22916 20.0951 8.51626 19.5372 9.09049L18.4987 10.1595C17.9409 10.7337 17.6618 11.0208 17.5574 11.3519C17.4654 11.6432 17.4654 11.9568 17.5574 12.2481C17.6618 12.5792 17.9409 12.8663 18.4987 13.4405L23.7635 18.8595C24.3213 19.4337 24.6004 19.7209 24.922 19.8284C25.2049 19.923 25.5097 19.923 25.7926 19.8284C26.1142 19.7209 26.3933 19.4337 26.9512 18.8595L27.9897 17.7905C28.5475 17.2163 28.8266 16.9292 28.931 16.5981C29.023 16.3068 29.023 15.9932 28.931 15.7019C28.8266 15.3708 28.5475 15.0837 27.9897 14.5095ZM14.0874 20.5C15.6435 20.5 16.9049 21.7983 16.9049 23.4C16.9049 25.0017 15.6435 26.3 14.0874 26.3C12.5313 26.3 11.2699 25.0017 11.2699 23.4C11.2699 21.7983 12.5313 20.5 14.0874 20.5Z"
                 stroke="#F5C43D"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </g>
             <defs>

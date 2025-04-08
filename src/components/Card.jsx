@@ -4,17 +4,17 @@ function Card({ story }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div>
+    <div className="inline-flex justify-center">
       <li
         key={story.id}
-        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center">
+        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center"
+      >
         <img
           src={story.cover_image}
           alt="Book cover"
           width={150}
           height={230}
           className="border-transparent rounded-2xl   hover:cursor-pointer"
-          
         />
         {showTooltip && (
           <div className="relative">
@@ -27,7 +27,8 @@ function Card({ story }) {
           <span
             className="font-medium text-[16px] text-center text-secondary-brand truncate w-[100px] overflow-hidden block whitespace-nowrap mt-2  hover:cursor-pointer  "
             onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}>
+            onMouseLeave={() => setShowTooltip(false)}
+          >
             {story.title}
           </span>
         </div>

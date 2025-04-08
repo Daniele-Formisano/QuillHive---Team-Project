@@ -29,7 +29,7 @@ export default function SignupForm({
             required
           />
           <InputField
-            label={"Username (max. 14 characters)"}
+            label={"Username (max. 12 characters)"}
             id={"username"}
             type={"text"}
             placeholder={"Enter a username"}
@@ -39,7 +39,7 @@ export default function SignupForm({
             onBlur={onBlur}
             required
             minLength="4"
-            maxLength="14"
+            maxLength="12"
           />
           <InputField
             label={"Password"}

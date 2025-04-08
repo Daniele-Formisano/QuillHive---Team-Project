@@ -68,7 +68,14 @@ export const apiService = createApi({
     }),
 
     getStories: builder.query({
-      query: () => "stories",
+      query: (story) => {
+        let params = new URLSearchParams();
+
+        if (story?.storyId) params.append("id", story.storyId);
+        if (story?.userId) params.append("userId", story.userId);
+
+        return `stories${params.toString() ? `?${params.toString()}` : ""}`;
+      },
     }),
 
     addStory: builder.mutation({
@@ -89,6 +96,10 @@ export const apiService = createApi({
         method: "UPDATE",
         body: bio,
       }),
+    }),
+
+    getUserStories: builder.query({
+      query: (userId) => `userStories?userId=${userId}`,
     }),
   }),
 });
@@ -112,4 +123,6 @@ export const {
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
   useAddBioMutation,
+  useGetUserStoriesQuery,
+  useLazyGetStoriesQuery,
 } = apiService;

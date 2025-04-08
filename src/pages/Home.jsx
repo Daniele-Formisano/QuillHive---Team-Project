@@ -1,5 +1,5 @@
 import Card from "../components/Card";
-import HamburgerMenu from "../components/hamburgherMenu";
+import HamburgerMenu from "../components/HamburgherMenu";
 import Navbar from "../components/navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
@@ -10,14 +10,14 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
-  
+
   const {
     data: stories,
     error: storiesError,
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
-  
-  const navigate= useNavigate();
+
+  const navigate = useNavigate();
 
   if (isLoading) return <p>Loading</p>;
   if (error) return <p>Error </p>;
@@ -29,7 +29,9 @@ function Home() {
 
   const limitedStories = stories.slice(0, 6);
 
-  const handleProfileClick=()=>{ navigate("/editProfile")};//reindirezzamento al proprio profilo 
+  const handleProfileClick = () => {
+    navigate("/editProfile");
+  }; //reindirezzamento al proprio profilo
 
   return (
     <div className="flex flex-col justify-center  bg-bg-brand min-h-screen ">
@@ -40,7 +42,7 @@ function Home() {
 
         <Searchbar />
         <div>
-          <ProfileIcon width={50} height={50} onClick={handleProfileClick}/>
+          <ProfileIcon width={50} height={50} onClick={handleProfileClick} />
         </div>
       </header>
       <main className=" flex flex-col justify-center overflow-y-scroll pl-5 pb-16 pt-16 scrollbar-hide ">
