@@ -20,6 +20,7 @@ import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2 from "./pages/NewStory_2";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
+import Loader from "./components/Loader";
 
 export default function App() {
   const {
@@ -71,7 +72,11 @@ export default function App() {
     isLoadingLanguage
   ) {
     // RICORDIAMOCI DI METTERE QUALCOSA DI CARINO PER IL LOADING
-    return <div>Loading</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
   if (errorArtist || errorGenres || errorStories || errorLanguage) {
     return <div>error</div>;
