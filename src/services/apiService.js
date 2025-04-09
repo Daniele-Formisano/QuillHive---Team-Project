@@ -40,7 +40,7 @@ export const apiService = createApi({
     }),
 
     getUserArtistTypes: builder.query({
-      query: () => "userArtistTypes",
+      query: (id) => `userArtistTypes?userId=${id}`,
     }),
 
     addUserArtistTypes: builder.mutation({
@@ -83,11 +83,11 @@ export const apiService = createApi({
       query: (userId) => `stories?userId=${userId}`,
     }),
 
-    addBio: builder.mutation({
-      query: (bio) => ({
-        url: "users",
-        method: "UPDATE",
-        body: bio,
+    updateUser: builder.mutation({
+      query: (updatedUserData) => ({
+        url: `users/${updatedUserData.id}`,
+        method: "PATCH",
+        body: updatedUserData,
       }),
     }),
     /* getChapters: builder.query({
@@ -121,6 +121,7 @@ export const {
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
   useGetUserLanguagesQuery,
+  useGetUserArtistTypesQuery,
   useLazyGetUserLanguagesQuery,
   useGetStoriesQuery,
   useAddUsersMutation,
@@ -131,9 +132,9 @@ export const {
   useAddUserArtistTypesMutation,
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
-  useAddBioMutation,
   /*  useGetChaptersQuery */
   useGetChaptersByStoryIdQuery,
   useAddChapterMutation,
   useUpdateChapterMutation,
+  useUpdateUserMutation,
 } = apiService;

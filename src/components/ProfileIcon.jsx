@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 export default function ProfileIcon({ onClick, width, height }) {
   const loggedUser = useSelector((state) => state.global.user);
   //const profileImage = loggedUser?.profile_picture || "/default-profile.png";
-  //se logged user è null or undefined vai su default 
+  //se logged user è null or undefined vai su default
   return (
     <button onClick={onClick}>
       <svg
@@ -20,7 +20,7 @@ export default function ProfileIcon({ onClick, width, height }) {
         />
         {/* Immagine all'interno dell'esagono */}
         <image
-           href={loggedUser.profile_picture/*profileImage*/} // Usa la prop imageUrl per caricare l'immagine
+          href={loggedUser.profile_picture /*profileImage*/} // Usa la prop imageUrl per caricare l'immagine
           width={width} // Larghezza dell'immagine
           height={height} // Altezza dell'immagine
           clipPath="url(#hexClip)" // Applica un ritaglio a forma di esagono

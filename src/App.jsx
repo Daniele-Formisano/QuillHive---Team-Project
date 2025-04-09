@@ -14,13 +14,13 @@ import {
   setUser,
   setArtistTypes,
 } from "./features/global/globalSlice";
-import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2 from "./pages/NewStory_2";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 import Loader from "./components/Loader";
+import ProfilePages from "./pages/ProfilePages";
 
 export default function App() {
   const {
@@ -104,6 +104,9 @@ export default function App() {
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<EditProfile />} />
+
+        <Route path="/NewStory_2" element={<NewStory_2 />} />
+        <Route path="/editProfile" element={<ProfilePages />} />
       </Routes>
     )
   );
