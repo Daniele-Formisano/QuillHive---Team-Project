@@ -9,9 +9,11 @@ import ProfileIcon from "../components/ProfileIcon";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import BookModal from "../components/BookModal";
+import { useSelector } from "react-redux";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
+  const { user: loggedUser } = useSelector((state) => state.global);
 
   const {
     data: stories,
@@ -20,7 +22,7 @@ function Home() {
   } = useGetStoriesQuery();
 
   const [selectedStory, setSelectedStory] = useState(null);
-
+  console.log(loggedUser);
   const navigate = useNavigate();
 
   if (isLoading) return <p>Loading</p>;
@@ -49,6 +51,8 @@ function Home() {
   const handleProfileClick = () => {
     navigate("/editProfile");
   }; //reindirezzamento al proprio profilo
+
+  //per filtrare storie si deve fare un filter delle stories che fetcho e prendere tutte quelle che hanno id diverso dall'id dell'utente loggato.
 
   return (
     <div className="flex flex-col justify-center max-h-screen  bg-bg-brand ">
@@ -134,7 +138,11 @@ function Home() {
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
               {storiesWithAuthors.map((story) => (
-                <Card key={story.id} story={story} />
+                <Card
+                  key={story.id}
+                  story={story}
+                  onClick={() => setSelectedStory(story)}
+                />
               ))}
             </ul>
           </div>
@@ -150,6 +158,7 @@ function Home() {
         story={selectedStory}
         isOpen={!!selectedStory}
         onClose={() => setSelectedStory(null)}
+        user={loggedUser}
       />
     </div>
   );
