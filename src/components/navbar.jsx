@@ -24,7 +24,7 @@ export default function Navbar({ isLibrary = false }) {
                 stroke="#203955"
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeWLinejoin="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M15 8.33317C15 7.89114 15.1756 7.46722 15.4882 7.15466C15.8007 6.8421 16.2246 6.6665 16.6667 6.6665H20C20.442 6.6665 20.866 6.8421 21.1785 7.15466C21.4911 7.46722 21.6667 7.89114 21.6667 8.33317V31.6665C21.6667 32.1085 21.4911 32.5325 21.1785 32.845C20.866 33.1576 20.442 33.3332 20 33.3332H16.6667C16.2246 33.3332 15.8007 33.1576 15.4882 32.845C15.1756 32.5325 15 32.1085 15 31.6665V8.33317Z"
@@ -32,14 +32,14 @@ export default function Navbar({ isLibrary = false }) {
                 stroke="#203955"
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeWLinejoin="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M8.3335 13.3335H15.0002"
                 stroke="#203955"
                 strokeWidth="2"
                 strokeLinecap="round"
-                strokeWLinejoin="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M15 26.6665H21.6667"

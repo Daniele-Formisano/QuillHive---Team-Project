@@ -121,13 +121,13 @@ export const apiService = createApi({
     getUserStories: builder.query({
       query: (userId) => `userStories?userId=${userId}`,
     }),
-  }),
 
-  addUserStory: builder.mutation({
-    query: (newStory) => ({
-      url: "userStories",
-      method: "POST",
-      body: newStory,
+    addUserStory: builder.mutation({
+      query: (newStory) => ({
+        url: "userStories",
+        method: "POST",
+        body: newStory,
+      }),
     }),
   }),
 });
