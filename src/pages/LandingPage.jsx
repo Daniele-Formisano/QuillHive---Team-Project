@@ -1,7 +1,7 @@
 import Mockup from "../assets/img/Mockup.png";
+import Button from "../components/Button";
 
 export default function LandingPage() {
-  const Words = {};
   return (
     <div className="bg-bg-brand w-screen">
       <div>
@@ -594,16 +594,44 @@ export default function LandingPage() {
           Join our community of writers, readers, and artists, and be part of a
           collaborative creative experience!
         </h2>
-        <p className="font-script text-secondary-brand mb-4">
+        <p className="font-script text-secondary-brand mb-6">
           In Quill Hive, creativity thrives through shared effort. Every
           contribution, whether it’s suggestions, edits, or your own artistic
           talents, helps stories grow and evolve. Here, you’re not just a
           passive reader, you can actively participate and bring stories to
           life. Bee Creative and join the hive!
         </p>
-        <div>
-          <img src={Mockup}></img>
+        <div className="flex justify-between gap-2 mb-18">
+          <Button isColorYellow={true}>Join the Hive</Button>
+          <Button
+            onClick={() => {
+              navigate("/home");
+            }}
+          >
+            Start Reading
+          </Button>
         </div>
+        <div className="flex justify-center relative">
+          <svg
+            width="311"
+            height="305"
+            viewBox="0 0 311 305"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="animate-spin [animation-duration:10s]"
+          >
+            <path
+              d="M195.057 303.942C199.934 305.051 205.032 303.474 208.431 299.805L306.41 194.042C309.809 190.373 310.992 185.169 309.514 180.391L266.91 42.658C265.432 37.8797 261.517 34.2528 256.64 33.1437L116.058 1.17325C111.181 0.0641056 106.083 1.64116 102.683 5.31035L4.70524 111.073C1.3061 114.742 0.122665 119.946 1.60071 124.724L44.2045 262.457C45.6825 267.235 49.5975 270.862 54.4747 271.971L195.057 303.942Z"
+              fill="#F5C43D"
+            />
+          </svg>
+          <img
+            src={Mockup}
+            className="absolute top-0 left-0 right-0 bottom-0 m-auto"
+            alt="Mockup"
+          />
+        </div>
+
         <div className="flex justify-center my-16">
           <h1 className="font-title text-secondary-brand text-3xl sm:text-xl md:text-4xl lg:text-5xl xl:text-6xl text-center">
             What can you do? <br />

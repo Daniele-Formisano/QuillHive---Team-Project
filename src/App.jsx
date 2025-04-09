@@ -19,6 +19,7 @@ import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2 from "./pages/NewStory_2";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
+import LandingPage from "./pages/LandingPage";
 import UserLibrary from "./pages/UserLibrary";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
@@ -94,6 +95,7 @@ export default function App() {
     dataGenres &&
     dataStories && (
       <Routes>
+        <Route path="/landing" element={<LandingPage />} />
         <Route path="/login" element={<Login languages={dataLanguage} />} />
         <Route
           path="/signup"
