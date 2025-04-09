@@ -21,6 +21,7 @@ import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
+import StoryInfoPage from "./pages/StoryInfoPage";
 
 export default function App() {
   const {
@@ -103,7 +104,7 @@ export default function App() {
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
-
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<ProfilePages />} />
       </Routes>
