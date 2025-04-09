@@ -13,9 +13,10 @@ export default function StoryInfoPage() {
   const { id } = useParams();
   const story = stories.find((s) => s.id == id);
   const navigate = useNavigate();
+  const loggedUserId = useSelector((state) => state.global.user.id);
 
   const handleProfileClick = () => {
-    navigate("/editProfile");
+    navigate(`/profile/${loggedUserId}`);
   }; //reindirezzamento al proprio profilo
 
   return story ? (

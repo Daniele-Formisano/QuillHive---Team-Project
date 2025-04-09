@@ -14,7 +14,7 @@ export const apiService = createApi({
         if (user?.email) params.append("email", user.email);
         if (user?.password) params.append("password", user.password);
         if (user?.username) params.append("username", user.username);
-
+        if (user?.id) params.append("id", user.id);
         return `users${params.toString() ? `?${params.toString()}` : ""}`;
       },
     }),

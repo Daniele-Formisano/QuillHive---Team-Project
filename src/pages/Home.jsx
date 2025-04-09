@@ -6,6 +6,7 @@ import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
 import AuthorIconButton from "../components/AuthorIconButton";
 import ProfileIcon from "../components/ProfileIcon";
 import { useNavigate } from "react-router-dom";
+<<<<<<< Updated upstream
 import { useState } from "react";
 import BookModal from "../components/BookModal";
 import { useSelector } from "react-redux";
@@ -14,12 +15,24 @@ import Loader from "../components/Loader";
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
   const { user: loggedUser } = useSelector((state) => state.global);
+=======
+import { useSelector } from "react-redux";
+
+function Home() {
+  const { data: users, isLoading, error } = useGetUsersQuery();
+  const loggedUserId = useSelector((state) => state.global.user.id);
+>>>>>>> Stashed changes
 
   const {
     data: stories,
     error: storiesError,
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
+<<<<<<< Updated upstream
+=======
+
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
 
   const [selectedStory, setSelectedStory] = useState(null);
   console.log(loggedUser);
@@ -39,6 +52,7 @@ function Home() {
     return acc;
   }, {});
 
+<<<<<<< Updated upstream
   // Aggiungi il nome dell'autore a ciascuna storia
   const storiesWithAuthors = stories.map((story) => {
     const authorName = userMap[story.userId] || "Sconosciuto";
@@ -62,6 +76,11 @@ function Home() {
   }; //reindirezzamento al proprio profilo se loggato log in se non loggato
 
   //per filtrare storie si deve fare un filter delle stories che fetcho e prendere tutte quelle che hanno id diverso dall'id dell'utente loggato.
+=======
+  const handleProfileClick = () => {
+    navigate(`/profile/${loggedUserId}`);
+  }; //reindirezzamento al proprio profilo
+>>>>>>> Stashed changes
 
   return (
     <div className="flex flex-col justify-center max-h-screen  bg-bg-brand ">

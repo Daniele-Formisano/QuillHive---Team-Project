@@ -24,6 +24,7 @@ import UserLibrary from "./pages/UserLibrary";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
 import StoryInfoPage from "./pages/StoryInfoPage";
+import LandingPage from "./pages/LandingPage";
 
 export default function App() {
   const {
@@ -108,9 +109,14 @@ export default function App() {
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
+<<<<<<< Updated upstream
         
         <Route path="/library" element={<UserLibrary />} />
         <Route path="/editProfile" element={<ProfilePages />} />
+=======
+        <Route path="/NewStory_2" element={<NewStory_2 />} />
+        <Route path="/profile/:id" element={<ProfilePages />} />
+>>>>>>> Stashed changes
       </Routes>
     )
   );

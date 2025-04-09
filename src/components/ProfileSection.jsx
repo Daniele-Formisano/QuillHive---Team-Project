@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useGetLanguagesQuery,
   useGetUserArtistTypesQuery,
+  useGetUserLanguagesQuery,
   useGetUserProjectsQuery,
+  useLazyGetUserLanguagesQuery,
   useLazyGetUsersQuery,
   useUpdateUserMutation,
 } from "../services/apiService";
@@ -21,12 +23,8 @@ import ButtonEdit from "./ButtonEdit";
 import toast from "react-hot-toast";
 import ButtonAddFile from "./ButtonAddFile";
 
-export default function ProfileSection() {
-  const {
-    user: loggedUser,
-    languages,
-    artistType,
-  } = useSelector((state) => state.global);
+export default function ProfileSection({ user, urlId }) {
+  const { languages, artistType } = useSelector((state) => state.global);
   const [userData, setUserData] = useState();
   const [triggerGetUser] = useLazyGetUsersQuery();
 
@@ -35,46 +33,60 @@ export default function ProfileSection() {
     data: userArtistTypes,
     isLoading: isLoadingUserArtistTypes,
     error: errorUserArtistTypes,
-  } = useGetUserArtistTypesQuery(loggedUser.id);
-  console.log(loggedUser);
+  } = useGetUserArtistTypesQuery(user.id);
+  console.log(userArtistTypes);
 
   /* Chiamata per ricevere i progetti dell'utente */
   const {
     data: userProjects,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetUserProjectsQuery(loggedUser.id);
+  } = useGetUserProjectsQuery(user.id);
+
+  /* Chiamata per ricevere le lingue dell'utente */
+  const {
+    data: userLanguages,
+    isLoading: isLoadingUserLanguages,
+    error: errorUserLanguages,
+  } = useGetUserLanguagesQuery(urlId);
+
+  console.log(userLanguages);
+
+  /* useEffect che, raccolti i dati da userLanguages e userProject, li mette in relazione con le lingue e gli artisti e li aggiunge all'utente visualizzabile */
 
   useEffect(() => {
+    console.log(user);
     // Se l'utente ha già artistType salvato (da localStorage), non sovrascriverlo
-    if (loggedUser.artistType && loggedUser.artistType.length > 0) {
-      setUserData(loggedUser);
-      return;
-    }
 
-    if (
-      userArtistTypes &&
-      userArtistTypes.length > 0 &&
-      artistType &&
-      artistType.length > 0
-    ) {
+    if (userArtistTypes.length > 0 && userLanguages.length > 0) {
       const userArtistTypesId = userArtistTypes.map(
         (userArtist) => userArtist.artistTypeId
+      );
+
+      const userLangugesId = userLanguages.map(
+        (userLanguage) => userLanguage.languageId
       );
 
       const userArtistsList = artistType.filter((artist) =>
         userArtistTypesId.includes(artist.id)
       );
 
-      const updatedUser = { ...loggedUser, artistType: userArtistsList };
-      dispatch(setUser(updatedUser));
+      const userLanguagesList = languages.filter((lang) =>
+        userLangugesId.includes(lang.id)
+      );
+
+      const updatedUser = {
+        ...user,
+        artistType: userArtistsList,
+        languages: userLanguagesList,
+      };
+
       setUserData(updatedUser);
     } else {
-      const updatedUser = { ...loggedUser, artistType: [] };
-      dispatch(setUser(updatedUser));
+      const updatedUser = { ...user, artistType: [] };
       setUserData(updatedUser);
     }
-  }, [userArtistTypes, artistType]);
+  }, [userArtistTypes, artistType, userLanguages, languages]);
 
   const pronouns = [
     { id: 1, name: "He/Him" },
@@ -87,13 +99,18 @@ export default function ProfileSection() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [updateUser, { data, isLoading, error }] = useUpdateUserMutation();
+  const loggedUserId = useSelector((state) => state.global.user.id);
+
+  const isOwner = urlId === loggedUserId;
+  console.log(loggedUserId);
 
   function handleSetIsEdititing() {
     setIsEditing(true);
   }
 
+  // funzione che aggiorna e verifica i dati dell'utente
   const handleUpdateData = async () => {
-    const updatedUser = { ...loggedUser, ...userData };
+    const updatedUser = { ...user, ...userData };
 
     try {
       const res = await updateUser(updatedUser).unwrap(); // unwrap per gestire errori facilmente
@@ -172,7 +189,7 @@ export default function ProfileSection() {
 
     if (!usernameAvailable) return;
 
-    const mergedUserData = { ...loggedUser, ...userData };
+    const mergedUserData = { ...user, ...userData };
 
     try {
       const res = await updateUser(updatedUser).unwrap(); // unwrap per gestire errori facilmente
@@ -183,6 +200,7 @@ export default function ProfileSection() {
     }
 
     dispatch(setUser(mergedUserData));
+    setUserData(mergedUserData);
     handleUpdateData();
 
     localStorage.setItem("user", JSON.stringify(mergedUserData));
@@ -201,10 +219,10 @@ export default function ProfileSection() {
     return <p>No artists</p>;
   if (userData) {
     return (
-      <div className="flex flex-col justify-center items-center overflow-scroll px-10 py-5">
+      <div className="flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden px-10 py-5">
         {isEditing ? (
           <form
-            className="flex flex-col gap-4 w-full px-6"
+            className="flex flex-col gap-4 w-full px-4"
             onSubmit={handleSubmit}
           >
             {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente in user */}
@@ -246,7 +264,9 @@ export default function ProfileSection() {
                   name="pronouns"
                 >
                   {pronouns.map((pronoun) => (
-                    <option key={pronoun.id}>{pronoun.name}</option>
+                    <option key={pronoun.id} value={pronoun.name}>
+                      {pronoun.name}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -271,7 +291,7 @@ export default function ProfileSection() {
                 Email
               </h3>
               <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
-              <span>{loggedUser.email}</span>
+              <span>{user.email}</span>
             </div>
 
             {/* Sezione che contiene le lingue dell'utente */}
@@ -289,7 +309,7 @@ export default function ProfileSection() {
                         handleChecked(language, "languages");
                       }}
                       id={language.id}
-                      checked={userData.languages.some(
+                      checked={userData.languages?.some(
                         (lang) => lang.id == language.id
                       )}
                     >
@@ -311,17 +331,21 @@ export default function ProfileSection() {
               </h3>
               <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
               <div className="">
-                {userProjects.map((project) => (
-                  <Card key={project.id} story={project} />
-                ))}
+                <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+                  {userProjects.map((project) => (
+                    <Card key={project.id} story={project} />
+                  ))}
+                </ul>
               </div>
             </div>
           </form>
         ) : (
-          <div>
-            <div className="flex justify-end">
-              {<ButtonEdit handleClick={handleSetIsEdititing} />}
-            </div>
+          <div className=" max-w-screen">
+            {isOwner && (
+              <div className="flex justify-end pr-10">
+                {<ButtonEdit handleClick={handleSetIsEdititing} />}
+              </div>
+            )}
             <div className="flex flex-col gap-4 w-full px-6 ">
               {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
               <div className="flex flex-col items-center mb-8 gap-2">
@@ -329,21 +353,21 @@ export default function ProfileSection() {
 
                 <div className="flex flex-col items-center font-script-semibold gap-1">
                   <h2 className="text-4xl  text-secondary-brand">
-                    {loggedUser.username}
+                    {user.username}
                   </h2>
                   <ul className="flex gap-2">
-                    {loggedUser.artistType.map((artist, index) => (
+                    {userData.artistType?.map((artist, index) => (
                       <li
                         className="text-xl font-script-semibold text-secondary-brand"
                         key={artist.id}
                       >
                         {artist.name}
-                        {index !== loggedUser.artistType.length - 1 && ","}
+                        {index !== userData.artistType.length - 1 && ","}
                       </li>
                     ))}
                   </ul>
                   <span className="text-secondary-brand text-m font-script-semibold">
-                    {loggedUser.pronouns}
+                    {user.pronouns}
                   </span>
                 </div>
               </div>
@@ -354,7 +378,7 @@ export default function ProfileSection() {
                 </h3>
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
                 <div>
-                  <span>{loggedUser.bio}</span>
+                  <span>{user.bio}</span>
                 </div>
               </div>
               {/* Sezione che contiene la email dell'utente */}
@@ -364,7 +388,7 @@ export default function ProfileSection() {
                 </h3>
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
                 <div>
-                  <span>{loggedUser.email}</span>
+                  <span>{user.email}</span>
                 </div>
               </div>
               {/* Sezione che contiene le lingue dell'utente */}
@@ -375,7 +399,7 @@ export default function ProfileSection() {
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl " />
 
                 <ul>
-                  {userData.languages.map((language) => (
+                  {userData.languages?.map((language) => (
                     <li key={language.id}>{language.language}</li>
                   ))}
                 </ul>
@@ -387,9 +411,11 @@ export default function ProfileSection() {
                 </h3>
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
                 <div className="">
-                  {userProjects.map((project) => (
-                    <Card key={project.id} story={project} />
-                  ))}
+                  <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+                    {userProjects.map((project) => (
+                      <Card key={project.id} story={project} />
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
