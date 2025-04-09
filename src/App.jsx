@@ -19,6 +19,7 @@ import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2 from "./pages/NewStory_2";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
+import UserLibrary from "./pages/UserLibrary";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
 import StoryInfoPage from "./pages/StoryInfoPage";
@@ -100,12 +101,13 @@ export default function App() {
         />
         <Route path="/home" element={<Home />}></Route>
         <Route
-          path="story/create"
+          path="/story/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
+        <Route path="/library" element={<UserLibrary />} />
         <Route path="/editProfile" element={<ProfilePages />} />
       </Routes>
     )

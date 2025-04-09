@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-function Card({ story,onClick }) {
+function Card({ story, onClick }) {
   // props passate da Home.jsx
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div>
+    <div className="inline-flex justify-center">
       <li
         key={story.id}
-        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center">
+        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center"
+      >
         <img
           src={story.cover_image}
           alt="Book cover"
@@ -16,7 +17,8 @@ function Card({ story,onClick }) {
           height={230}
           className="border-transparent rounded-2xl   hover:cursor-pointer"
           onClick={onClick}
-          />
+        />
+
         {showTooltip && (
           <div className="relative">
             <span className="absolute bottom-[-22px] text-center whitespace-nowrap left-1/2 transform -translate-x-1/2  bg-transparent text-secondary-brand p-2 text-xs rounded  ">
@@ -28,7 +30,8 @@ function Card({ story,onClick }) {
           <span
             className="font-medium text-[16px] text-center text-secondary-brand truncate w-[100px] overflow-hidden block whitespace-nowrap mt-2  hover:cursor-pointer  "
             onMouseEnter={() => setShowTooltip(true)}
-            onMouseLeave={() => setShowTooltip(false)}>
+            onMouseLeave={() => setShowTooltip(false)}
+          >
             {story.title}
           </span>
         </div>
