@@ -1,15 +1,16 @@
+import { useNavigate } from "react-router-dom";
 import Mockup from "../assets/img/Mockup.png";
 import Button from "../components/Button";
 
 export default function LandingPage() {
+const navigate= useNavigate();
   return (
     <div className="bg-bg-brand w-screen">
       <div>
         <svg
           viewBox="0 0 393 669"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M107.729 93.4249C107.696 96.8912 107.251 100.889 105.781 104.726C103.401 110.927 98.8816 114.66 92.5006 116.235C91.2973 116.532 90.0539 116.679 88.8305 116.903C88.6299 116.94 88.3057 116.843 88.319 117.187C88.3324 117.512 88.6466 117.421 88.8505 117.461C89.9369 117.665 91.0132 117.896 92.036 118.334C94.3758 119.333 95.8265 121.125 96.6688 123.475C97.1368 124.778 97.5212 126.115 98.1964 127.335C98.5474 127.971 98.9919 128.512 99.6905 128.783C101.151 129.351 102.472 128.806 103.117 127.342C103.541 126.376 103.789 125.353 103.825 124.3C103.855 123.485 104.34 123.532 104.918 123.565C105.617 123.605 105.457 124.026 105.413 124.461C105.313 125.45 105.132 126.423 104.778 127.352C103.758 130.03 101.833 131.771 99.0889 132.506C96.3179 133.245 93.5268 133.145 90.8026 132.232C87.3865 131.086 85.5647 128.449 84.3882 125.233C83.8634 123.799 83.5057 122.305 82.8606 120.918C82.035 119.143 81.1325 118.798 79.3141 119.571C78.211 120.042 77.2116 120.697 76.3325 121.503C75.801 121.987 75.5303 121.807 75.1125 121.362C74.6378 120.858 74.9821 120.637 75.3164 120.363C76.8506 119.119 78.5353 118.153 80.4573 117.639C80.6578 117.585 80.9887 117.659 80.952 117.324C80.9185 117.01 80.5977 117.121 80.3938 117.094C76.5999 116.592 73.0434 115.466 69.9649 113.116C66.171 110.218 63.9515 106.301 62.9555 101.711C61.458 94.7953 61.605 87.9196 64.2256 81.2679C67.02 74.1749 72.3582 70.0769 79.7887 68.6696C84.1542 67.844 88.533 67.9008 92.8416 69.0507C99.8911 70.9259 104.253 75.5621 106.356 82.4411C107.389 85.8238 107.733 89.3068 107.733 93.4349L107.729 93.4249ZM93.597 93.1107C93.6037 88.9525 93.6371 85.3291 93.4165 81.7091C93.2761 79.4227 93.0755 77.1364 92.3836 74.9337C91.5045 72.1292 89.8165 70.1805 86.7514 69.7259C85.9625 69.6089 85.1703 69.6256 84.3748 69.639C81.099 69.6958 78.8461 71.2368 77.6762 74.3053C77.4456 74.9103 77.2517 75.5353 77.0946 76.1637C76.2155 79.7102 76.1955 83.3436 76.132 86.957C76.0484 91.9675 76.015 96.9814 76.2222 101.992C76.3158 104.228 76.4896 106.454 76.9409 108.647C77.3119 110.459 77.8668 112.22 79.0701 113.678C80.7414 115.7 83.011 116.158 85.4912 116.094C88.5764 116.014 90.8126 114.473 91.9424 111.592C92.982 108.945 93.2427 106.16 93.4132 103.362C93.6338 99.7725 93.6237 96.1758 93.597 93.1107Z"
             fill="#F5C43D"
@@ -186,8 +187,7 @@ export default function LandingPage() {
               width="158.941"
               height="145.162"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -226,8 +226,7 @@ export default function LandingPage() {
               width="161.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -266,8 +265,7 @@ export default function LandingPage() {
               width="161.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -306,8 +304,7 @@ export default function LandingPage() {
               width="158.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -346,8 +343,7 @@ export default function LandingPage() {
               width="158.941"
               height="145.162"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -386,8 +382,7 @@ export default function LandingPage() {
               width="163.976"
               height="143.028"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -426,8 +421,7 @@ export default function LandingPage() {
               width="158.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -466,8 +460,7 @@ export default function LandingPage() {
               width="158.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -506,8 +499,7 @@ export default function LandingPage() {
               width="158.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -546,8 +538,7 @@ export default function LandingPage() {
               width="158.906"
               height="144.296"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
+              color-interpolation-filters="sRGB">
               <feFlood flood-opacity="0" result="BackgroundImageFix" />
               <feBlend
                 mode="normal"
@@ -602,12 +593,17 @@ export default function LandingPage() {
           life. Bee Creative and join the hive!
         </p>
         <div className="flex justify-between gap-2 mb-18">
-          <Button isColorYellow={true}>Join the Hive</Button>
+          <Button
+            isColorYellow={true}
+            onClick={() => {
+              navigate("/signup");
+            }}>
+            Join the Hive
+          </Button>
           <Button
             onClick={() => {
               navigate("/home");
-            }}
-          >
+            }}>
             Start Reading
           </Button>
         </div>
@@ -618,8 +614,7 @@ export default function LandingPage() {
             viewBox="0 0 311 305"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="animate-spin [animation-duration:10s]"
-          >
+            className="animate-spin [animation-duration:10s]">
             <path
               d="M195.057 303.942C199.934 305.051 205.032 303.474 208.431 299.805L306.41 194.042C309.809 190.373 310.992 185.169 309.514 180.391L266.91 42.658C265.432 37.8797 261.517 34.2528 256.64 33.1437L116.058 1.17325C111.181 0.0641056 106.083 1.64116 102.683 5.31035L4.70524 111.073C1.3061 114.742 0.122665 119.946 1.60071 124.724L44.2045 262.457C45.6825 267.235 49.5975 270.862 54.4747 271.971L195.057 303.942Z"
               fill="#F5C43D"
@@ -644,8 +639,7 @@ export default function LandingPage() {
           height="499"
           viewBox="0 0 342 499"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+          xmlns="http://www.w3.org/2000/svg">
           <path
             d="M68.5954 110.871C72.0791 111.663 75.7208 110.536 78.1488 107.916L110.393 73.1094C112.821 70.4885 113.666 66.7715 112.611 63.3584L98.5899 18.0308C97.5342 14.6177 94.7377 12.0271 91.254 11.2348L44.9888 0.713399C41.5051 -0.0788442 37.8633 1.04763 35.4354 3.66848L3.19095 38.4747C0.762986 41.0955 -0.0823326 44.8126 0.973414 48.2257L14.9942 93.5533C16.05 96.9664 18.8464 99.557 22.3301 100.349L68.5954 110.871Z"
             fill="#F5C43D"

@@ -95,7 +95,7 @@ export default function App() {
     dataGenres &&
     dataStories && (
       <Routes>
-        <Route path="/landing" element={<LandingPage />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login languages={dataLanguage} />} />
         <Route
           path="/signup"
