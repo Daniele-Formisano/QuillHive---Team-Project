@@ -1,5 +1,5 @@
 import Card from "../components/Card";
-import HamburgerMenu from "../components/hamburgherMenu";
+import HamburgerMenu from "../components/HamburgherMenu";
 import Navbar from "../components/navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
@@ -141,17 +141,16 @@ function Home() {
         </div>
 
         <footer>Footer</footer>
-       
       </main>
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}
       <div className=" font-title pt-1.5 pb-0.5 flex justify-center items-center z-30">
         <Navbar />
       </div>
       <BookModal
-          story={selectedStory}
-          isOpen={!!selectedStory}
-          onClose={() => setSelectedStory(null)}
-        />
+        story={selectedStory}
+        isOpen={!!selectedStory}
+        onClose={() => setSelectedStory(null)}
+      />
     </div>
   );
 }
