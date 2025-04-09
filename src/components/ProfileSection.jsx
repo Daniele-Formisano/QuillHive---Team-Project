@@ -34,7 +34,6 @@ export default function ProfileSection({ user, urlId }) {
     isLoading: isLoadingUserArtistTypes,
     error: errorUserArtistTypes,
   } = useGetUserArtistTypesQuery(user.id);
-  console.log(userArtistTypes);
 
   /* Chiamata per ricevere i progetti dell'utente */
   const {
@@ -51,14 +50,20 @@ export default function ProfileSection({ user, urlId }) {
   } = useGetUserLanguagesQuery(urlId);
 
   console.log(userLanguages);
+  console.log(userArtistTypes);
 
-  /* useEffect che, raccolti i dati da userLanguages e userProject, li mette in relazione con le lingue e gli artisti e li aggiunge all'utente visualizzabile */
+  /* useEffect che, raccolti i dati da userLanguages e userArtistType, li mette in relazione con le lingue e gli artisti e li aggiunge all'utente visualizzabile */
 
   useEffect(() => {
     console.log(user);
     // Se l'utente ha già artistType salvato (da localStorage), non sovrascriverlo
 
-    if (userArtistTypes.length > 0 && userLanguages.length > 0) {
+    if (
+      userArtistTypes &&
+      userArtistTypes.length > 0 &&
+      userLanguages &&
+      userLanguages.length > 0
+    ) {
       const userArtistTypesId = userArtistTypes.map(
         (userArtist) => userArtist.artistTypeId
       );
@@ -192,7 +197,7 @@ export default function ProfileSection({ user, urlId }) {
     const mergedUserData = { ...user, ...userData };
 
     try {
-      const res = await updateUser(updatedUser).unwrap(); // unwrap per gestire errori facilmente
+      const res = await updateUser(mergedUserData).unwrap(); // unwrap per gestire errori facilmente
       console.log("Utente aggiornato:", res);
       // opzionale: dispatch(setUser(res)) se vuoi aggiornare lo stato manualmente
     } catch (err) {

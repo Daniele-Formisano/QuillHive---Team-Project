@@ -13,7 +13,7 @@ import Loader from "../components/Loader";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
-  const loggedUserId = useSelector((state) => state.global.user.id);
+
   const { user: loggedUser } = useSelector((state) => state.global);
 
   const {
@@ -56,7 +56,7 @@ function Home() {
 
   const handleProfileClick = () => {
     if (loggedUser) {
-      navigate(`/profile/${loggedUser.id}`);
+      navigate(`/profile/${loggedUserId}`);
     } else {
       navigate("/login");
     }
