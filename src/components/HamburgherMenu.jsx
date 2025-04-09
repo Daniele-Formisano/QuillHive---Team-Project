@@ -2,12 +2,12 @@
   import { useState } from "react";
 import { IconX } from "@tabler/icons-react";
 
-export default function HamburgerMenu( { setNavbarVisible }) {
+export default function HamburgerMenu( { }) {
   const [toggle, setToggle] = useState(false);
 
   function handleHamburgerMenu() {
     setToggle(!toggle);
-    setNavbarVisible(!toggle);
+    
   }
 
   return (

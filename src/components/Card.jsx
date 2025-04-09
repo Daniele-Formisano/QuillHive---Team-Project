@@ -33,7 +33,7 @@ function Card({ story }) {
         </div>
 
         <p className="font-light font text-[12px] text-secondary-brand secondary-brand  hover:cursor-pointer ">
-          {story.userId}
+          {story.authorName}
         </p>
       </li>
     </div>

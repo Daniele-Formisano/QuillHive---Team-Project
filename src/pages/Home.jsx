@@ -19,6 +19,9 @@ function Home() {
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
 
+
+
+
   const navigate = useNavigate();
 
   if (isLoading) return <p>Loading</p>;
@@ -29,7 +32,24 @@ function Home() {
   if (storiesError) return <p>Error </p>;
   if (!stories || stories.length === 0) return <p>No stories</p>;
 
-  const limitedStories = stories.slice(0, 6);
+ // Crea una mappa degli utenti per trovare rapidamente il nome dell'autore
+ const userMap = users.reduce((acc, user) => {
+  acc[user.id] = user.username;
+  return acc;
+}, {});
+
+// Aggiungi il nome dell'autore a ciascuna storia
+const storiesWithAuthors = stories.map(story => {
+  const authorName = userMap[story.userId] || 'Sconosciuto';
+  return {
+    ...story,
+    authorName
+  };
+});
+
+
+
+  
 
   const handleProfileClick = () => {
     navigate("/editProfile");
@@ -63,7 +83,7 @@ function Home() {
           </p>
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {limitedStories.map((story) => (
+              {storiesWithAuthors.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
@@ -76,7 +96,7 @@ function Home() {
           </p>
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide  ">
-              {limitedStories.map((story) => (
+              {storiesWithAuthors.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
@@ -88,7 +108,7 @@ function Home() {
           </p>
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {limitedStories.map((story) => (
+              {storiesWithAuthors.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
@@ -100,7 +120,7 @@ function Home() {
           </p>
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {limitedStories.map((story) => (
+              {storiesWithAuthors.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
@@ -112,7 +132,7 @@ function Home() {
           </p>
           <div className="">
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {limitedStories.map((story) => (
+              {storiesWithAuthors.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
