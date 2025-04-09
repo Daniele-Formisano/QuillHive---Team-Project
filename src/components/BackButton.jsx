@@ -5,12 +5,11 @@ export default function BackButton({ pageURL, onClick }) {
   const navigate = useNavigate();
 
   return (
-    <div className="inline-flex justify-center items-center">
+    <div className="inline-flex items-center">
       <button
         type="button"
         onClick={() => {
-          if (pageURL) navigate(pageURL);
-          else onClick();
+          navigate(-1);
         }}
       >
         <IconChevronLeft stroke={1.25} size={40} color="#203955" />

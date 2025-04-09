@@ -2,23 +2,27 @@ import { Routes, Route } from "react-router-dom";
 import {
   useGetArtistTypeQuery,
   useGetGenresQuery,
+  useGetStoriesQuery,
   useGetLanguagesQuery,
 } from "./services/apiService";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import {
   setGenres,
+  setStories,
   setLanguages,
   setUser,
   setArtistTypes,
 } from "./features/global/globalSlice";
-import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
+import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 import UserLibrary from "./pages/UserLibrary";
+import Loader from "./components/Loader";
+import ProfilePages from "./pages/ProfilePages";
+import StoryInfoPage from "./pages/StoryInfoPage";
 
 export default function App() {
   const {
@@ -36,6 +40,11 @@ export default function App() {
     isLoading: isLoadingGenres,
     error: errorGenres,
   } = useGetGenresQuery();
+  const {
+    data: dataStories,
+    isLoading: isLoadingStories,
+    error: errorStories,
+  } = useGetStoriesQuery();
 
   const dispatch = useDispatch();
 
@@ -52,12 +61,26 @@ export default function App() {
       dispatch(setArtistTypes(dataArtist));
     }
   });
+  useEffect(() => {
+    if (dataStories) {
+      dispatch(setStories(dataStories));
+    }
+  });
 
-  if (isLoadingArtist || isLoadingGenres || isLoadingLanguage) {
+  if (
+    isLoadingArtist ||
+    isLoadingGenres ||
+    isLoadingStories ||
+    isLoadingLanguage
+  ) {
     // RICORDIAMOCI DI METTERE QUALCOSA DI CARINO PER IL LOADING
-    return <div>Loading</div>;
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   }
-  if (errorArtist || errorGenres || errorLanguage) {
+  if (errorArtist || errorGenres || errorStories || errorLanguage) {
     return <div>error</div>;
   }
 
@@ -68,7 +91,8 @@ export default function App() {
   return (
     dataArtist &&
     dataLanguage &&
-    dataGenres && (
+    dataGenres &&
+    dataStories && (
       <Routes>
         <Route path="/login" element={<Login languages={dataLanguage} />} />
         <Route
@@ -77,12 +101,14 @@ export default function App() {
         />
         <Route path="/home" element={<Home />}></Route>
         <Route
-          path="/NewStory_1"
+          path="story/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
+        <Route path="story/:id/edit" element={<NewStory_2 />} />
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
         <Route path="/NewStory_2" element={<NewStory_2 />} />
-        <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/library" element={<UserLibrary />} />
+        <Route path="/editProfile" element={<ProfilePages />} />
       </Routes>
     )
   );

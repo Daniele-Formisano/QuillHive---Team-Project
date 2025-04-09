@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 export default function HamburgerMenu() {
   const [toggle, setToggle] = useState(false);
 
-  function handleHamburgherMenu() {
+  function handleHamburgerMenu() {
     setToggle(!toggle);
   }
 
@@ -18,7 +18,7 @@ export default function HamburgerMenu() {
 
   return (
     <div className="">
-      <button type="button" onClick={handleHamburgherMenu}>
+      <button type="button" onClick={handleHamburgerMenu}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width={35}
@@ -37,8 +37,9 @@ export default function HamburgerMenu() {
         </svg>
       </button>
 
+      {/* divisione del menue da aggiornare proprietà grafiche */}
       <div
-        className={`fixed bottom-0 left-0 w-full min-h-screen font-script-bold bg-bg-brand text-secondary-brand
+        className={`fixed bottom-0 left-0 w-full min-h-screen font-script-bold bg-bg-brand text-secondary-brand z-40
           transition-transform duration-500 ease-in-out transform ${
             toggle ? "translate-x-0 " : "-translate-x-full "
           }`}

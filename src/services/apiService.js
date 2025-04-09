@@ -40,7 +40,7 @@ export const apiService = createApi({
     }),
 
     getUserArtistTypes: builder.query({
-      query: () => "userArtistTypes",
+      query: (id) => `userArtistTypes?userId=${id}`,
     }),
 
     addUserArtistTypes: builder.mutation({
@@ -90,11 +90,31 @@ export const apiService = createApi({
       query: (userId) => `stories?userId=${userId}`,
     }),
 
-    addBio: builder.mutation({
-      query: (bio) => ({
-        url: "users",
-        method: "UPDATE",
-        body: bio,
+    updateUser: builder.mutation({
+      query: (updatedUserData) => ({
+        url: `users/${updatedUserData.id}`,
+        method: "PATCH",
+        body: updatedUserData,
+      }),
+    }),
+    /* getChapters: builder.query({
+      query: () => "chapters",
+    }), */
+    getChaptersByStoryId: builder.query({
+      query: (storyId) => `chapters?storyId=${storyId}`, // Filtro per ottenere solo i capitoli associati alla storia specifica
+    }),
+    addChapter: builder.mutation({
+      query: (chapter) => ({
+        url: "chapters",
+        method: "POST",
+        body: chapter,
+      }),
+    }),
+    updateChapter: builder.mutation({
+      query: (chapter) => ({
+        url: `chapters/${chapter.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
+        method: "PUT",
+        body: chapter,
       }),
     }),
 
@@ -112,6 +132,7 @@ export const {
   useGetArtistTypeQuery,
   useGetLanguagesQuery,
   useGetUserLanguagesQuery,
+  useGetUserArtistTypesQuery,
   useLazyGetUserLanguagesQuery,
   useGetStoriesQuery,
   useAddUsersMutation,
@@ -122,7 +143,10 @@ export const {
   useAddUserArtistTypesMutation,
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
-  useAddBioMutation,
   useGetUserStoriesQuery,
   useLazyGetStoriesQuery,
+  useGetChaptersByStoryIdQuery,
+  useAddChapterMutation,
+  useUpdateChapterMutation,
+  useUpdateUserMutation,
 } = apiService;
