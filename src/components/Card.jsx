@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-function Card({ story }) {
+function Card({ story,onClick }) {
+  // props passate da Home.jsx
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
@@ -14,8 +15,8 @@ function Card({ story }) {
           width={150}
           height={230}
           className="border-transparent rounded-2xl   hover:cursor-pointer"
-          
-        />
+          onClick={onClick}
+          />
         {showTooltip && (
           <div className="relative">
             <span className="absolute bottom-[-22px] text-center whitespace-nowrap left-1/2 transform -translate-x-1/2  bg-transparent text-secondary-brand p-2 text-xs rounded  ">
