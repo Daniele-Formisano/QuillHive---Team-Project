@@ -109,14 +109,10 @@ export default function App() {
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
-<<<<<<< Updated upstream
-        
+
         <Route path="/library" element={<UserLibrary />} />
-        <Route path="/editProfile" element={<ProfilePages />} />
-=======
-        <Route path="/NewStory_2" element={<NewStory_2 />} />
+
         <Route path="/profile/:id" element={<ProfilePages />} />
->>>>>>> Stashed changes
       </Routes>
     )
   );
