@@ -9,7 +9,7 @@ import Button from "./Button";
 import SaveButton from "./ButtonSave";
 import { useNavigate } from "react-router-dom";
 
-function BookModal({ story, isOpen, onClose }) {
+function BookModal({ story, isOpen, onClose, user }) {
   if (!story) return null;
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ function BookModal({ story, isOpen, onClose }) {
                 className="w-full h-[400px] rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
               />
               <div className=" absolute -bottom-1.5 right-2 ">
-                <SaveButton />
+                <SaveButton storyId={story.id} userId={user.id} />
               </div>
             </div>
             {/* aggiungere un controllo che dia un numero massimo di caratteri per evitare che la modal venga coperta da header e navbar  */}
