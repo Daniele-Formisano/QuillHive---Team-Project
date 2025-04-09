@@ -108,7 +108,7 @@ export default function App() {
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
-        <Route path="/NewStory_2" element={<NewStory_2 />} />
+        
         <Route path="/library" element={<UserLibrary />} />
         <Route path="/editProfile" element={<ProfilePages />} />
       </Routes>

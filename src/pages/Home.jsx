@@ -25,13 +25,8 @@ function Home() {
   console.log(loggedUser);
   const navigate = useNavigate();
 
-  if (isLoading) return <p>Loading</p>;
-  if (error) return <p>Error </p>;
-  if (!users || users.length === 0) return <p>No users</p>;
-
-  if (storiesLoading) return <p>Loading</p>;
-  if (storiesError) return <p>Error </p>;
-  if (!stories || stories.length === 0) return <p>No stories</p>;
+  if (isLoading || storiesLoading) return <p>Loading</p>;
+  if (error || storiesError) return <p>Error </p>;
 
   // Crea una mappa degli utenti per trovare rapidamente il nome dell'autore
   const userMap = users.reduce((acc, user) => {
@@ -47,10 +42,19 @@ function Home() {
       authorName,
     };
   });
+  console.log(storiesWithAuthors);
+
+  const selectedUsers = loggedUser
+    ? users.filter((user) => user.id !== loggedUser.id)
+    : users;
 
   const handleProfileClick = () => {
-    navigate("/editProfile");
-  }; //reindirezzamento al proprio profilo
+    if (loggedUser) {
+      navigate("/editProfile");
+    } else {
+      navigate("/login");
+    }
+  }; //reindirezzamento al proprio profilo se loggato log in se non loggato
 
   //per filtrare storie si deve fare un filter delle stories che fetcho e prendere tutte quelle che hanno id diverso dall'id dell'utente loggato.
 
@@ -70,7 +74,7 @@ function Home() {
             Travel in the hive
           </p>
           <div className="flex flex-row  gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-            {users.map((user) => (
+            {selectedUsers.map((user) => (
               <AuthorIconButton key={user.id} user={user} />
             ))}
           </div>
@@ -152,7 +156,7 @@ function Home() {
       </main>
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}
       <div className=" font-title pt-1.5 pb-0.5 flex justify-center items-center z-30">
-        <Navbar />
+        <Navbar user={loggedUser} />
       </div>
       <BookModal
         story={selectedStory}
