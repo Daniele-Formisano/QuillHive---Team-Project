@@ -47,10 +47,15 @@ function Home() {
       authorName,
     };
   });
+  console.log(storiesWithAuthors);
 
   const handleProfileClick = () => {
-    navigate("/editProfile");
-  }; //reindirezzamento al proprio profilo
+    if (loggedUser) {
+      navigate("/editProfile");
+    } else {
+      navigate("/login");
+    }
+  }; //reindirezzamento al proprio profilo se loggato log in se non loggato
 
   //per filtrare storie si deve fare un filter delle stories che fetcho e prendere tutte quelle che hanno id diverso dall'id dell'utente loggato.
 
