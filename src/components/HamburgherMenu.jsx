@@ -1,22 +1,21 @@
-import { useState } from "react";
+
+  import { useState } from "react";
 import { IconX } from "@tabler/icons-react";
 
-export default function HamburgerMenu() {
+export default function HamburgerMenu( { setNavbarVisible }) {
   const [toggle, setToggle] = useState(false);
 
-  function handleHamburgherMenu() {
+  function handleHamburgerMenu() {
     setToggle(!toggle);
+    setNavbarVisible(!toggle);
   }
 
   return (
-    <div className="flex items-center ">
-      <button
-        className=" z-100"
-        type="button"
-        onClick={handleHamburgherMenu}
-      >
+    <>
+      {/* dividi button e la modal del menu  */}
+      <button onClick={handleHamburgerMenu} className="z-50 p-2">
         {toggle ? (
-          <IconX stroke={2} color="rgb(43, 79, 118)" size={30} />
+          <IconX stroke={2} color="#2B4F76" size={30} />
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -26,9 +25,8 @@ export default function HamburgerMenu() {
             fill="none"
           >
             <path
-              id="Vector"
               d="M15.2578 12H24.1287H32.9995M4.37475 2.5H17.4995M26.9995 21.5H30.6247M2.25781 12H10.4995M22.4993 2.5H30.6247M4.37451 21.5H21.9995"
-              stroke={"#2B4F76"}
+              stroke="#2B4F76"
               strokeWidth="4"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -37,23 +35,22 @@ export default function HamburgerMenu() {
         )}
       </button>
 
+      {/* divisione del menue da aggiornare proprietà grafiche */}
       <div
-        className={`fixed bottom-0 left-0 w-full min-h-screen bg-yellow-100 text-blue-800 flex flex-col justify-center z-99
-          transition-transform duration-500 ease-in-out transform ${
-            toggle ? "translate-x-0 " : "-translate-x-full "
-          }`}
+        className={`fixed top-0 left-0 w-full min-h-screen bg-yellow-100 text-blue-800 flex flex-col justify-center items-center 
+        transition-transform duration-500 ease-in-out transform ${
+          toggle ? "translate-x-0" : "-translate-x-full"
+        } z-40`}
       >
-        {toggle && (
-          <ul className="text-2xl space-y-6">
-            <li className="p-2 text-center">Accedi</li>
-            <li className="p-2 text-center">Registrati</li>
-            <li className="p-2 text-center">Assistenza</li>
-            <li className="p-2 text-center">Termini e condizioni</li>
-            <li className="p-2 text-center">Privacy</li>
-            <li className="p-2 text-center">Lingue</li>
-          </ul>
-        )}
+        <ul className="text-2xl space-y-6">
+          <li className="p-2 text-center">Accedi</li>
+          <li className="p-2 text-center">Registrati</li>
+          <li className="p-2 text-center">Assistenza</li>
+          <li className="p-2 text-center">Termini e condizioni</li>
+          <li className="p-2 text-center">Privacy</li>
+          <li className="p-2 text-center">Lingue</li>
+        </ul>
       </div>
-    </div>
+    </>
   );
 }

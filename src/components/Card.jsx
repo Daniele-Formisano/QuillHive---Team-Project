@@ -18,7 +18,7 @@ function Card({ story }) {
         />
         {showTooltip && (
           <div className="relative">
-            <span className="absolute bottom-1 text-center whitespace-nowrap left-1/2 transform -translate-x-1/2  bg-transparent text-secondary-brand p-2 text-xs rounded  ">
+            <span className="absolute bottom-[-22px] text-center whitespace-nowrap left-1/2 transform -translate-x-1/2  bg-transparent text-secondary-brand p-2 text-xs rounded  ">
               {story.title}
             </span>
           </div>

@@ -18,6 +18,8 @@ import NewStory_1 from "./pages/NewStory_1";
 import SignupPages from "./pages/SignupPages";
 import NewStory_2 from "./pages/NewStory_2";
 import Home from "./pages/Home";
+import BookModal from "./components/BookModal";
+import Navbar from "./components/navbar";
 
 export default function App() {
   const {
@@ -75,10 +77,11 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
+        <Route path="/navbar" element={<Navbar />}></Route>
         <Route path="/create" element={<NewStory_1 genres={dataGenres} />}>
           <Route path=":id/edit" element={<NewStory_2 />} />
         </Route>
-
+        <Route path="/modal" element={<BookModal />} />
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
