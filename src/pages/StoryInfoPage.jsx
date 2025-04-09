@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import BookInfoList from "../components/BookInfoList";
 import { useSelector } from "react-redux";
-import HamburgerMenu from "../components/hamburgherMenu";
+import HamburgerMenu from "../components/HamburgherMenu";
 import Searchbar from "../components/Searchbar";
 import ProfileIcon from "../components/ProfileIcon";
 import BackButton from "../components/BackButton";

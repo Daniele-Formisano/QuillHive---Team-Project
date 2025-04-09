@@ -3,13 +3,13 @@ import HamburgerMenu from "../components/HamburgherMenu";
 import Navbar from "../components/navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
-import { setStories } from "../features/global/globalSlice";
 import AuthorIconButton from "../components/AuthorIconButton";
 import ProfileIcon from "../components/ProfileIcon";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import BookModal from "../components/BookModal";
 import { useSelector } from "react-redux";
+import Loader from "../components/Loader";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
@@ -25,8 +25,13 @@ function Home() {
   console.log(loggedUser);
   const navigate = useNavigate();
 
-  if (isLoading || storiesLoading) return <p>Loading</p>;
-  if (error || storiesError) return <p>Error </p>;
+  if (isLoading || storiesLoading)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
+  if (error || storiesError) return <div>Error </div>;
 
   // Crea una mappa degli utenti per trovare rapidamente il nome dell'autore
   const userMap = users.reduce((acc, user) => {

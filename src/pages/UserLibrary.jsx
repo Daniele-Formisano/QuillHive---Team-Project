@@ -11,6 +11,7 @@ import ProfileIcon from "../components/ProfileIcon";
 import Searchbar from "../components/Searchbar";
 import HamburgerMenu from "../components/HamburgherMenu";
 import { useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 export default function UserLibrary() {
   const [filterButton, setFilterButton] = useState([
@@ -68,7 +69,12 @@ export default function UserLibrary() {
     navigate("/editProfile");
   };
 
-  if (isLoanding) return <div>Loading...</div>;
+  if (isLoanding)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
 
   if (error) return <div>Error: {error}</div>;
 
