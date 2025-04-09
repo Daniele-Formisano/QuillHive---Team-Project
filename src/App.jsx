@@ -103,7 +103,6 @@ export default function App() {
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
-        <Route path="/editProfile" element={<EditProfile />} />
 
         <Route path="/NewStory_2" element={<NewStory_2 />} />
         <Route path="/editProfile" element={<ProfilePages />} />
