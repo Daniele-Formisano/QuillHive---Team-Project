@@ -1,5 +1,5 @@
 import Card from "../components/Card";
-import HamburgerMenu from "../components/hamburgherMenu";
+import HamburgerMenu from "../components/HamburgherMenu";
 import Navbar from "../components/navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";

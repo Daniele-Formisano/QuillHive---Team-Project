@@ -68,7 +68,14 @@ export const apiService = createApi({
     }),
 
     getStories: builder.query({
-      query: () => "stories",
+      query: (story) => {
+        let params = new URLSearchParams();
+
+        if (story?.storyId) params.append("id", story.storyId);
+        if (story?.userId) params.append("userId", story.userId);
+
+        return `stories${params.toString() ? `?${params.toString()}` : ""}`;
+      },
     }),
 
     addStory: builder.mutation({
@@ -110,8 +117,13 @@ export const apiService = createApi({
         body: chapter,
       }),
     }),
+
+    getUserStories: builder.query({
+      query: (userId) => `userStories?userId=${userId}`,
+    }),
+
     addUserStory: builder.mutation({
-      query: (newStory )=>({
+      query: (newStory) => ({
         url: "userStories",
         method: "POST",
         body: newStory,
@@ -139,7 +151,8 @@ export const {
   useAddUserArtistTypesMutation,
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
-  /*  useGetChaptersQuery */
+  useGetUserStoriesQuery,
+  useLazyGetStoriesQuery,
   useGetChaptersByStoryIdQuery,
   useAddChapterMutation,
   useUpdateChapterMutation,
