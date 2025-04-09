@@ -122,6 +122,14 @@ export const apiService = createApi({
       query: (userId) => `userStories?userId=${userId}`,
     }),
   }),
+
+  addUserStory: builder.mutation({
+    query: (newStory) => ({
+      url: "userStories",
+      method: "POST",
+      body: newStory,
+    }),
+  }),
 });
 
 export const {
@@ -149,4 +157,5 @@ export const {
   useAddChapterMutation,
   useUpdateChapterMutation,
   useUpdateUserMutation,
+  useAddUserStoryMutation,
 } = apiService;
