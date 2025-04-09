@@ -1,14 +1,14 @@
 import { IconBooks } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar({ isLibrary = false }) {
+export default function Navbar({ isLibrary = false, user}) {
   const navigate = useNavigate();
   return (
     <nav className="h-[68px] flex justify-center w-full bg-bg-brand ">
       <div className=" flex justify-center items-center gap-7 bg-secondary-brand w-61 h-14  rounded-4xl ">
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate("/library")}
+          onClick={() => navigate(user? "/library" : "/login")}
         >
           {isLibrary ? (
             <svg
@@ -117,7 +117,7 @@ export default function Navbar({ isLibrary = false }) {
 
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate("/story/create")}
+          onClick={() => navigate(user ?"/story/create": "/login")}
         >
           <svg
             width="40"

@@ -43,13 +43,13 @@ function BookModal({ story, isOpen, onClose, user }) {
                 isColorYellow={true}
                 children={"Read book"}
                 type={"button"}
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/home")}
               />
               <Button
                 isColorYellow={false}
                 children={"More info"}
                 type={"button"}
-                onClick={() => navigate("/login")}
+                onClick={() => navigate(`/story/${story.id}/info`)}
               />
             </div>
           </DialogPanel>
