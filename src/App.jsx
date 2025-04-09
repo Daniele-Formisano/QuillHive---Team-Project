@@ -101,7 +101,7 @@ export default function App() {
         />
         <Route path="/home" element={<Home />}></Route>
         <Route
-          path="story/create"
+          path="/story/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
