@@ -11,7 +11,7 @@
     "server": "json-server --watch db.json"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^2.2.1",
     "@mdxeditor/editor": "^3.29.1",
     "@reduxjs/toolkit": "^2.6.0",
     "@tabler/icons-react": "^3.30.0",

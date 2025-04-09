@@ -346,7 +346,7 @@
     {
       "id": "2",
       "title": "Il nome della rosa",
-      "content": "Un romanzo storico con elementi di giallo e filosofia medievale.",
+      "plot": "Un romanzo storico con elementi di giallo e filosofia medievale.",
       "userId": "2",
       "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
       "status": "completato",
