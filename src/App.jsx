@@ -17,7 +17,8 @@ import {
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import NewStory_2 from "./pages/NewStory_2";
+import NewStory_2_list from "./pages/NewStory_2_list";
+import NewStory_2_item from "./pages/NewStory_2_item";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 import Loader from "./components/Loader";
@@ -98,11 +99,21 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
+
+        {/* CREAZIONE E MODIFICA STORIA */}
         <Route
-          path="story/create"
+          path="/stories/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
-        <Route path="story/:id/edit" element={<NewStory_2 />} />
+        <Route
+          path="/stories/:storyId/chapters"
+          element={<NewStory_2_list />}
+        />
+        <Route
+          path="/stories/:storyId/chapters/:chap_id"
+          element={<NewStory_2_item />}
+        />
+
         <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )

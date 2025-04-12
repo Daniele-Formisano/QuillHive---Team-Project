@@ -96,6 +96,9 @@ export const apiService = createApi({
     getChaptersByStoryId: builder.query({
       query: (storyId) => `chapters?storyId=${storyId}`, // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
+    getChaptersByChapterId: builder.query({
+      query: (chapId) => `chapters/${chapId}`, // Ottieni un capitolo specifico usando chapId
+    }),
     addChapter: builder.mutation({
       query: (chapter) => ({
         url: "chapters",
@@ -108,6 +111,12 @@ export const apiService = createApi({
         url: `chapters/${chapter.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
         method: "PUT",
         body: chapter,
+      }),
+    }),
+    deleteChapter: builder.mutation({
+      query: (chapter) => ({
+        url: `chapters/${chapter.id}`, // L'ID del capitolo è passato nel body o come parte dell'URL
+        method: "DELETE",
       }),
     }),
   }),
@@ -134,6 +143,8 @@ export const {
   useAddBioMutation,
   /*  useGetChaptersQuery */
   useGetChaptersByStoryIdQuery,
+  useGetChaptersByChapterIdQuery,
   useAddChapterMutation,
   useUpdateChapterMutation,
+  useDeleteChapterMutation,
 } = apiService;
