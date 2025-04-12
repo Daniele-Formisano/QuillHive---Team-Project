@@ -1,108 +1,135 @@
-import BackButton from "../components/BackButton";
-import Button from "../components/Button";
-import toast from "react-hot-toast";
-import ChapInput from "../components/ChapInput";
-import { useEffect } from "react";
 import {
-  useGetChaptersByChapterIdQuery,
+  useGetChaptersByStoryIdQuery,
   useUpdateChapterMutation,
 } from "../services/apiService";
-import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import Button from "../components/Button";
+import Loader from "../components/Loader";
+import { useEffect, useState } from "react";
+import ChapInput from "../components/ChapInput";
+import BackButton from "../components/BackButton";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function NewStory_2_item() {
-  const { storyId, chapId } = useParams();
+  const navigate = useNavigate();
+  const { storyId, chapterId } = useParams();
   const [updateChapterMutation] = useUpdateChapterMutation();
+  const pageUrl = storyId ? `/stories/${storyId}/chapters` : "/library";
+
   const {
-    data: chapter,
+    data: chapters,
     isLoading,
     isError,
-  } = useGetChaptersByChapterIdQuery(chapId);
+  } = useGetChaptersByStoryIdQuery(storyId);
 
-  // Gestiamo la selezione del capitolo
-  const handleSelectChapter = (chapter) => {
-    setNewChapter({
-      ...chapter,
-      content: chapter.content, // Assicurati che il contenuto del capitolo venga caricato nella textarea
-    });
-  };
+  // Filtra i capitoli per ottenere solo quello con l'ID specifico
+  const chapter = chapters?.find((chap) => chap.id === chapterId);
 
-  // Quando i capitoli vengono caricati, selezioniamo automaticamente il capitolo con order 1
+  const [chapterContent, setChapterContent] = useState("");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  // Aggiorna lo stato con i dati del capitolo quando la risposta è ricevuta
   useEffect(() => {
-    if (chapters && chapters.length > 0) {
-      // Trova il capitolo con order 1
-      const firstChapter = chapters.find((chapter) => chapter.order === 1);
-
-      if (firstChapter) {
-        handleSelectChapter(firstChapter); // Se lo trovi, selezionalo
-      } else {
-        // Se non ci sono capitoli, inizializza un nuovo capitolo
-        setNewChapter({
-          storyId: storyId,
-          title: "Capitolo",
-          order: 1,
-          content: "",
-          created_at: new Date(),
-          updated_at: null,
-        });
-      }
+    if (chapter) {
+      setChapterContent(chapter.content);
     }
-  }, [chapters]); // Si triggera ogni volta che i capitoli cambiano
+  }, [chapter]);
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setNewChapter((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }
+  const handleChange = (e) => {
+    setChapterContent(e.target.value);
+    setHasUnsavedChanges(true);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifica se il contenuto è vuoto
-    if (!newChapter.content.trim()) {
-      toast.error("Content cannot be empty.");
+    if (!chapterContent.trim()) {
+      toast.error("Please write something! The chapter cannot be empty.");
       return;
     }
 
-    // Significa che il capitolo esiste già e deve essere aggiornato
-    if (newChapter.id) {
-      try {
-        const response = await updateChapterMutation(newChapter);
-        if (response?.data?.id) {
-          toast.success("Chapter updated successfully!");
-        } else {
-          toast.error("Failed to update chapter.");
+    try {
+      await updateChapterMutation({ ...chapter, content: chapterContent });
+      toast.success("Chapter updated successfully!");
+      setHasUnsavedChanges(false);
+    } catch (error) {
+      toast.error("Failed to update chapter.");
+    }
+  };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <h2>Error loading chapter.</h2>;
+
+  const handleBack = () => {
+    if (hasUnsavedChanges) {
+      const deleteToast = toast(
+        <div>
+          <p>You have unsaved changes. Do you want to save or discard them?</p>
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={async () => {
+                try {
+                  await updateChapterMutation({
+                    ...chapter,
+                    content: chapterContent,
+                  });
+                  toast.success("Chapter saved successfully!");
+                  setHasUnsavedChanges(false);
+
+                  navigate(pageUrl);
+                } catch (error) {
+                  toast.error("Failed to save chapter.");
+                }
+                toast.dismiss(deleteToast);
+              }}
+              className="bg-yellow-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
+            >
+              Save and go back
+            </button>
+            <button
+              onClick={() => {
+                navigate(pageUrl);
+                toast.dismiss(deleteToast);
+              }}
+              className="bg-gray-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
+            >
+              Go back without saving
+            </button>
+          </div>
+        </div>,
+        {
+          autoClose: false,
+          closeButton: false,
         }
-      } catch (error) {
-        toast.error("An error occurred while updating the chapter.");
-        console.error(error);
-      }
+      );
+    } else {
+      navigate(pageUrl);
     }
   };
 
   return (
     <form className="ml-4 mr-4">
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between mb-10 mt-3">
         {/* INDIETRO */}
-        <BackButton pageUrl="/stories/:story_id/chapters" />
+        <BackButton onClick={handleBack} />
         {/* SAVE */}
-        <span className="w-[110px] h-[40]">
+        <div className="w-[110px]">
           <Button onClick={handleSubmit} type="submit" isColorYellow={true}>
             Save
           </Button>
-        </span>
+        </div>
       </div>
 
       {/* TARGHETTA CAPITOLO */}
-      <div>
-        <h2 className="font-script">Chapter</h2>
+      <div className="flex gap-2 justify-center font-script-semibold mb-2">
+        <h2>CHAPTER</h2>
+        <h2>{chapter?.order}</h2>
       </div>
 
       {/* TEXT INPUT */}
       <ChapInput
         handleChange={handleChange}
-        value={newChapter.content}
+        value={chapterContent}
         name="content"
       />
     </form>

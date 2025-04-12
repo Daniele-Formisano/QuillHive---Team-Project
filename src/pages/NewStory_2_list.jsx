@@ -1,15 +1,15 @@
-import BackButton from "../components/BackButton";
-import Loader from "../components/Loader";
-import { IconPencil } from "@tabler/icons-react";
 import {
   useDeleteChapterMutation,
   useGetChaptersByStoryIdQuery,
 } from "../services/apiService";
-import { IconTrash } from "@tabler/icons-react";
-import { useAddChapterMutation } from "../services/apiService";
-import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Loader from "../components/Loader";
+import { IconTrash } from "@tabler/icons-react";
+import { IconPencil } from "@tabler/icons-react";
+import BackButton from "../components/BackButton";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAddChapterMutation } from "../services/apiService";
 
 export default function NewStory_2_list() {
   const navigate = useNavigate();
@@ -79,14 +79,14 @@ export default function NewStory_2_list() {
                 toast.error("Failed to delete chapter.");
                 console.error(error);
               }
-              toast.dismiss(deleteToast); // Chiude il toast
+              toast.dismiss(deleteToast);
             }}
             className="bg-red-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
           >
             Confirm
           </button>
           <button
-            onClick={() => toast.dismiss(deleteToast)} // Annulla l'azione
+            onClick={() => toast.dismiss(deleteToast)}
             className="bg-gray-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
           >
             Cancel
@@ -94,8 +94,8 @@ export default function NewStory_2_list() {
         </div>
       </div>,
       {
-        autoClose: false, // Non si chiude automaticamente
-        closeButton: false, // Disabilita il pulsante di chiusura predefinito
+        autoClose: false,
+        closeButton: false,
       }
     );
   }
@@ -129,7 +129,10 @@ export default function NewStory_2_list() {
                   </span>
 
                   <span className="flex gap-2.5">
-                    <IconPencil stroke={2} onClick={handleModifyChap} />
+                    <IconPencil
+                      stroke={2}
+                      onClick={() => handleModifyChap(chapter.id)}
+                    />
                     <IconTrash
                       stroke={2}
                       onClick={() => handleDeleteChap(chapter.id)}

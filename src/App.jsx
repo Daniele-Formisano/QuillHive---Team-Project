@@ -110,7 +110,7 @@ export default function App() {
           element={<NewStory_2_list />}
         />
         <Route
-          path="/stories/:storyId/chapters/:chap_id"
+          path="/stories/:storyId/chapters/:chapterId"
           element={<NewStory_2_item />}
         />
 
