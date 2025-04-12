@@ -28,12 +28,8 @@ export default function SaveButton({ storyId,userId }) {
   };
 
 
-
-
-  
-
   const IconUnclicked = (
-    <svg
+    <svg 
       width="40"
       height="46"
       viewBox="0 0 40 46"

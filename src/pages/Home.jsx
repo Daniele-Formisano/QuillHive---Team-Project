@@ -10,6 +10,7 @@ import { useState } from "react";
 import BookModal from "../components/BookModal";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
+import Footer from "../components/Footer";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
@@ -63,8 +64,8 @@ function Home() {
   }; //reindirezzamento al proprio profilo se loggato log in se non loggato
 
   return (
-    <div className="flex flex-col justify-center max-h-screen  bg-bg-brand ">
-      <header className="flex flex-row gap-2  justify-around items-center bg-bg-brand z-45">
+    <div className="flex flex-col justify-center  bg-bg-brand ">
+      <header className="flex flex-row gap-2 sticky top-0 justify-around items-center bg-bg-brand z-45">
         <HamburgerMenu />
 
         <Searchbar />
@@ -72,7 +73,7 @@ function Home() {
           <ProfileIcon width={50} height={50} onClick={handleProfileClick} />
         </div>
       </header>
-      <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 pt-80 scrollbar-hide  ">
+      <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 min-h-screen scrollbar-hide  ">
         <div className="flex flex-col gap-8 mb-5 ">
           <p className="flex justify-start text-secondary-brand font-title text-center text-2xl ">
             Travel in the hive
@@ -101,7 +102,7 @@ function Home() {
           </div>
         </div>
         <div>
-          {/* <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center">
           <p className="text-secondary-brand font-title text-2xl">
             Hive's choices
           </p>
@@ -136,7 +137,7 @@ function Home() {
               ))}
             </ul>
           </div>
-        </div> */}
+        </div>
         </div>
         {/* controllare se mb-10 è necessario */}
         <div className="flex flex-col justify-center mb-10">
@@ -156,10 +157,10 @@ function Home() {
           </div>
         </div>
 
-        <footer>Footer</footer>
+        <Footer/>
       </main>
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}
-      <div className=" font-title pt-1.5 pb-0.5 flex justify-center items-center z-30">
+      <div className=" font-title fixed bottom-0  w-full flex justify-center items-center z-30">
         <Navbar user={loggedUser} />
       </div>
       <BookModal

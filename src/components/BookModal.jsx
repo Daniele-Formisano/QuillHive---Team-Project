@@ -20,7 +20,7 @@ function BookModal({ story, isOpen, onClose, user }) {
       <Dialog open={isOpen} onClose={onClose} className="relative z-40">
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-xl space-y-4 border-transparent rounded-2xl bg-white px-3 pt-3 pb-7">
-            <div className="relative">
+            <div className="relative ">
               <img
                 src={story.cover_image}
                 alt="cover book "
