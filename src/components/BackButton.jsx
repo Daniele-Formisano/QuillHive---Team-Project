@@ -9,7 +9,9 @@ export default function BackButton({ pageURL, onClick }) {
       <button
         type="button"
         onClick={() => {
-          navigate(-1);
+          navigate(pageURL);
+          if (pageURL) navigate(pageURL);
+          else onClick();
         }}
       >
         <IconChevronLeft stroke={1.25} size={40} color="#203955" />

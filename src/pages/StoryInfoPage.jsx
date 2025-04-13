@@ -37,7 +37,7 @@ export default function StoryInfoPage() {
       {/* Sezione main della pagina che contiene le info della storia prese dal componente */}
       <main className="overflow-scroll">
         <div className="pl-2">
-          <BackButton />
+          <BackButton pageURL={"/home"} />
         </div>
         <BookInfoList story={story} />
         {/* Sezione del footer */}

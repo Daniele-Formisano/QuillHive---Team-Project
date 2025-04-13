@@ -10,7 +10,7 @@ export default function BookInfoList({ story }) {
   const { id } = useParams();
 
   function handleClick() {
-    navigate(`/story/${id}/read-story`);
+    navigate(`/story/${id}/read-story/chapter/${1}`);
   }
 
   return (

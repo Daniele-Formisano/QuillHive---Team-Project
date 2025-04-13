@@ -24,6 +24,7 @@ import UserLibrary from "./pages/UserLibrary";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
 import StoryInfoPage from "./pages/StoryInfoPage";
+import ReadingPage from "./pages/ReadingPage";
 
 export default function App() {
   const {
@@ -108,6 +109,10 @@ export default function App() {
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route
+          path="story/:storyId/read-story/chapter/:chapterOrder"
+          element={<ReadingPage />}
+        />
 
         <Route path="/library" element={<UserLibrary />} />
         <Route path="/profile/:id" element={<ProfilePages />} />
