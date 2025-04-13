@@ -13,7 +13,7 @@ export default function Button({
         type={type}
         onClick={onClick}
         className={clsx(
-          `px-4 py-1 rounded-[50px] text-secondary-brand font-script-bold text-center ${
+          `px-4 py-1 rounded-[50px] text-secondary-brand font-script-semibold text-center ${
             textSize ? textSize : "text-sm"
           } cursor-pointer transition-all flex-grow`,
           isColorYellow ? "bg-primary-brand" : "border-2 border-primary-brand"

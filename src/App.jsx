@@ -16,7 +16,8 @@ import {
 } from "./features/global/globalSlice";
 import Login from "./pages/Login";
 import NewStory_1 from "./pages/NewStory_1";
-import NewStory_2 from "./pages/NewStory_2";
+import NewStory_2_list from "./pages/NewStory_2_list";
+import NewStory_2_item from "./pages/NewStory_2_item";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
 import LandingPage from "./pages/LandingPage";
@@ -103,8 +104,10 @@ export default function App() {
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
+
+        {/* CREAZIONE E MODIFICA STORIA */}
         <Route
-          path="/story/create"
+          path="/stories/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
         <Route path="story/:id/edit" element={<NewStory_2 />} />
@@ -113,9 +116,16 @@ export default function App() {
           path="story/:storyId/read-story/chapter/:chapterOrder"
           element={<ReadingPage />}
         />
+        <Route
+          path="/stories/:storyId/chapters"
+          element={<NewStory_2_list />}
+        />
+        <Route
+          path="/stories/:storyId/chapters/:chapterId"
+          element={<NewStory_2_item />}
+        />
 
-        <Route path="/library" element={<UserLibrary />} />
-        <Route path="/profile/:id" element={<ProfilePages />} />
+        <Route path="/editProfile" element={<EditProfile />} />
       </Routes>
     )
   );

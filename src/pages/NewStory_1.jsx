@@ -66,7 +66,7 @@ export default function NewStory_1({ genres }) {
         const createdStoryId = response.data.id;
         toast.success("Story created successfully!");
 
-        navigate(`/story/${createdStoryId}/edit`);
+        navigate(`/stories/${createdStoryId}/chapters`);
       } else {
         toast.error("Failed to create the story."); // qui gestisce l'errore relativo ad un id non esistente o non valido
       }
@@ -82,7 +82,7 @@ export default function NewStory_1({ genres }) {
         className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
         onSubmit={handleSubmit}
       >
-        <BackButton pageUrl="" /> {/* DEVI COLLEGARE IL PATH della libreria */}
+        <BackButton pageUrl="/library" />
         <LoadCoverImg />
         <InputField
           placeholder="Choose a title"

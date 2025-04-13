@@ -129,6 +129,12 @@ export const apiService = createApi({
         body: newStory,
       }),
     }),
+    deleteChapter: builder.mutation({
+      query: (chapter) => ({
+        url: `chapters/${chapter.id}`, // L'ID del capitolo è passato nel body o come parte dell'URL
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -158,4 +164,5 @@ export const {
   useUpdateChapterMutation,
   useUpdateUserMutation,
   useAddUserStoryMutation,
+  useDeleteChapterMutation,
 } = apiService;
