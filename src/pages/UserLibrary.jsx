@@ -6,7 +6,7 @@ import {
 } from "../services/apiService";
 import { useSelector } from "react-redux";
 import Card from "../components/Card";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import ProfileIcon from "../components/ProfileIcon";
 import Searchbar from "../components/Searchbar";
 import HamburgerMenu from "../components/HamburgherMenu";
@@ -17,7 +17,7 @@ export default function UserLibrary() {
   const [filterButton, setFilterButton] = useState([
     { text: "Reading Now", active: true },
     { text: "My Creations", active: false },
-    { text: "Favorites", active: false },
+    { text: "Saved", active: false },
   ]);
   const [stories, setStories] = useState([]);
   const [storiesOfUsers, setStoriesOfUsers] = useState([]);
@@ -66,7 +66,7 @@ export default function UserLibrary() {
   }
 
   const handleProfileClick = () => {
-    navigate("/editProfile");
+    navigate(`/profile/${id}`);
   };
 
   if (isLoanding)
@@ -168,7 +168,7 @@ export default function UserLibrary() {
             </div>
           )}
 
-          <div className="font-title pt-1.5 pb-0.5 flex justify-center items-center z-30">
+          <div className="font-title flex justify-center items-center z-30">
             <Navbar isLibrary={true} />
           </div>
         </div>

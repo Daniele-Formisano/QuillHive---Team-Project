@@ -110,7 +110,7 @@ export default function App() {
           path="/stories/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
-        <Route path="story/:id/edit" element={<NewStory_2 />} />
+        {/* <Route path="story/:id/edit" element={<NewStory_2 />} /> */}
         <Route path="story/:id/info" element={<StoryInfoPage />} />
         <Route
           path="story/:storyId/read-story/chapter/:chapterOrder"
@@ -125,7 +125,9 @@ export default function App() {
           element={<NewStory_2_item />}
         />
 
-        <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/library" element={<UserLibrary />} />
+
+        <Route path="/profile/:id" element={<ProfilePages />} />
       </Routes>
     )
   );

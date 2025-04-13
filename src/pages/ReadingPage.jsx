@@ -56,36 +56,43 @@ export default function ReadingPage() {
     return (
       <div className="bg-bg-brand min-h-screen pt-2">
         <header className="flex flex-col gap-10">
-          <div className="flex flex-wrap justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center pr-2">
             <BackButton pageURL={`/story/${storyId}/info`} />
             <h2 className="text-xl font-script-semibold  text-secondary-brand">
               {story.title}
             </h2>
             <HamburgerForChapters chapters={chapters} />
           </div>
-          <div>
-            <SwitchChapters
-              chapter={chapters[chapterOrder - 1]}
-              chapterLength={chapters.length}
-              onClickNext={nextChapter}
-              onClickBack={prevChapter}
-            />
-          </div>
         </header>
 
         <main>
           <div className="p-5 flex flex-col gap-10">
-            <p>{chapters[chapterOrder - 1].content}</p>
+            <div className="flex flex-col gap-7 pb-24">
+              <h1 className="text-center font-script-semibold text-secondary-brand text-2xl">
+                {chapters[chapterOrder - 1].title}
+              </h1>
 
-            {Number(chapters[chapterOrder - 1].order) === chapters.length && (
-              <Button
-                isColorYellow={true}
-                textSize={"text-base"}
-                onClick={() => navigate(`/story/${storyId}/info`)}
-              >
-                I completed reading this story
-              </Button>
-            )}
+              <p>{chapters[chapterOrder - 1].content}</p>
+
+              {Number(chapters[chapterOrder - 1].order) === chapters.length && (
+                <Button
+                  isColorYellow={true}
+                  textSize={"text-base"}
+                  onClick={() => navigate(`/story/${storyId}/info`)}
+                >
+                  I completed reading this story
+                </Button>
+              )}
+            </div>
+
+            <div className="fixed bottom-0 pb-3 pt-3 left-0 w-full bg-bg-brand">
+              <SwitchChapters
+                chapter={chapters[chapterOrder - 1]}
+                chapterLength={chapters.length}
+                onClickNext={nextChapter}
+                onClickBack={prevChapter}
+              />
+            </div>
           </div>
         </main>
       </div>

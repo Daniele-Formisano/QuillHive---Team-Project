@@ -12,7 +12,7 @@ export default function HamburgerForChapters({ chapters }) {
   return (
     <div>
       <button type="button" onClick={handleClick}>
-        <IconList stroke={1.25} size={40} color="#203955" />
+        <IconList stroke={1.5} size={40} color="#203955" />
       </button>
 
       <div

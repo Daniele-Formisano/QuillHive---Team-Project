@@ -7,7 +7,7 @@ export default function SwitchChapters({
   chapterLength,
 }) {
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 items-center">
       <button
         type="button"
         onClick={onClickBack}
@@ -19,9 +19,8 @@ export default function SwitchChapters({
           {chapter.order > 1 ? `Chapter ${chapter.order - 1}` : ""}
         </p>
       </button>
-      <div className="text-xl text-center font-script text-secondary-brand">
-        <h2>Chapter {chapter.order}:</h2>
-        <h1 className="text-2xl font-script-semibold">{chapter.title}</h1>
+      <div className="text-xl text-center font-script-semibold text-secondary-brand">
+        <h2>Chapter {chapter.order}</h2>
       </div>
       <button
         type="button"
