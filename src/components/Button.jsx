@@ -7,7 +7,7 @@ export default function Button({ children, isColorYellow, onClick, type }) {
         type={type}
         onClick={onClick}
         className={clsx(
-          "px-4 py-1 rounded-[50px] text-secondary-brand font-script-bold text-center text-sm cursor-pointer transition-all flex-grow",
+          "px-4 py-1 rounded-[50px] text-secondary-brand font-script-semibold text-center cursor-pointer transition-all flex-grow",
           isColorYellow ? "bg-primary-brand" : "border-2 border-primary-brand"
         )}
       >
