@@ -1,6 +1,6 @@
 import {
-  useGetChaptersByStoryIdQuery,
   useUpdateChapterMutation,
+  useGetChaptersByStoryIdQuery,
 } from "../services/apiService";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
@@ -50,9 +50,11 @@ export default function NewStory_2_item() {
 
     try {
       await updateChapterMutation({ ...chapter, content: chapterContent });
+      toast.dismiss();
       toast.success("Chapter updated successfully!");
       setHasUnsavedChanges(false);
     } catch (error) {
+      toast.dismiss();
       toast.error("Failed to update chapter.");
     }
   };
@@ -73,11 +75,13 @@ export default function NewStory_2_item() {
                     ...chapter,
                     content: chapterContent,
                   });
+                  toast.dismiss();
                   toast.success("Chapter saved successfully!");
                   setHasUnsavedChanges(false);
 
                   navigate(pageUrl);
                 } catch (error) {
+                  toast.dismiss();
                   toast.error("Failed to save chapter.");
                 }
                 toast.dismiss(deleteToast);
@@ -108,13 +112,13 @@ export default function NewStory_2_item() {
   };
 
   return (
-    <form className="ml-4 mr-4">
+    <form className="ml-4 mr-4" onSubmit={handleSubmit}>
       <div className="flex justify-between mb-10 mt-3">
         {/* INDIETRO */}
         <BackButton onClick={handleBack} />
         {/* SAVE */}
         <div className="w-[110px]">
-          <Button onClick={handleSubmit} type="submit" isColorYellow={true}>
+          <Button type="submit" isColorYellow={true}>
             Save
           </Button>
         </div>

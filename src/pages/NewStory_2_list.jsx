@@ -22,6 +22,8 @@ export default function NewStory_2_list() {
   } = useGetChaptersByStoryIdQuery(storyId);
   const [addChapterMutation] = useAddChapterMutation();
   const [deleteChapterMutation] = useDeleteChapterMutation();
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [customOrder, setCustomOrder] = useState("");
 
   const [newChapter, setNewChapter] = useState({
     storyId: storyId,
@@ -33,10 +35,23 @@ export default function NewStory_2_list() {
   });
 
   async function handleAddChapter() {
+    const parsedOrder = parseInt(customOrder, 10);
+
+    if (isNaN(parsedOrder) || parsedOrder < 1) {
+      toast.error("Please enter a valid chapter order (number ≥ 1).");
+      return;
+    }
+
+    const orderExists = chapters?.some((chap) => chap.order === parsedOrder);
+    if (orderExists) {
+      toast.error("A chapter with this order already exists.");
+      return;
+    }
+
     const chapterToCreate = {
       storyId: storyId,
       title: "Chapter",
-      order: chapters?.length + 1 || 1,
+      order: parsedOrder,
       content: "",
       created_at: new Date(),
       updated_at: null,
@@ -52,6 +67,9 @@ export default function NewStory_2_list() {
         });
 
         toast.success("Chapter created successfully!");
+
+        setShowCreateForm(false);
+        setCustomOrder("");
         refetch();
       } else {
         toast.error("Failed to create chapter.");
@@ -142,11 +160,41 @@ export default function NewStory_2_list() {
               ))}
           </ul>
         )}
-        <div className="mt-10 mb-10 mr-15 ml-15 px-4 py-1 bg-primary-brand rounded-lg text-secondary-brand font-script-semibold text-center cursor-pointer">
-          <button type="button" onClick={handleAddChapter}>
-            Add a new chapter
-          </button>
-        </div>
+        {showCreateForm ? (
+          <div className="mt-8 flex flex-col items-center gap-4">
+            <input
+              type="number"
+              placeholder="Chapter order"
+              className="border border-gray-300 rounded px-3 py-1 w-48 text-center"
+              value={customOrder}
+              onChange={(e) => setCustomOrder(e.target.value)}
+              min="1"
+            />
+            <div className="flex gap-4">
+              <button
+                onClick={handleAddChapter}
+                className="bg-primary-brand text-white px-4 py-1 rounded"
+              >
+                Create
+              </button>
+              <button
+                onClick={() => {
+                  setShowCreateForm(false);
+                  setCustomOrder("");
+                }}
+                className="bg-gray-400 text-white px-4 py-1 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="mt-10 mb-10 mr-15 ml-15 px-4 py-1 bg-primary-brand rounded-lg text-secondary-brand font-script-semibold text-center cursor-pointer">
+            <button type="button" onClick={() => setShowCreateForm(true)}>
+              Add a new chapter
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
