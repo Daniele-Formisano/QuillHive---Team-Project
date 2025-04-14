@@ -70,7 +70,7 @@ function Home() {
 
         <Searchbar />
         <div>
-          <ProfileIcon width={50} height={50} onClick={handleProfileClick} />
+          <ProfileIcon onClick={handleProfileClick} />
         </div>
       </header>
       <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 min-h-screen scrollbar-hide  ">

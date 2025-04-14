@@ -30,9 +30,9 @@ export default function BookInfoList({ story }) {
   function handleClick() {
     navigate(`/story/${id}/read-story/chapter/${1}`);
   }
-  if (isLoadingStoryChapters) return <p>Chapters loading...</p>;
-  if (errorStoryChapters) return <p>Error loading chapters</p>;
-  if (!storyChapters) return <p>There is no chapter</p>;
+  if (isLoadingStoryChapters || isLoadingAuthor) return <p>Loading...</p>;
+  if (errorStoryChapters || errorAuthor) return <p>Error loading</p>;
+  if (!storyChapters || !author) return <p>There is no data available</p>;
 
   return (
     <div className="flex flex-col gap-8">

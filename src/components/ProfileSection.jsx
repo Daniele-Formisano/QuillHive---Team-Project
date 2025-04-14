@@ -25,8 +25,11 @@ import ButtonAddFile from "./ButtonAddFile";
 
 export default function ProfileSection({ user, urlId }) {
   const { languages, artistType } = useSelector((state) => state.global);
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   const [triggerGetUser] = useLazyGetUsersQuery();
+  console.log(userData);
 
   /* Chiamata per ricevere gli userArtistTypes */
   const {
@@ -196,17 +199,17 @@ export default function ProfileSection({ user, urlId }) {
 
     const mergedUserData = { ...user, ...userData };
 
-    try {
+    /* try {
       const res = await updateUser(mergedUserData).unwrap(); // unwrap per gestire errori facilmente
       console.log("Utente aggiornato:", res);
       // opzionale: dispatch(setUser(res)) se vuoi aggiornare lo stato manualmente
     } catch (err) {
       console.error("Errore nell'aggiornamento:", err);
-    }
+    } */
 
     dispatch(setUser(mergedUserData));
     setUserData(mergedUserData);
-    handleUpdateData();
+    /* handleUpdateData(); */
 
     localStorage.setItem("user", JSON.stringify(mergedUserData));
     setUserData(mergedUserData);
@@ -233,7 +236,7 @@ export default function ProfileSection({ user, urlId }) {
             {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente in user */}
             <div className="flex flex-col items-center mb-10">
               <div className="relative">
-                <ProfileIcon height={200} width={200} className="relative" />
+                <ProfileIcon size="w-[200px] h-[300px]" className="relative" />
                 <div className="absolute  top-0.5 right-5.5 transform  translate-y-1">
                   <ButtonAddFile />
                 </div>
@@ -358,7 +361,7 @@ export default function ProfileSection({ user, urlId }) {
 
                 <div className="flex flex-col items-center font-script-semibold gap-1">
                   <h2 className="text-4xl  text-secondary-brand">
-                    {user.username}
+                    {userData.username}
                   </h2>
                   <ul className="flex gap-2">
                     {userData.artistType?.map((artist, index) => (
@@ -372,7 +375,7 @@ export default function ProfileSection({ user, urlId }) {
                     ))}
                   </ul>
                   <span className="text-secondary-brand text-m font-script-semibold">
-                    {user.pronouns}
+                    {userData.pronouns}
                   </span>
                 </div>
               </div>
@@ -383,7 +386,7 @@ export default function ProfileSection({ user, urlId }) {
                 </h3>
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
                 <div>
-                  <span>{user.bio}</span>
+                  <span>{userData.bio}</span>
                 </div>
               </div>
               {/* Sezione che contiene la email dell'utente */}
