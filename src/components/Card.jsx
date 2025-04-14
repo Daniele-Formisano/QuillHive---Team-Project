@@ -1,9 +1,18 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import BookModal from "./BookModal";
+import { useGetUserByIdQuery } from "../services/apiService";
 
-function Card({ story, onClick }) {
+function Card({ story}) {
   // props passate da Home.jsx
   const [showTooltip, setShowTooltip] = useState(false);
+  const { data: author, isLoading } = useGetUserByIdQuery(story.userId);
+  
 
+  
+  const { user: loggedUser } = useSelector((state) => state.global);
+ 
+const [selectedStory, setSelectedStory] = useState(null)
   return (
     <div className="inline-flex justify-center">
       <li
@@ -16,7 +25,7 @@ function Card({ story, onClick }) {
           width={150}
           height={230}
           className="border-transparent rounded-2xl   hover:cursor-pointer"
-          onClick={onClick}
+          onClick={() => setSelectedStory(story)}
         />
 
         {showTooltip && (
@@ -37,9 +46,16 @@ function Card({ story, onClick }) {
         </div>
 
         <p className="font-light font text-[12px] text-secondary-brand secondary-brand  hover:cursor-pointer ">
-          {story.authorName}
+          {isLoading ? "Wait a second!": author?.username || "not defined"}
         </p>
       </li>
+      <BookModal
+              story={selectedStory}
+              isOpen={!!selectedStory}
+              onClose={() => setSelectedStory(null)}
+              user={loggedUser}
+              author={author}
+            />
     </div>
   );
 }

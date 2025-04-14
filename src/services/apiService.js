@@ -135,6 +135,9 @@ export const apiService = createApi({
         method: "DELETE",
       }),
     }),
+    getUserById: builder.query({
+      query: (id)=>`/users/${id}`
+    })
   }),
 });
 
@@ -165,4 +168,5 @@ export const {
   useUpdateUserMutation,
   useAddUserStoryMutation,
   useDeleteChapterMutation,
+  useGetUserByIdQuery,
 } = apiService;
