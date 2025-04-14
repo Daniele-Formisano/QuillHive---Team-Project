@@ -118,7 +118,8 @@ export default function App() {
           element={<NewStory_2_item />}
         />
 
-        <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/profile/:id" element={<ProfilePages />} />
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
       </Routes>
     )
   );

@@ -4,14 +4,35 @@ import { IconBook } from "@tabler/icons-react";
 import { IconMinusVertical } from "@tabler/icons-react";
 import Button from "./Button";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetChaptersByStoryIdQuery,
+  useGetUsersQuery,
+} from "../services/apiService";
 
 export default function BookInfoList({ story }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  /* Chiamata per ricevere i capitoli della storia */
+  const {
+    data: storyChapters,
+    isLoading: isLoadingStoryChapters,
+    error: errorStoryChapters,
+  } = useGetChaptersByStoryIdQuery(story.id);
+
+  /* Chiamata per ricevere l'autore della storia */
+  const {
+    data: author,
+    isLoading: isLoadingAuthor,
+    error: errorAuthor,
+  } = useGetUsersQuery({ id: story.userId });
+
   function handleClick() {
     navigate(`/story/${id}/read-story`);
   }
+  if (isLoadingStoryChapters) return <p>Chapters loading...</p>;
+  if (errorStoryChapters) return <p>Error loading chapters</p>;
+  if (!storyChapters) return <p>There is no chapter</p>;
 
   return (
     <div className="flex flex-col gap-8">
@@ -34,7 +55,7 @@ export default function BookInfoList({ story }) {
             {story.title}
           </h2>
           <h4 className="font-script-semibold font-medium text-secondary-brand">
-            {story.authorName || "Autore sconosciuto"}
+            {author[0].username || "Autore sconosciuto"}
           </h4>
         </div>
       </div>
@@ -66,7 +87,7 @@ export default function BookInfoList({ story }) {
         <div className="flex flex-col items-center justify-center font-script text-secondary-brand">
           <IconBook stroke={2} color="#203955" size={32} />
           <p>Chapters</p>
-          <p className="font-extrabold">{story.chapters || 1}</p>
+          <p className="font-extrabold">{storyChapters?.length}</p>
         </div>
       </div>
 
