@@ -690,6 +690,21 @@
       "storyId": "5",
       "status": "reading",
       "saved": false
+    },
+    {
+      "id": "bd0d",
+      "status": null,
+      "saved": true
+    },
+    {
+      "id": "0a1b",
+      "status": null,
+      "saved": true
+    },
+    {
+      "id": "f144",
+      "status": null,
+      "saved": true
     }
   ],
   "userGenres": [
