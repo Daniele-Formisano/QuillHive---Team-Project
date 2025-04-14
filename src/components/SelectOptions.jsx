@@ -11,13 +11,18 @@ export default function SelectGenres({
   dataSelect,
   arraySelectedItems,
   toggleItems,
+  selectTitleSize,
 }) {
   // Stato per il dropdown
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="flex flex-col gap-1">
-      <span className="text-secondary-brand font-script-semibold text-sm">
+      <span
+        className={`text-secondary-brand font-script-semibold ${
+          selectTitleSize ? selectTitleSize : "text-sm"
+        }`}
+      >
         {selectTitle}
       </span>
       {paragraph && (

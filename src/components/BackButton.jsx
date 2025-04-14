@@ -9,7 +9,6 @@ export default function BackButton({ pageURL, onClick }) {
       <button
         type="button"
         onClick={() => {
-          navigate(pageURL);
           if (pageURL) navigate(pageURL);
           else onClick();
         }}

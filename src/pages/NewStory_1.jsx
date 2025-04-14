@@ -78,11 +78,14 @@ export default function NewStory_1({ genres }) {
 
   return (
     <div>
+      <div className="p-2">
+        <BackButton pageURL={"/library"} />
+      </div>
+
       <form
         className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
         onSubmit={handleSubmit}
       >
-        <BackButton pageUrl="/library" />
         <LoadCoverImg />
         <InputField
           placeholder="Choose a title"
@@ -91,6 +94,7 @@ export default function NewStory_1({ genres }) {
           label="Title"
           value={newStory.title}
           onChange={handleInputChange}
+          labelTextSize={"text-lg"}
         />
         <InputField
           placeholder="Write a brief description of your story"
@@ -99,6 +103,7 @@ export default function NewStory_1({ genres }) {
           label="Description"
           value={newStory.plot}
           onChange={handleInputChange}
+          labelTextSize={"text-lg"}
         />
         <SelectOptions
           selectTitle="Add genres"
@@ -107,12 +112,14 @@ export default function NewStory_1({ genres }) {
           placeholder="Select genres"
           arraySelectedItems={storyGenres}
           toggleItems={toggleGenre}
+          selectTitleSize={"text-lg"}
         />
-        <div className="flex flex-col gap-5 mt-30">
-          <Button onClick={handleSubmit} type="submit" isColorYellow={true}>
+        <div className="flex flex-col gap-5 mt-10">
+          <Button type={"submit"} isColorYellow={true}>
             Start Writing
           </Button>
           <Button
+            type={"button"}
             onClick={() => {
               navigate("/home");
             }}

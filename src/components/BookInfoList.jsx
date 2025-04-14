@@ -1,15 +1,15 @@
 import SaveButton from "./ButtonSave";
 import { IconBookmark } from "@tabler/icons-react";
 import { IconBook } from "@tabler/icons-react";
-import { IconMinusVertical } from "@tabler/icons-react";
 import Button from "./Button";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useGetChaptersByStoryIdQuery,
   useGetUsersQuery,
 } from "../services/apiService";
+import ButtonEdit from "./ButtonEdit";
 
-export default function BookInfoList({ story }) {
+export default function BookInfoList({ story, user }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -28,7 +28,11 @@ export default function BookInfoList({ story }) {
   } = useGetUsersQuery({ id: story.userId });
 
   function handleClick() {
-    navigate(`/story/${id}/read-story/chapter/${1}`);
+    navigate(`/story/${id}/read-story`);
+  }
+
+  function handleClickEdit() {
+    navigate(`/stories/${story.id}/chapters`);
   }
   if (isLoadingStoryChapters || isLoadingAuthor) return <p>Loading...</p>;
   if (errorStoryChapters || errorAuthor) return <p>Error loading</p>;
@@ -48,6 +52,32 @@ export default function BookInfoList({ story }) {
           <div className="absolute -bottom-4.5 -right-4.5">
             <SaveButton />
           </div>
+          {story.userId === user?.id && (
+            <div
+              className="absolute -bottom-4.5 -left-4.5"
+              onClick={handleClickEdit}
+            >
+              <svg
+                width="40"
+                height="46"
+                viewBox="0 0 40 46"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17 1.73205C18.8564 0.660254 21.1436 0.660254 23 1.73205L36.9186 9.76795C38.775 10.8397 39.9186 12.8205 39.9186 14.9641V31.0359C39.9186 33.1795 38.775 35.1603 36.9186 36.2321L23 44.2679C21.1436 45.3397 18.8564 45.3397 17 44.2679L3.08142 36.2321C1.22501 35.1603 0.0814152 33.1795 0.0814152 31.0359L0.0814152 14.9641C0.0814152 12.8205 1.22501 10.8397 3.08142 9.76795L17 1.73205Z"
+                  fill="#F3BC26"
+                />
+                <path
+                  d="M24.75 20.5833L21.25 16.75M11.1875 31.6041L14.1488 31.2438C14.5106 31.1997 14.6915 31.1777 14.8606 31.1178C15.0106 31.0646 15.1534 30.9895 15.285 30.8944C15.4334 30.7872 15.5621 30.6463 15.8195 30.3643L27.375 17.7083C28.3415 16.6498 28.3415 14.9335 27.375 13.875C26.4085 12.8164 24.8415 12.8164 23.875 13.875L12.3195 26.531C12.0621 26.8129 11.9334 26.9538 11.8356 27.1164C11.7488 27.2606 11.6801 27.4169 11.6316 27.5812C11.5768 27.7664 11.5567 27.9645 11.5165 28.3607L11.1875 31.6041Z"
+                  stroke="#203955"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col items-center">

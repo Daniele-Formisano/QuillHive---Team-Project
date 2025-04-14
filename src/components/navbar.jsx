@@ -1,14 +1,24 @@
 import { IconBooks } from "@tabler/icons-react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export default function Navbar({ isLibrary = false, user }) {
   const navigate = useNavigate();
+
+  function userNotLogged() {
+    toast.error(
+      "you cannot access the library or story creation without logging into your account"
+    );
+    navigate("/login");
+  }
   return (
     <nav className="h-[68px] flex justify-center pt-1 w-full bg-bg-brand ">
       <div className=" flex justify-center items-center gap-7 bg-secondary-brand w-61 h-14  rounded-4xl ">
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate(user ? "/library" : "/login")}
+          onClick={() => {
+            user ? navigate("/library") : userNotLogged();
+          }}
         >
           {isLibrary ? (
             <svg
@@ -117,7 +127,9 @@ export default function Navbar({ isLibrary = false, user }) {
 
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate(user ? "/story/create" : "/login")}
+          onClick={() => {
+            user ? navigate("/stories/create") : userNotLogged();
+          }}
         >
           <svg
             width="40"

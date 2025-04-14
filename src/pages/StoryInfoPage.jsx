@@ -13,10 +13,10 @@ export default function StoryInfoPage() {
   const { id } = useParams();
   const story = stories.find((s) => s.id == id);
   const navigate = useNavigate();
-  const loggedUserId = useSelector((state) => state.global.user?.id);
+  const loggedUser = useSelector((state) => state.global.user);
 
   const handleProfileClick = () => {
-    navigate(loggedUserId ? `/profile/${loggedUserId}` : "/login");
+    navigate(loggedUser ? `/profile/${loggedUser.id}` : "/login");
   }; //reindirezzamento al proprio profilo
 
   return story ? (
@@ -39,7 +39,7 @@ export default function StoryInfoPage() {
         <div className="pl-2">
           <BackButton pageURL={"/home"} />
         </div>
-        <BookInfoList story={story} />
+        <BookInfoList story={story} user={loggedUser} />
         {/* Sezione del footer */}
         <div className="mt-10 px-6">
           <Footer />

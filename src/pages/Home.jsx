@@ -64,7 +64,7 @@ function Home() {
   }; //reindirezzamento al proprio profilo se loggato log in se non loggato
 
   return (
-    <div className="flex flex-col justify-center  bg-bg-brand ">
+    <div className="flex flex-col justify-center bg-bg-brand pt-2">
       <header className="flex flex-row gap-2 sticky top-0 justify-around items-center bg-bg-brand z-45">
         <HamburgerMenu />
 

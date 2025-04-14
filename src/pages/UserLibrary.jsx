@@ -52,6 +52,7 @@ export default function UserLibrary() {
   useEffect(() => {
     if (userStories) {
       storiesData();
+      console.log(userStories);
     }
   }, [userStories]);
 
@@ -80,7 +81,7 @@ export default function UserLibrary() {
 
   if (userStories && storiesOfUsers) {
     return (
-      <div className="bg-bg-brand min-h-screen flex flex-col">
+      <div className="bg-bg-brand min-h-screen flex flex-col pt-2">
         <header className="flex flex-row gap-2  justify-around items-center bg-bg-brand z-45">
           <HamburgerMenu />
 
@@ -169,7 +170,7 @@ export default function UserLibrary() {
           )}
 
           <div className="font-title flex justify-center items-center z-30">
-            <Navbar isLibrary={true} />
+            <Navbar isLibrary={true} user={id} />
           </div>
         </div>
       </div>

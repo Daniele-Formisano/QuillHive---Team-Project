@@ -111,7 +111,10 @@ export default function App() {
           element={<NewStory_1 genres={dataGenres} />}
         />
         {/* <Route path="story/:id/edit" element={<NewStory_2 />} /> */}
-        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route
+          path="story/:id/info"
+          element={<StoryInfoPage stories={dataStories} />}
+        />
         <Route
           path="story/:storyId/read-story/chapter/:chapterOrder"
           element={<ReadingPage />}

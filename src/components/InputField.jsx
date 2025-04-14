@@ -5,13 +5,16 @@ export default function InputField({
   placeholder,
   value,
   onChange,
+  labelTextSize,
   ...others
 }) {
   return (
     <div className="flex flex-col gap-1">
       <label
         htmlFor={id}
-        className="text-sm text-secondary-brand font-script-semibold"
+        className={`${
+          labelTextSize ? labelTextSize : "text-sm"
+        } text-secondary-brand font-script-semibold`}
       >
         {label}
       </label>
