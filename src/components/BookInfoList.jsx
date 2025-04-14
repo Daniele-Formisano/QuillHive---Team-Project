@@ -5,7 +5,7 @@ import { IconMinusVertical } from "@tabler/icons-react";
 import Button from "./Button";
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function BookInfoList({ story }) {
+export default function BookInfoList({ story, user }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -25,7 +25,7 @@ export default function BookInfoList({ story }) {
             className="border-transparent rounded-2xl "
           />
           <div className="absolute -bottom-4.5 -right-4.5">
-            <SaveButton />
+            <SaveButton storyId={story.id} userId={user.id} />
           </div>
         </div>
 

@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 function BookModal({ story, isOpen, onClose, user }) {
   if (!story) return null;
   const navigate = useNavigate();
+  console.log(story, user);
 
   return (
     <>
@@ -24,7 +25,7 @@ function BookModal({ story, isOpen, onClose, user }) {
               <img
                 src={story.cover_image}
                 alt="cover book "
-                className="w-full h-[400px] rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
+                className="w-full h-full rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
               />
               <div className=" absolute -bottom-1.5 right-2 ">
                 {user && <SaveButton storyId={story.id} userId={user.id} />}

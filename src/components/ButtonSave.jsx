@@ -2,34 +2,34 @@ import React, { useState } from "react";
 import { useAddUserStoryMutation } from "../services/apiService";
 import { toast } from "react-hot-toast";
 
-
-export default function SaveButton({ storyId,userId }) {
+export default function SaveButton({ storyId, userId }) {
   const [isSaved, setIsSaved] = useState(false);
-  const[addUserStory]=useAddUserStoryMutation();
+  const [addUserStory] = useAddUserStoryMutation();
   const handleClick = async () => {
-    
-    if (isSaved) return; // opzionale: impedisce doppio salvataggio
-    setIsSaved(!isSaved);
-    try {
-      await addUserStory({
-       userId,
-        storyId,
-        status: null,
-        saved:true,
-        
-      }).unwrap();
+    if (!isSaved) {
+      try {
+        await addUserStory({
+          userId: userId,
+          storyId: storyId,
+          status: null,
+          saved: true,
+        }).unwrap();
 
-      setIsSaved(true);
-      toast.success("Libro salvato con successo!");
-    } catch (error) {
-      toast.error("Errore durante il salvataggio!");
-      console.error("Errore nel salvataggio:", error);
+        setIsSaved(true);
+        toast.success("Libro salvato con successo!");
+      } catch (error) {
+        toast.error("Errore durante il salvataggio!");
+        console.error("Errore nel salvataggio:", error);
+      }
+
+      setIsSaved(!isSaved);
+    } else {
+      setIsSaved(!isSaved);
     }
   };
 
-
   const IconUnclicked = (
-    <svg 
+    <svg
       width="40"
       height="46"
       viewBox="0 0 40 46"
@@ -117,4 +117,3 @@ export default function SaveButton({ storyId,userId }) {
     </button>
   );
 }
-
