@@ -78,11 +78,14 @@ export default function NewStory_1({ genres }) {
 
   return (
     <div>
+      <div className="p-2">
+        <BackButton pageURL={"/library"} />
+      </div>
+
       <form
         className="pr-8 pl-8 pt-3 pb-3 gap-5 flex flex-col"
         onSubmit={handleSubmit}
       >
-        <BackButton pageUrl="/library" />
         <LoadCoverImg />
         <InputField
           placeholder="Choose a title"

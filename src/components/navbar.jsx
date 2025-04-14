@@ -117,7 +117,7 @@ export default function Navbar({ isLibrary = false, user }) {
 
         <button
           className="flex items-center justify-center"
-          onClick={() => navigate(user ? "/story/create" : "/login")}
+          onClick={() => navigate(user ? "/stories/create" : "/login")}
         >
           <svg
             width="40"
