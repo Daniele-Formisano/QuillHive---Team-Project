@@ -94,7 +94,7 @@ export default function SignupPages({ genres, artistTypes }) {
       },
       {
         loading: "Loading...",
-        success: <b>Signup Successfully</b>,
+        success: "Signup Successfully, Welcome in QuillHive",
         error: (err) => <b>{err.message || "Error"}</b>,
       }
     );
