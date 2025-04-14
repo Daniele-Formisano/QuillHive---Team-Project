@@ -20,10 +20,7 @@ export default function ProfileIcon({ onClick, width, height }) {
         />
         {/* Immagine all'interno dell'esagono */}
         <image
-          src={
-            loggedUser?.profile_picture ||
-            "/default-profile.png" /*profileImage*/
-          } // Usa la prop imageUrl per caricare l'immagine
+          src={loggedUser?.profile_picture || "/default-profile.png"} // Usa la prop imageUrl per caricare l'immagine
           width={width} // Larghezza dell'immagine
           height={height} // Altezza dell'immagine
           clipPath="url(#hexClip)" // Applica un ritaglio a forma di esagono

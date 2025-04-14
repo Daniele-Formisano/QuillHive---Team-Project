@@ -111,7 +111,10 @@ export default function App() {
           element={<NewStory_1 genres={dataGenres} />}
         />
         {/* <Route path="story/:id/edit" element={<NewStory_2 />} /> */}
-        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route
+          path="story/:id/info"
+          element={<StoryInfoPage stories={dataStories} />}
+        />
         <Route
           path="story/:storyId/read-story/chapter/:chapterOrder"
           element={<ReadingPage />}
@@ -125,9 +128,9 @@ export default function App() {
           element={<NewStory_2_item />}
         />
 
-        <Route path="/library" element={<UserLibrary />} />
-
         <Route path="/profile/:id" element={<ProfilePages />} />
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route path="/library" element={<UserLibrary />} />
       </Routes>
     )
   );

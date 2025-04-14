@@ -54,7 +54,7 @@ function Home() {
         <HamburgerMenu />
         <Searchbar />
         <div>
-          <ProfileIcon width={50} height={50} onClick={handleProfileClick} />
+          <ProfileIcon onClick={handleProfileClick} width={50} height={50} />
         </div>
       </header>
 

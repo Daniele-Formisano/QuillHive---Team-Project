@@ -23,7 +23,11 @@ export default function UserLibrary() {
   const [storiesOfUsers, setStoriesOfUsers] = useState([]);
   const { id } = useSelector((state) => state.global.user);
 
-  const { data: userStories, isLoanding, error } = useGetUserStoriesQuery(id);
+  const {
+    data: userStories,
+    isLoanding,
+    error,
+  } = useGetUserStoriesQuery({ userId: id });
 
   const [triggerGetStories] = useLazyGetStoriesQuery();
 
