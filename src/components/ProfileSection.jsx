@@ -154,6 +154,14 @@ export default function ProfileSection({ user, urlId }) {
   function handleChangeInput(e) {
     const { name, value } = e.target;
 
+    // controllo che visualizza un messaggio di errore se si supera la max length
+    if (name === "username" && value.length === 14) {
+      toast("You can't type more the 14 letters", {
+        icon: "⚠️",
+        duration: 4000,
+      });
+    }
+
     setUserData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -213,7 +221,7 @@ export default function ProfileSection({ user, urlId }) {
 
     localStorage.setItem("user", JSON.stringify(mergedUserData));
     setUserData(mergedUserData);
-
+    toast.success("Profile successfully updated!");
     setIsEditing(false);
   };
 

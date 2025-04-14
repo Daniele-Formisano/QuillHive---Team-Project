@@ -690,13 +690,6 @@
       "storyId": "5",
       "status": "reading",
       "saved": false
-    },
-    {
-      "id": "e091",
-      "userId": "1",
-      "storyId": "1",
-      "status": null,
-      "saved": false
     }
   ],
   "userGenres": [

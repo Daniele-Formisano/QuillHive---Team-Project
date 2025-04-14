@@ -126,7 +126,7 @@ export default function NewStory_2_list() {
     <div>
       {/* INDIETRO */}
       <span className="flex justify-between items-center m-2 mb-6">
-        <BackButton pageUrl="/library" />
+        <BackButton pageURL="/library" />
       </span>
       {/* CHAPTER LIST */}
       <div>
