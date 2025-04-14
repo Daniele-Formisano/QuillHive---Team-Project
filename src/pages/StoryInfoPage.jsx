@@ -6,17 +6,17 @@ import Searchbar from "../components/Searchbar";
 import ProfileIcon from "../components/ProfileIcon";
 import BackButton from "../components/BackButton";
 import Footer from "../components/Footer";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 
 export default function StoryInfoPage() {
   const { stories } = useSelector((state) => state.global);
   const { id } = useParams();
   const story = stories.find((s) => s.id == id);
   const navigate = useNavigate();
-  const loggedUserId = useSelector((state) => state.global.user.id);
+  const loggedUserId = useSelector((state) => state.global.user?.id);
 
   const handleProfileClick = () => {
-    navigate(`/profile/${loggedUserId}`);
+    navigate(loggedUserId ? `/profile/${loggedUserId}` : "/login");
   }; //reindirezzamento al proprio profilo
 
   return story ? (
@@ -37,7 +37,7 @@ export default function StoryInfoPage() {
       {/* Sezione main della pagina che contiene le info della storia prese dal componente */}
       <main className="overflow-scroll">
         <div className="pl-2">
-          <BackButton />
+          <BackButton pageURL={"/home"} />
         </div>
         <BookInfoList story={story} />
         {/* Sezione del footer */}

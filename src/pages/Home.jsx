@@ -1,6 +1,6 @@
 import Card from "../components/Card";
 import HamburgerMenu from "../components/HamburgherMenu";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
 import AuthorIconButton from "../components/AuthorIconButton";
@@ -57,7 +57,7 @@ function Home() {
 
   const handleProfileClick = () => {
     if (loggedUser) {
-      navigate(`/profile/${loggedUserId}`);
+      navigate(`/profile/${loggedUser.id}`);
     } else {
       navigate("/login");
     }
@@ -103,41 +103,53 @@ function Home() {
         </div>
         <div>
           <div className="flex flex-col justify-center">
-          <p className="text-secondary-brand font-title text-2xl">
-            Hive's choices
-          </p>
-          <div className="">
-            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide  ">
-              {storiesWithAuthors.map((story) => (
-                <Card key={story.id} story={story} onClick={() => setSelectedStory(story)} />
-              ))}
-            </ul>
+            <p className="text-secondary-brand font-title text-2xl">
+              Hive's choices
+            </p>
+            <div className="">
+              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide  ">
+                {storiesWithAuthors.map((story) => (
+                  <Card
+                    key={story.id}
+                    story={story}
+                    onClick={() => setSelectedStory(story)}
+                  />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col justify-center mb-10">
-          <p className="text-secondary-brand font-title text-2xl ">
-            Trending now
-          </p>
-          <div className="">
-            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {storiesWithAuthors.map((story) => (
-                <Card key={story.id} story={story} onClick={() => setSelectedStory(story)}/>
-              ))}
-            </ul>
+          <div className="flex flex-col justify-center mb-10">
+            <p className="text-secondary-brand font-title text-2xl ">
+              Trending now
+            </p>
+            <div className="">
+              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+                {storiesWithAuthors.map((story) => (
+                  <Card
+                    key={story.id}
+                    story={story}
+                    onClick={() => setSelectedStory(story)}
+                  />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col justify-center mb-10">
-          <p className="text-secondary-brand font-title text-2xl ">
-            Collab Spotlight
-          </p>
-          <div className="">
-            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-              {storiesWithAuthors.map((story) => (
-                <Card key={story.id} story={story} onClick={() => setSelectedStory(story)}/>
-              ))}
-            </ul>
+          <div className="flex flex-col justify-center mb-10">
+            <p className="text-secondary-brand font-title text-2xl ">
+              Collab Spotlight
+            </p>
+            <div className="">
+              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+                {storiesWithAuthors.map((story) => (
+                  <Card
+                    key={story.id}
+                    story={story}
+                    onClick={() => setSelectedStory(story)}
+                  />
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
         </div>
         {/* controllare se mb-10 è necessario */}
         <div className="flex flex-col justify-center mb-10">
@@ -157,7 +169,7 @@ function Home() {
           </div>
         </div>
 
-        <Footer/>
+        <Footer />
       </main>
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}
       <div className=" font-title fixed bottom-0  w-full flex justify-center items-center z-30">

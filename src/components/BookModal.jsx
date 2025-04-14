@@ -27,7 +27,7 @@ function BookModal({ story, isOpen, onClose, user }) {
                 className="w-full h-[400px] rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
               />
               <div className=" absolute -bottom-1.5 right-2 ">
-              {user && <SaveButton storyId={story.id} userId={user.id} />}
+                {user && <SaveButton storyId={story.id} userId={user.id} />}
               </div>
             </div>
             {/* aggiungere un controllo che dia un numero massimo di caratteri per evitare che la modal venga coperta da header e navbar  */}
@@ -43,7 +43,9 @@ function BookModal({ story, isOpen, onClose, user }) {
                 isColorYellow={true}
                 children={"Read book"}
                 type={"button"}
-                onClick={() => navigate("/home")}
+                onClick={() =>
+                  navigate(`/story/${story.id}/read-story/chapter/${1}`)
+                }
               />
               <Button
                 isColorYellow={false}

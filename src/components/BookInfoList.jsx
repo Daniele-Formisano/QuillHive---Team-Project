@@ -28,7 +28,7 @@ export default function BookInfoList({ story }) {
   } = useGetUsersQuery({ id: story.userId });
 
   function handleClick() {
-    navigate(`/story/${id}/read-story`);
+    navigate(`/story/${id}/read-story/chapter/${1}`);
   }
   if (isLoadingStoryChapters) return <p>Chapters loading...</p>;
   if (errorStoryChapters) return <p>Error loading chapters</p>;

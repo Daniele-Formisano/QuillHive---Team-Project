@@ -25,6 +25,7 @@ import UserLibrary from "./pages/UserLibrary";
 import Loader from "./components/Loader";
 import ProfilePages from "./pages/ProfilePages";
 import StoryInfoPage from "./pages/StoryInfoPage";
+import ReadingPage from "./pages/ReadingPage";
 
 export default function App() {
   const {
@@ -109,6 +110,12 @@ export default function App() {
           path="/stories/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
+        {/* <Route path="story/:id/edit" element={<NewStory_2 />} /> */}
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route
+          path="story/:storyId/read-story/chapter/:chapterOrder"
+          element={<ReadingPage />}
+        />
         <Route
           path="/stories/:storyId/chapters"
           element={<NewStory_2_list />}
@@ -120,6 +127,7 @@ export default function App() {
 
         <Route path="/profile/:id" element={<ProfilePages />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route path="/library" element={<UserLibrary />} />
       </Routes>
     )
   );
