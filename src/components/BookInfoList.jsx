@@ -50,7 +50,7 @@ export default function BookInfoList({ story, user }) {
             className="border-transparent rounded-2xl "
           />
           <div className="absolute -bottom-4.5 -right-4.5">
-            <SaveButton />
+            <SaveButton storyId={story.id} userId={user.id} />
           </div>
           {story.userId === user?.id && (
             <div

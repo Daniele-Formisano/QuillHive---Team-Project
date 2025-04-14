@@ -1,30 +1,72 @@
-import React, { useState } from "react";
-import { useAddUserStoryMutation } from "../services/apiService";
+import React, { useEffect, useState } from "react";
+import {
+  useAddUserStoryMutation,
+  useGetUserStoriesQuery,
+  useUpdateUserStoriesMutation,
+} from "../services/apiService";
 import { toast } from "react-hot-toast";
 
 export default function SaveButton({ storyId, userId }) {
-  const [isSaved, setIsSaved] = useState(false);
-  const [addUserStory] = useAddUserStoryMutation();
-  const handleClick = async () => {
-    if (!isSaved) {
-      try {
-        await addUserStory({
-          userId: userId,
-          storyId: storyId,
-          status: null,
-          saved: true,
-        }).unwrap();
+  const [userStory, setUserStory] = useState();
+  const [isSaved, setIsSaved] = useState();
+  const { data: userStories } = useGetUserStoriesQuery({
+    userId: userId,
+    storyId: storyId,
+  });
 
-        setIsSaved(true);
-        toast.success("Libro salvato con successo!");
-      } catch (error) {
-        toast.error("Errore durante il salvataggio!");
-        console.error("Errore nel salvataggio:", error);
+  useEffect(() => {
+    if (userStories) {
+      if (userStories.length) {
+        setUserStory(userStories[0]);
+        setIsSaved(userStories[0].saved);
       }
+    }
+  }, [userStories]);
 
-      setIsSaved(!isSaved);
-    } else {
-      setIsSaved(!isSaved);
+  const [addUserStory] = useAddUserStoryMutation();
+  const [updateUserStories] = useUpdateUserStoriesMutation();
+
+  const handleClick = async () => {
+    switch (userStory?.saved) {
+      case undefined:
+        try {
+          await addUserStory({
+            userId: String(userId),
+            storyId: String(storyId),
+            status: null,
+            saved: true,
+          }).unwrap();
+
+          setIsSaved(true);
+          toast.success("book added to saved");
+        } catch (error) {
+          toast.error("Errore durante il salvataggio!");
+          console.error("Errore nel salvataggio:", error);
+        }
+        break;
+      case false:
+        try {
+          await updateUserStories({ ...userStory, saved: !isSaved });
+
+          setIsSaved(!isSaved);
+          toast.success("book added to saved");
+        } catch (error) {
+          toast.error("Error during the save");
+          console.error("Errore nel salvataggio:", error);
+        }
+        break;
+
+      case true:
+        try {
+          await updateUserStories({ ...userStory, saved: !isSaved });
+
+          setIsSaved(!isSaved);
+          toast.success("book removed by saved");
+        } catch (error) {
+          toast.error("Error during the save");
+          console.error("Errore nel salvataggio:", error);
+        }
+        break;
     }
   };
 
@@ -111,9 +153,11 @@ export default function SaveButton({ storyId, userId }) {
     </svg>
   );
 
-  return (
-    <button type="button" onClick={handleClick} className="cursor-pointer">
-      {isSaved ? IconClicked : IconUnclicked}
-    </button>
-  );
+  if (userStories) {
+    return (
+      <button type="button" onClick={handleClick} className="cursor-pointer">
+        {isSaved ? IconClicked : IconUnclicked}
+      </button>
+    );
+  }
 }

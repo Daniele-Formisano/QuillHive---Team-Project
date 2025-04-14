@@ -692,19 +692,11 @@
       "saved": false
     },
     {
-      "id": "bd0d",
+      "id": "e091",
+      "userId": "1",
+      "storyId": "1",
       "status": null,
-      "saved": true
-    },
-    {
-      "id": "0a1b",
-      "status": null,
-      "saved": true
-    },
-    {
-      "id": "f144",
-      "status": null,
-      "saved": true
+      "saved": false
     }
   ],
   "userGenres": [

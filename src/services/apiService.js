@@ -119,7 +119,13 @@ export const apiService = createApi({
     }),
 
     getUserStories: builder.query({
-      query: (userId) => `userStories?userId=${userId}`,
+      query: (userStories) => {
+        let params = new URLSearchParams();
+        if (userStories?.storyId) params.append("storyId", userStories.storyId);
+        if (userStories?.userId) params.append("userId", userStories.userId);
+
+        return `userStories${params.toString() ? `?${params.toString()}` : ""}`;
+      },
     }),
 
     addUserStory: builder.mutation({
@@ -129,6 +135,15 @@ export const apiService = createApi({
         body: newStory,
       }),
     }),
+
+    updateUserStories: builder.mutation({
+      query: (userStory) => ({
+        url: `userStories/${userStory.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
+        method: "PUT",
+        body: userStory,
+      }),
+    }),
+
     deleteChapter: builder.mutation({
       query: (chapter) => ({
         url: `chapters/${chapter.id}`, // L'ID del capitolo è passato nel body o come parte dell'URL
@@ -165,4 +180,5 @@ export const {
   useUpdateUserMutation,
   useAddUserStoryMutation,
   useDeleteChapterMutation,
+  useUpdateUserStoriesMutation,
 } = apiService;

@@ -84,10 +84,8 @@ export default function Login({ languages }) {
       },
       {
         loading: "Loading...",
-        success: <b>Logged</b>,
-        error: (err) => {
-          err.message || "Error";
-        },
+        success: "Logged",
+        error: (err) => err.message || "Error",
       }
     );
   }
