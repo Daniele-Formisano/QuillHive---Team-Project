@@ -5,8 +5,8 @@ export default function ProfileIcon({ user, onClick, width, height }) {
     <button onClick={onClick}>
       {user ? (
         <div
-          className={`${
-            size ? size : "w-[100px] h-[100px]"
+          className={`${width ? width : "w-[100px]"} ${
+            height ? height : "h-[100px]"
           } flex items-center justify-center`}
         >
           <img
@@ -26,8 +26,8 @@ export default function ProfileIcon({ user, onClick, width, height }) {
           }`}
         >
           <svg
-            width="50"
-            height="50"
+            width={width}
+            height={height}
             viewBox="0 0 87 98"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
