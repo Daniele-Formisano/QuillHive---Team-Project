@@ -54,7 +54,12 @@ function Home() {
         <HamburgerMenu />
         <Searchbar />
         <div className="flex justify-center items-center">
-          <ProfileIcon onClick={handleProfileClick} width={50} height={50} />
+          <ProfileIcon
+            onClick={handleProfileClick}
+            width={"w-[50px]"}
+            height={"h-[50px]"}
+            user={loggedUser}
+          />
         </div>
       </header>
 
@@ -64,7 +69,7 @@ function Home() {
             
             Explore the hive
           </p>
-          <div className="flex flex-row  gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+          <div className="flex flex-row gap-2 pl-1 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
             {selectedUsers.map((user) => (
               <AuthorIconButton key={user.id} user={user} />
             ))}

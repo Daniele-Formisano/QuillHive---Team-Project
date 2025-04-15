@@ -21,13 +21,13 @@ export default function UserLibrary() {
   ]);
   const [stories, setStories] = useState([]);
   const [storiesOfUsers, setStoriesOfUsers] = useState([]);
-  const { id } = useSelector((state) => state.global.user);
+  const user = useSelector((state) => state.global.user);
 
   const {
     data: userStories,
     isLoanding,
     error,
-  } = useGetUserStoriesQuery({ userId: id });
+  } = useGetUserStoriesQuery({ userId: user.id });
 
   const [triggerGetStories] = useLazyGetStoriesQuery();
 
@@ -48,7 +48,9 @@ export default function UserLibrary() {
     setStories(storiesArray);
 
     // imposta i libri dell'utente nell'array storiesOfUsers
-    const dataStoriesOfUser = await triggerGetStories({ userId: id }).unwrap();
+    const dataStoriesOfUser = await triggerGetStories({
+      userId: user.id,
+    }).unwrap();
 
     setStoriesOfUsers(dataStoriesOfUser);
   }
@@ -71,7 +73,7 @@ export default function UserLibrary() {
   }
 
   const handleProfileClick = () => {
-    navigate(`/profile/${id}`);
+    navigate(`/profile/${user.id}`);
   };
 
   if (isLoanding)
@@ -91,7 +93,11 @@ export default function UserLibrary() {
 
           <Searchbar />
           <div>
-            <ProfileIcon width={50} height={50} onClick={handleProfileClick} />
+            <ProfileIcon
+              size={"w-[50px] h-[50px]"}
+              onClick={handleProfileClick}
+              user={user}
+            />
           </div>
         </header>
         <div className="pl-2 pr-2 mt-5">
@@ -174,7 +180,7 @@ export default function UserLibrary() {
           )}
 
           <div className="font-title flex justify-center items-center z-30">
-            <Navbar isLibrary={true} user={id} />
+            <Navbar isLibrary={true} user={user.id} />
           </div>
         </div>
       </div>

@@ -1,24 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  useGetLanguagesQuery,
   useGetUserArtistTypesQuery,
   useGetUserLanguagesQuery,
   useGetUserProjectsQuery,
-  useLazyGetUserLanguagesQuery,
   useLazyGetUsersQuery,
   useUpdateUserMutation,
 } from "../services/apiService";
-/* import { useUserLanguages } from "../utils/useCustomHook"; */
-import InputField from "./InputField";
 import { useEffect, useRef, useState } from "react";
 import ProfileIcon from "./ProfileIcon";
 import { setUser } from "../features/global/globalSlice";
 import Button from "./Button";
 import Card from "./Card";
-import { IconCircleDashedPlus } from "@tabler/icons-react";
-import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import Checkbox from "./Checkbox";
-import RemoveButton from "./RemoveButton";
 import ButtonEdit from "./ButtonEdit";
 import toast from "react-hot-toast";
 import ButtonAddFile from "./ButtonAddFile";
@@ -109,7 +102,7 @@ export default function ProfileSection({ user, urlId }) {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [updateUser, { data, isLoading, error }] = useUpdateUserMutation();
-  const loggedUserId = useSelector((state) => state.global.user.id);
+  const loggedUserId = useSelector((state) => state.global.user?.id);
 
   const isOwner = urlId === loggedUserId;
   console.log(loggedUserId);
@@ -245,7 +238,11 @@ export default function ProfileSection({ user, urlId }) {
             {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente in user */}
             <div className="flex flex-col items-center mb-10">
               <div className="relative">
-                <ProfileIcon width={200} height={200} />
+                <ProfileIcon
+                  width={"w-[200px]"}
+                  height={"h-[200px]"}
+                  user={user}
+                />
                 <div className="absolute  top-0.5 right-5.5 transform  translate-y-1">
                   <ButtonAddFile />
                 </div>
@@ -374,7 +371,11 @@ export default function ProfileSection({ user, urlId }) {
             >
               {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
               <div className="flex flex-col items-center mb-8 gap-2">
-                <ProfileIcon width={200} height={200} />
+                <ProfileIcon
+                  width={"w-[200px]"}
+                  height={"h-[200px]"}
+                  user={user}
+                />
 
                 <div className="flex flex-col items-center font-script-semibold gap-1">
                   <h2 className="text-4xl  text-secondary-brand">

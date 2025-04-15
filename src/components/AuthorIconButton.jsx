@@ -10,7 +10,17 @@ export default function AuthorIconButton({ user }) {
       onClick={() => navigate(`/profile/${user.id}`)}
     >
       {user.profile_picture ? (
-        "" // andrà inserito un div con dentro un img con l'immagine dell'utente
+        <div className="w-[100px] h-[100px] flex items-center justify-center">
+          <img
+            src={user.profile_picture}
+            alt="Profile"
+            className="w-full h-full object-cover"
+            style={{
+              clipPath:
+                "polygon(25% 6%, 75% 6%, 100% 50%, 75% 94%, 25% 94%, 0% 50%)",
+            }}
+          />
+        </div>
       ) : (
         <svg
           width="90"
