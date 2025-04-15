@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 function BookModal({ story, isOpen, onClose, user, author }) {
   if (!story) return null;
   const navigate = useNavigate();
-  console.log(story.title, user);
-
+  
   return (
     <>
       {/* //scurire background quando open  */}

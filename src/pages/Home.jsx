@@ -61,7 +61,8 @@ function Home() {
       <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 min-h-screen scrollbar-hide  ">
         <div className="flex flex-col gap-8 mb-5 pt-4">
           <p className="flex justify-start text-secondary-brand font-title text-center text-2xl ">
-            Travel in the hive
+            
+            Explore the hive
           </p>
           <div className="flex flex-row  gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
             {selectedUsers.map((user) => (
