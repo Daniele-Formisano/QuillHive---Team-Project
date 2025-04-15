@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 export default function AuthorIconButton({ user }) {
+  const navigate = useNavigate();
+
   return (
     <button
       type="button"
       className="inline-flex items-center flex-col gap-1 hover:cursor-pointer max-w-[90px]"
+      onClick={() => navigate(`/profile/${user.id}`)}
     >
       {user.profile_picture ? (
         "" // andrà inserito un div con dentro un img con l'immagine dell'utente

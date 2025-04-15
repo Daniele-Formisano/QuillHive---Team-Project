@@ -17,7 +17,7 @@ export default function NewStory_1({ genres }) {
   const [newStory, setNewStory] = useState({
     title: "",
     plot: "",
-    usersId: user.id,
+    userId: user.id,
     cover_image: null,
     status: "draft",
     likes: 0,
@@ -79,7 +79,7 @@ export default function NewStory_1({ genres }) {
   return (
     <div>
       <div className="p-2">
-        <BackButton pageURL={"/library"} />
+        <BackButton pageURL={-1} />
       </div>
 
       <form
@@ -107,7 +107,7 @@ export default function NewStory_1({ genres }) {
         />
         <SelectOptions
           selectTitle="Add genres"
-          paragraph="Select your creative role-choose at least 1 option, up to 5, or just continue as a reader"
+          paragraph="Add at least 1 gender, up to 5, to create your story."
           dataSelect={genres}
           placeholder="Select genres"
           arraySelectedItems={storyGenres}

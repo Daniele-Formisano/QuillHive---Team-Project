@@ -22,6 +22,8 @@ import RemoveButton from "./RemoveButton";
 import ButtonEdit from "./ButtonEdit";
 import toast from "react-hot-toast";
 import ButtonAddFile from "./ButtonAddFile";
+import Loader from "./Loader";
+import clsx from "clsx";
 
 export default function ProfileSection({ user, urlId }) {
   const { languages, artistType } = useSelector((state) => state.global);
@@ -155,8 +157,8 @@ export default function ProfileSection({ user, urlId }) {
     const { name, value } = e.target;
 
     // controllo che visualizza un messaggio di errore se si supera la max length
-    if (name === "username" && value.length === 14) {
-      toast("You can't type more the 14 letters", {
+    if (name === "username" && value.length === 12) {
+      toast("You can't type more the 12 letters", {
         icon: "⚠️",
         duration: 4000,
       });
@@ -225,14 +227,13 @@ export default function ProfileSection({ user, urlId }) {
     setIsEditing(false);
   };
 
-  if (isLoadingProjects) return <p>Loading</p>;
-  if (errorProjects) return <p>Error </p>;
-  if (!userProjects || userProjects.length === 0) return <p>No stories</p>;
+  if (isLoadingProjects || isLoadingUserArtistTypes) return <Loader />;
+  if (errorProjects || errorUserArtistTypes) return <p>Error </p>;
+  if (!userArtistTypes) return <p>No artists</p>;
+  if (!userProjects) return <p>No projects</p>;
 
-  if (isLoadingUserArtistTypes) return <p>Loading</p>;
-  if (errorUserArtistTypes) return <p>Error </p>;
-  if (!userArtistTypes || userArtistTypes.length === 0)
-    return <p>No artists</p>;
+  console.log(userProjects);
+
   if (userData) {
     return (
       <div className="flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden px-10 py-5">
@@ -252,11 +253,11 @@ export default function ProfileSection({ user, urlId }) {
               <div className="flex flex-col gap-2 text-secondary-brand items-center">
                 <input
                   minLength="4"
-                  maxLength="14"
+                  maxLength="12"
                   value={userData.username || ""}
                   name="username"
                   onChange={handleChangeInput}
-                  className="w-full text-4xl p-2 border rounded-md resize-none "
+                  className="w-full text-4xl p-2 border rounded-md resize-none border-primary-brand"
                 />
                 <ul className="grid grid-cols-2 gap-2 ">
                   {artistType.map((artist) => (
@@ -296,7 +297,7 @@ export default function ProfileSection({ user, urlId }) {
                 value={userData.bio || ""}
                 name="bio"
                 onChange={handleChangeInput}
-                className="w-full p-2 border rounded-md resize-none "
+                className="w-full p-2 border rounded-md resize-none border-primary-brand"
                 rows={3} // Numero minimo di righe visibili
               />
             </div>
@@ -348,9 +349,13 @@ export default function ProfileSection({ user, urlId }) {
               <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
               <div className="">
                 <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-                  {userProjects.map((project) => (
-                    <Card key={project.id} story={project} />
-                  ))}
+                  {userProjects.lentgh > 0 ? (
+                    userProjects.map((project) => (
+                      <Card key={project.id} story={project} />
+                    ))
+                  ) : (
+                    <p>You still haven't created any story...</p>
+                  )}
                 </ul>
               </div>
             </div>
@@ -362,7 +367,11 @@ export default function ProfileSection({ user, urlId }) {
                 {<ButtonEdit handleClick={handleSetIsEdititing} />}
               </div>
             )}
-            <div className="flex flex-col gap-4 w-full px-6 ">
+            <div
+              className={
+                (clsx("flex flex-col gap-4 w-full px-6"), isOwner && "px-10")
+              }
+            >
               {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
               <div className="flex flex-col items-center mb-8 gap-2">
                 <ProfileIcon width={200} height={200} />
@@ -428,9 +437,13 @@ export default function ProfileSection({ user, urlId }) {
                 <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
                 <div className="">
                   <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-                    {userProjects.map((project) => (
-                      <Card key={project.id} story={project} />
-                    ))}
+                    {userProjects.length > 0 ? (
+                      userProjects.map((project) => (
+                        <Card key={project.id} story={project} />
+                      ))
+                    ) : (
+                      <p>You still haven't created any story...</p>
+                    )}
                   </ul>
                 </div>
               </div>

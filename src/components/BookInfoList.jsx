@@ -28,7 +28,7 @@ export default function BookInfoList({ story, user }) {
   } = useGetUsersQuery({ id: story.userId });
 
   function handleClick() {
-    navigate(`/story/${id}/read-story`);
+    navigate(`/story/${story.id}/read-story/chapter/${1}`);
   }
 
   function handleClickEdit() {

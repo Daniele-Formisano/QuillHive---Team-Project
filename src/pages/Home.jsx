@@ -49,17 +49,17 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center bg-bg-brand pt-2">
-      <header className="flex flex-row gap-2 sticky top-0 justify-around items-center bg-bg-brand z-45">
+    <div className="flex flex-col justify-center bg-bg-brand ">
+      <header className="flex flex-row gap-2 sticky top-0 justify-around items-center bg-bg-brand z-45 py-2">
         <HamburgerMenu />
         <Searchbar />
-        <div>
+        <div className="flex justify-center items-center">
           <ProfileIcon onClick={handleProfileClick} width={50} height={50} />
         </div>
       </header>
 
       <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 min-h-screen scrollbar-hide  ">
-        <div className="flex flex-col gap-8 mb-5 ">
+        <div className="flex flex-col gap-8 mb-5 pt-4">
           <p className="flex justify-start text-secondary-brand font-title text-center text-2xl ">
             Travel in the hive
           </p>
@@ -90,10 +90,7 @@ function Home() {
             <div className="">
               <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide  ">
                 {stories.map((story) => (
-                  <Card
-                    key={story.id}
-                    story={story}
-                  />
+                  <Card key={story.id} story={story} />
                 ))}
               </ul>
             </div>
@@ -104,10 +101,7 @@ function Home() {
               <div className="">
                 <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
                   {stories.map((story) => (
-                    <Card
-                      key={story.id}
-                      story={story}
-                    />
+                    <Card key={story.id} story={story} />
                   ))}
                 </ul>
               </div>
@@ -120,10 +114,7 @@ function Home() {
             <div className="">
               <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
                 {stories.map((story) => (
-                  <Card
-                    key={story.id}
-                    story={story}
-                  />
+                  <Card key={story.id} story={story} />
                 ))}
               </ul>
             </div>
@@ -136,16 +127,14 @@ function Home() {
             <div className=""></div>
             <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
               {stories.map((story) => (
-                <Card
-                  key={story.id}
-                  story={story}
-                />
+                <Card key={story.id} story={story} />
               ))}
             </ul>
           </div>
         </div>
-
-        <Footer />
+        <div className="pr-[20px] mb-8">
+          <Footer />
+        </div>
       </main>
 
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}

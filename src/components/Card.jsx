@@ -2,17 +2,22 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import BookModal from "./BookModal";
 import { useGetUserByIdQuery } from "../services/apiService";
+import Loader from "./Loader";
 
-function Card({ story}) {
+function Card({ story }) {
   // props passate da Home.jsx
   const [showTooltip, setShowTooltip] = useState(false);
-  const { data: author, isLoading } = useGetUserByIdQuery(story.userId);
-  
 
-  
+  const { data: author, isLoading } = useGetUserByIdQuery(story.userId);
   const { user: loggedUser } = useSelector((state) => state.global);
- 
-const [selectedStory, setSelectedStory] = useState(null)
+  console.log(story);
+
+  console.log(story.userId);
+
+  const [selectedStory, setSelectedStory] = useState(null);
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className="inline-flex justify-center">
       <li
@@ -46,16 +51,16 @@ const [selectedStory, setSelectedStory] = useState(null)
         </div>
 
         <p className="font-light font text-[12px] text-secondary-brand secondary-brand  hover:cursor-pointer ">
-          {isLoading ? "Wait a second!": author?.username || "not defined"}
+          {isLoading ? "Wait a second!" : author?.username || "not defined"}
         </p>
       </li>
       <BookModal
-              story={selectedStory}
-              isOpen={!!selectedStory}
-              onClose={() => setSelectedStory(null)}
-              user={loggedUser}
-              author={author}
-            />
+        story={selectedStory}
+        isOpen={!!selectedStory}
+        onClose={() => setSelectedStory(null)}
+        user={loggedUser}
+        author={author}
+      />
     </div>
   );
 }
