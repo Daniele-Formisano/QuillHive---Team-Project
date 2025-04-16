@@ -9,16 +9,15 @@ import Button from "./Button";
 import SaveButton from "./ButtonSave";
 import { useNavigate } from "react-router-dom";
 
-function BookModal({ story, isOpen, onClose, user }) {
+function BookModal({ story, isOpen, onClose, user, author }) {
   if (!story) return null;
   const navigate = useNavigate();
-  console.log(story, user);
-
+  
   return (
     <>
       {/* //scurire background quando open  */}
-      {isOpen && <div className="fixed inset-0 bg-bg-brand z-20" />}
-      <Dialog open={isOpen} onClose={onClose} className="relative z-40">
+      {isOpen && <div className="fixed inset-0 bg-black/50 z-[50]" />}
+      <Dialog open={isOpen} onClose={onClose} className="relative z-[70]">
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-xl space-y-4 border-transparent rounded-2xl bg-white px-3 pt-3 pb-7">
             <div className="relative ">
@@ -33,7 +32,7 @@ function BookModal({ story, isOpen, onClose, user }) {
             </div>
             {/* aggiungere un controllo che dia un numero massimo di caratteri per evitare che la modal venga coperta da header e navbar  */}
             <DialogTitle className="font-bold text-xl text-center text-secondary-brand whitespace-normal break-words">
-              {story.title} - {story.authorName}
+              {story.title} - {author?.username}
             </DialogTitle>
             <Description className="text-secondary-brand font-medium text-[14px] whitespace-normal break-words">
               {story.plot}

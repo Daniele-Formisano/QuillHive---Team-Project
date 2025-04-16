@@ -128,9 +128,9 @@ export default function App() {
           element={<NewStory_2_item />}
         />
 
-        <Route path="/library" element={<UserLibrary />} />
-
         <Route path="/profile/:id" element={<ProfilePages />} />
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route path="/library" element={<UserLibrary />} />
       </Routes>
     )
   );

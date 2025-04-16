@@ -86,6 +86,7 @@ export default function SignupPages({ genres, artistTypes }) {
               };
 
               await AddUserArtistTypes(userArtistType);
+              localStorage.setItem("user", JSON.stringify(newUser)); // salva l'utente nel local storage
             }
           }
         } catch (error) {
@@ -94,7 +95,7 @@ export default function SignupPages({ genres, artistTypes }) {
       },
       {
         loading: "Loading...",
-        success: <b>Signup Successfully</b>,
+        success: "Signup Successfully, Welcome in QuillHive",
         error: (err) => <b>{err.message || "Error"}</b>,
       }
     );

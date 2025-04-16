@@ -55,7 +55,7 @@ export default function HamburgerMenu() {
               </button>
 
               <div className="inline-flex justify-center items-center">
-                <ProfileIcon width={100} height={100} />
+                <ProfileIcon width={"w-[100px]"} height={"h-[100px]"} />
               </div>
             </div>
             {user ? (

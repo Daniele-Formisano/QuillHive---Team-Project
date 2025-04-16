@@ -84,8 +84,8 @@ export default function Login({ languages }) {
       },
       {
         loading: "Loading...",
-        success: <b>Logged</b>,
-        error: (err) => <b>{err.message || "Error"}</b>,
+        success: "Logged",
+        error: (err) => err.message || "Error",
       }
     );
   }
@@ -93,7 +93,7 @@ export default function Login({ languages }) {
   return (
     <div className="min-h-screen bg-bg-brand">
       <div className="absolute mt-2">
-        <BackButton pageURL={"/"} />
+        <BackButton pageURL={-1} />
       </div>
       <div className="flex flex-col gap-10 p-8">
         <div className="inline-flex justify-center">

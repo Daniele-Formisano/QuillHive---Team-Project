@@ -3,19 +3,40 @@ import { IconBookmark } from "@tabler/icons-react";
 import { IconBook } from "@tabler/icons-react";
 import Button from "./Button";
 import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetChaptersByStoryIdQuery,
+  useGetUsersQuery,
+} from "../services/apiService";
 import ButtonEdit from "./ButtonEdit";
 
 export default function BookInfoList({ story, user }) {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  /* Chiamata per ricevere i capitoli della storia */
+  const {
+    data: storyChapters,
+    isLoading: isLoadingStoryChapters,
+    error: errorStoryChapters,
+  } = useGetChaptersByStoryIdQuery(story.id);
+
+  /* Chiamata per ricevere l'autore della storia */
+  const {
+    data: author,
+    isLoading: isLoadingAuthor,
+    error: errorAuthor,
+  } = useGetUsersQuery({ id: story.userId });
+
   function handleClick() {
-    navigate(`/story/${id}/read-story`);
+    navigate(`/story/${story.id}/read-story/chapter/${1}`);
   }
 
   function handleClickEdit() {
     navigate(`/stories/${story.id}/chapters`);
   }
+  if (isLoadingStoryChapters || isLoadingAuthor) return <p>Loading...</p>;
+  if (errorStoryChapters || errorAuthor) return <p>Error loading</p>;
+  if (!storyChapters || !author) return <p>There is no data available</p>;
 
   return (
     <div className="flex flex-col gap-8">
@@ -29,7 +50,7 @@ export default function BookInfoList({ story, user }) {
             className="border-transparent rounded-2xl "
           />
           <div className="absolute -bottom-4.5 -right-4.5">
-            <SaveButton />
+            {user && <SaveButton storyId={story.id} userId={user.id} />}
           </div>
           {story.userId === user?.id && (
             <div
@@ -64,7 +85,7 @@ export default function BookInfoList({ story, user }) {
             {story.title}
           </h2>
           <h4 className="font-script-semibold font-medium text-secondary-brand">
-            {story.authorName || "Autore sconosciuto"}
+            {author[0].username || "Autore sconosciuto"}
           </h4>
         </div>
       </div>
@@ -96,7 +117,7 @@ export default function BookInfoList({ story, user }) {
         <div className="flex flex-col items-center justify-center font-script text-secondary-brand">
           <IconBook stroke={2} color="#203955" size={32} />
           <p>Chapters</p>
-          <p className="font-extrabold">{story.chapters || 1}</p>
+          <p className="font-extrabold">{storyChapters?.length}</p>
         </div>
       </div>
 
