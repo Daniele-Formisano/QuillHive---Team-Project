@@ -7,11 +7,9 @@ import {
 import { useSelector } from "react-redux";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
-import ProfileIcon from "../components/ProfileIcon";
-import Searchbar from "../components/Searchbar";
-import HamburgerMenu from "../components/HamburgherMenu";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
+import HeaderNavbar from "../components/HeaderNavbar";
 
 export default function UserLibrary() {
   const [filterButton, setFilterButton] = useState([
@@ -72,10 +70,6 @@ export default function UserLibrary() {
     setFilterButton(activeFilter);
   }
 
-  const handleProfileClick = () => {
-    navigate(`/profile/${user.id}`);
-  };
-
   if (isLoanding)
     return (
       <div>
@@ -87,19 +81,8 @@ export default function UserLibrary() {
 
   if (userStories && storiesOfUsers) {
     return (
-      <div className="bg-bg-brand min-h-screen flex flex-col pt-2">
-        <header className="flex flex-row gap-2  justify-around items-center bg-bg-brand z-45">
-          <HamburgerMenu />
-
-          <Searchbar />
-          <div>
-            <ProfileIcon
-              size={"w-[50px] h-[50px]"}
-              onClick={handleProfileClick}
-              user={user}
-            />
-          </div>
-        </header>
+      <div className="bg-bg-brand min-h-screen flex flex-col">
+        <HeaderNavbar user={user} />
         <div className="pl-2 pr-2 mt-5">
           <FilterButton optionsFilter={filterButton} onClick={handleClick} />
         </div>

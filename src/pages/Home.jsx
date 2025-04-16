@@ -1,15 +1,13 @@
 import Card from "../components/Card";
-import HamburgerMenu from "../components/HamburgherMenu";
 import Navbar from "../components/Navbar";
-import Searchbar from "../components/Searchbar";
 import { useGetStoriesQuery, useGetUsersQuery } from "../services/apiService";
 import AuthorIconButton from "../components/AuthorIconButton";
-import ProfileIcon from "../components/ProfileIcon";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Footer from "../components/Footer";
+import HeaderNavbar from "../components/HeaderNavbar";
 
 function Home() {
   const { data: users, isLoading, error } = useGetUsersQuery();
@@ -23,7 +21,6 @@ function Home() {
   } = useGetStoriesQuery();
 
   const [selectedStory, setSelectedStory] = useState(null);
-  console.log(loggedUser);
   const navigate = useNavigate();
 
   if (isLoading || storiesLoading)
@@ -49,27 +46,15 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center bg-bg-brand ">
-      <header className="flex flex-row gap-2 sticky top-0 justify-around items-center bg-bg-brand z-45 py-2">
-        <HamburgerMenu />
-        <Searchbar />
-        <div className="flex justify-center items-center">
-          <ProfileIcon
-            onClick={handleProfileClick}
-            width={"w-[50px]"}
-            height={"h-[50px]"}
-            user={loggedUser}
-          />
-        </div>
-      </header>
+    <div className="flex flex-col justify-center bg-bg-brand">
+      <HeaderNavbar user={loggedUser} />
 
-      <main className=" flex flex-col  justify-center overflow-y-scroll pl-5 min-h-screen scrollbar-hide  ">
+      <main className=" flex flex-col  justify-center overflow-y-scroll min-h-screen scrollbar-hide">
         <div className="flex flex-col gap-8 mb-5 pt-4">
-          <p className="flex justify-start text-secondary-brand font-title text-center text-2xl ">
-            
+          <p className="flex justify-start text-secondary-brand font-title text-center text-2xl pl-5">
             Explore the hive
           </p>
-          <div className="flex flex-row gap-2 pl-1 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+          <div className="flex flex-row gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
             {selectedUsers.map((user) => (
               <AuthorIconButton key={user.id} user={user} />
             ))}
@@ -77,11 +62,11 @@ function Home() {
         </div>
 
         <div className="flex flex-col justify-center">
-          <p className="text-secondary-brand font-title text-2xl">
+          <p className="text-secondary-brand font-title text-2xl pl-5">
             Buzzing for you
           </p>
           <div className="">
-            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
               {stories.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
@@ -90,22 +75,22 @@ function Home() {
         </div>
         <div>
           <div className="flex flex-col justify-center">
-            <p className="text-secondary-brand font-title text-2xl">
+            <p className="text-secondary-brand font-title text-2xl pl-5">
               Hive's choices
             </p>
             <div className="">
-              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide  ">
+              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
                 {stories.map((story) => (
                   <Card key={story.id} story={story} />
                 ))}
               </ul>
             </div>
             <div className="flex flex-col justify-center mb-10">
-              <p className="text-secondary-brand font-title text-2xl ">
+              <p className="text-secondary-brand font-title text-2xl pl-5">
                 Trending now
               </p>
               <div className="">
-                <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+                <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
                   {stories.map((story) => (
                     <Card key={story.id} story={story} />
                   ))}
@@ -114,11 +99,11 @@ function Home() {
             </div>
           </div>
           <div className="flex flex-col justify-center mb-10">
-            <p className="text-secondary-brand font-title text-2xl ">
+            <p className="text-secondary-brand font-title text-2xl pl-5">
               Collab Spotlight
             </p>
             <div className="">
-              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+              <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
                 {stories.map((story) => (
                   <Card key={story.id} story={story} />
                 ))}
@@ -127,18 +112,18 @@ function Home() {
           </div>
           {/* controllare se mb-10 è necessario */}
           <div className="flex flex-col justify-center mb-10">
-            <p className="text-secondary-brand font-title text-2xl ">
+            <p className="text-secondary-brand font-title text-2xl pl-5">
               QuillHive Originals
             </p>
             <div className=""></div>
-            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
+            <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
               {stories.map((story) => (
                 <Card key={story.id} story={story} />
               ))}
             </ul>
           </div>
         </div>
-        <div className="pr-[20px] mb-8">
+        <div className="px-5 mb-8">
           <Footer />
         </div>
       </main>

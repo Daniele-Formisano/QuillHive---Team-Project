@@ -748,6 +748,13 @@
       "storyId": "5",
       "status": "reading",
       "saved": false
+    },
+    {
+      "id": "959b",
+      "userId": "1",
+      "storyId": "1",
+      "status": null,
+      "saved": true
     }
   ],
   "userGenres": [

@@ -1,12 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
 import BookInfoList from "../components/BookInfoList";
 import { useSelector } from "react-redux";
-import HamburgerMenu from "../components/HamburgherMenu";
-import Searchbar from "../components/Searchbar";
-import ProfileIcon from "../components/ProfileIcon";
 import BackButton from "../components/BackButton";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import HeaderNavbar from "../components/HeaderNavbar";
 
 export default function StoryInfoPage() {
   const { stories } = useSelector((state) => state.global);
@@ -15,24 +13,10 @@ export default function StoryInfoPage() {
   const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.global.user);
 
-  const handleProfileClick = () => {
-    navigate(loggedUser ? `/profile/${loggedUser.id}` : "/login");
-  }; //reindirezzamento al proprio profilo
-
   return story ? (
     <div className="flex flex-col bg-bg-brand max-h-screen relative overscroll-none">
       {/* Header della pagina che contiene searchbar, hamburger manu e profileIcon */}
-      <header className="flex justify-between items-center px-4 py-2 mb-2">
-        <div>
-          <HamburgerMenu />
-        </div>
-        <div>
-          <Searchbar />
-        </div>
-        <div>
-          <ProfileIcon onClick={handleProfileClick} height={50} width={50} />
-        </div>
-      </header>
+      <HeaderNavbar user={loggedUser} />
 
       {/* Sezione main della pagina che contiene le info della storia prese dal componente */}
       <main className="overflow-scroll">
@@ -46,7 +30,7 @@ export default function StoryInfoPage() {
         </div>
       </main>
       <div className="fixed bottom-0 w-full">
-        <Navbar />
+        <Navbar user={loggedUser} />
       </div>
     </div>
   ) : (

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 export default function ProfileIcon({ user, onClick, width, height }) {
   return (
     <button onClick={onClick}>
-      {user ? (
+      {user?.profile_picture ? (
         <div
           className={`${width ? width : "w-[100px]"} ${
             height ? height : "h-[100px]"

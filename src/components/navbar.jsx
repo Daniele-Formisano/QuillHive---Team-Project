@@ -7,7 +7,7 @@ export default function Navbar({ isLibrary = false, user }) {
 
   function userNotLogged() {
     toast.error(
-      "you cannot access the library or story creation without logging into your account"
+      "Cannot access the library or story creation without logging into your account"
     );
     navigate("/login");
   }

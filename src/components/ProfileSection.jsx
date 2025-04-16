@@ -196,9 +196,10 @@ export default function ProfileSection({ user, urlId }) {
     e.preventDefault();
 
     // Prima di aggiornare i dati dell'utente, verifica se l'username è già in uso
-    const usernameAvailable = await checkUsernameExists(userData.username);
-
-    if (!usernameAvailable) return;
+    if (userData.username !== user.username) {
+      const usernameAvailable = await checkUsernameExists(userData.username);
+      if (!usernameAvailable) return;
+    }
 
     const mergedUserData = { ...user, ...userData };
 
@@ -289,7 +290,7 @@ export default function ProfileSection({ user, urlId }) {
             {/* Sezione che contiene la bio dell'utente */}
             <div className="flex flex-col gap-3 w-full">
               <h3 className="font-title text-2xl  text-secondary-brand">Bio</h3>
-              <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full mb-3" />
+              <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full mb-3" />
               <textarea
                 value={userData.bio || ""}
                 name="bio"
@@ -300,20 +301,20 @@ export default function ProfileSection({ user, urlId }) {
             </div>
 
             {/* Sezione che contiene la email dell'utente */}
-            <div className="flex flex-col gap-3 w-full">
-              <h3 className="font-title text-2xl  text-secondary-brand">
+            <div className="flex flex-col gap-3 w-full text-secondary-brand">
+              <h3 className="font-title text-2xl text-secondary-brand">
                 Email
               </h3>
-              <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
+              <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full" />
               <span>{user.email}</span>
             </div>
 
             {/* Sezione che contiene le lingue dell'utente */}
-            <div className="flex flex-col gap-3 w-full">
+            <div className="flex flex-col gap-3 w-full text-secondary-brand">
               <h3 className="font-title text-2xl text-secondary-brand">
                 Language
               </h3>
-              <hr className="bg-hr-brand h-1 border-0 rounded-4xl " />
+              <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl " />
               <div className="flex flex-col">
                 <ul className="flex flex-col gap-2">
                   {languages.map((language) => (
@@ -337,21 +338,22 @@ export default function ProfileSection({ user, urlId }) {
             <Button isColorYellow={true} type="submit">
               Save
             </Button>
-
             {/* Sezione che contiene i progetti dell'utente */}
             <div className="flex flex-col gap-3 w-full">
               <h3 className="font-title text-2xl text-secondary-brand">
                 My Projects
               </h3>
-              <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
+              <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl" />
               <div className="">
                 <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-                  {userProjects.lentgh > 0 ? (
+                  {userProjects.length > 0 ? (
                     userProjects.map((project) => (
                       <Card key={project.id} story={project} />
                     ))
                   ) : (
-                    <p>You still haven't created any story...</p>
+                    <p className="font-script text-secondary-brand">
+                      You haven't created any story yet...
+                    </p>
                   )}
                 </ul>
               </div>
@@ -398,31 +400,31 @@ export default function ProfileSection({ user, urlId }) {
                 </div>
               </div>
               {/* Sezione che contiene la bio dell'utente */}
-              <div className="flex flex-col gap-3 w-full mb-5">
+              <div className="flex flex-col gap-3 w-full mb-5 text-secondary-brand">
                 <h3 className="font-title text-2xl  text-secondary-brand">
                   Bio
                 </h3>
-                <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
+                <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full" />
                 <div>
                   <span>{userData.bio}</span>
                 </div>
               </div>
               {/* Sezione che contiene la email dell'utente */}
-              <div className="flex flex-col gap-3 w-full mb-5">
+              <div className="flex flex-col gap-3 w-full mb-5 text-secondary-brand">
                 <h3 className="font-title text-2xl  text-secondary-brand">
                   Email
                 </h3>
-                <hr className="bg-hr-brand h-1 border-0 rounded-4xl w-full" />
+                <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full" />
                 <div>
                   <span>{user.email}</span>
                 </div>
               </div>
               {/* Sezione che contiene le lingue dell'utente */}
-              <div className="flex flex-col gap-3 w-full mb-5">
+              <div className="flex flex-col gap-3 w-full mb-5 text-secondary-brand">
                 <h3 className="font-title text-2xl text-secondary-brand">
                   Language
                 </h3>
-                <hr className="bg-hr-brand h-1 border-0 rounded-4xl " />
+                <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl " />
 
                 <ul>
                   {userData.languages?.map((language) => (
@@ -435,7 +437,7 @@ export default function ProfileSection({ user, urlId }) {
                 <h3 className="font-title text-2xl text-secondary-brand">
                   My Projects
                 </h3>
-                <hr className="bg-hr-brand h-1 border-0 rounded-4xl" />
+                <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl" />
                 <div className="">
                   <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
                     {userProjects.length > 0 ? (
@@ -443,7 +445,9 @@ export default function ProfileSection({ user, urlId }) {
                         <Card key={project.id} story={project} />
                       ))
                     ) : (
-                      <p>You still haven't created any story...</p>
+                      <p className="font-script text-secondary-brand">
+                        You haven't created any story yet...
+                      </p>
                     )}
                   </ul>
                 </div>
