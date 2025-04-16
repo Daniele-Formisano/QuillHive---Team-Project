@@ -1,19 +1,21 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import Button from "../components/Button";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import InputField from "../components/InputField";
 import LoadCoverImg from "../components/LoadCoverImg";
 import SelectOptions from "../components/SelectOptions";
-import Button from "../components/Button";
-import { useNavigate } from "react-router-dom";
 import { useAddStoryMutation } from "../services/apiService";
-import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useAddChapterMutation } from "../services/apiService";
 
 export default function NewStory_1({ genres }) {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.global.user);
   const [addStoryMutation] = useAddStoryMutation();
-  const [storyGenres, setStoryGenres] = useState([]); // Stato per la selezione dei generi
+  const [storyGenres, setStoryGenres] = useState([]);
+  const [addChapterMutation] = useAddChapterMutation();
+  const user = useSelector((state) => state.global.user);
   const [newStory, setNewStory] = useState({
     title: "",
     plot: "",
@@ -66,9 +68,29 @@ export default function NewStory_1({ genres }) {
         const createdStoryId = response.data.id;
         toast.success("Story created successfully!");
 
-        navigate(`/stories/${createdStoryId}/chapters`);
+        // CREA IL CAPITOLO 1
+        const firstChapterData = {
+          storyId: createdStoryId,
+          title: "Chapter",
+          order: 1,
+          content: "",
+          created_at: new Date(),
+          updated_at: null,
+        };
+
+        const createdChapter = await addChapterMutation(
+          firstChapterData
+        ).unwrap();
+
+        if (createdChapter?.id) {
+          // VAI DIRETTAMENTE ALLA PAGINA DI MODIFICA DEL CAPITOLO 1
+          navigate(`/stories/${createdStoryId}/chapters/${createdChapter.id}`);
+        } else {
+          toast.error("Story created, but failed to create the first chapter.");
+          navigate(`/stories/${createdStoryId}/chapters`);
+        }
       } else {
-        toast.error("Failed to create the story."); // qui gestisce l'errore relativo ad un id non esistente o non valido
+        toast.error("Failed to create the story.");
       }
     } catch (error) {
       toast.error("An error occurred while creating the story.");

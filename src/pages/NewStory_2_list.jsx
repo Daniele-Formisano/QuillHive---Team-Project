@@ -126,7 +126,7 @@ export default function NewStory_2_list() {
     <div>
       {/* INDIETRO */}
       <span className="flex justify-between items-center m-2 mb-6">
-        <BackButton pageUrl="/library" />
+        <BackButton pageURL={"/library"} />
       </span>
       {/* CHAPTER LIST */}
       <div>
@@ -164,7 +164,7 @@ export default function NewStory_2_list() {
           <div className="mt-8 flex flex-col items-center gap-4">
             <input
               type="number"
-              placeholder="Chapter order"
+              placeholder="Chapter number"
               className="border border-gray-300 rounded px-3 py-1 w-48 text-center"
               value={customOrder}
               onChange={(e) => setCustomOrder(e.target.value)}
