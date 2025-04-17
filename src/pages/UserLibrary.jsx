@@ -94,7 +94,7 @@ export default function UserLibrary() {
               {stories.length &&
               userStories.filter((story) => story.status === "reading")
                 .length ? (
-                <main className="grid grid-cols-2">
+                <main className="grid grid-cols-2 mb-14">
                   {userStories
                     .filter((story) => story.status === "reading")
                     .map((storyFiltered) => (
@@ -120,7 +120,7 @@ export default function UserLibrary() {
           {filterButton[1].active && (
             <div>
               {storiesOfUsers.length ? (
-                <main className="grid grid-cols-2">
+                <main className="grid grid-cols-2 mb-14">
                   {storiesOfUsers.map((story) => (
                     <Card key={story.id} story={story} />
                   ))}
@@ -140,7 +140,7 @@ export default function UserLibrary() {
             <div>
               {stories.length &&
               userStories.filter((story) => story.saved === true).length ? (
-                <main className="grid grid-cols-2">
+                <main className="grid grid-cols-2 mb-14 ">
                   {userStories
                     .filter((story) => story.saved === true)
                     .map((storyFiltered) => (
@@ -162,7 +162,7 @@ export default function UserLibrary() {
             </div>
           )}
 
-          <div className="font-title flex justify-center items-center z-30">
+          <div className="font-title fixed bottom-0 w-full flex justify-center items-center z-30">
             <Navbar isLibrary={true} user={user.id} />
           </div>
         </div>

@@ -5,7 +5,7 @@ export const apiService = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
   }),
-
+  tagTypes: ["Post", "UserStory", "Chapter", "Story"], //for auto refetching
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: (user) => {
@@ -67,6 +67,44 @@ export const apiService = createApi({
       query: (userId) => `userLanguages?userId=${userId}`,
     }),
 
+    getUserStories: builder.query({
+      query: (userStories) => {
+        let params = new URLSearchParams();
+        if (userStories?.storyId) params.append("storyId", userStories.storyId);
+        if (userStories?.userId) params.append("userId", userStories.userId);
+
+        return `userStories${params.toString() ? `?${params.toString()}` : ""}`;
+      },
+      providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
+    }),
+
+    addUserStory: builder.mutation({
+      query: (newStory) => ({
+        url: "userStories",
+        method: "POST",
+        body: newStory,
+      }),
+      invalidatesTags: ["UserStory"],
+    }),
+
+    updateUserStories: builder.mutation({
+      query: (userStory) => ({
+        url: `userStories/${userStory.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
+        method: "PUT",
+        body: userStory,
+      }),
+      invalidatesTags: ["UserStory"],
+    }),
+
+    addUserStory: builder.mutation({
+      query: (newStory) => ({
+        url: "userStories",
+        method: "POST",
+        body: newStory,
+      }),
+      invalidatesTags: ["UserStory"],
+    }),
+
     getStories: builder.query({
       query: (story) => {
         let params = new URLSearchParams();
@@ -76,6 +114,7 @@ export const apiService = createApi({
 
         return `stories${params.toString() ? `?${params.toString()}` : ""}`;
       },
+      providesTags: ["Story"],
     }),
 
     addStory: builder.mutation({
@@ -84,10 +123,15 @@ export const apiService = createApi({
         method: "POST",
         body: story,
       }),
+      invalidatesTags: ["Story"],
     }),
 
     getUserProjects: builder.query({
       query: (userId) => `stories?userId=${userId}`,
+    }),
+
+    getUserById: builder.query({
+      query: (id) => `/users/${id}`,
     }),
 
     updateUser: builder.mutation({
@@ -101,7 +145,8 @@ export const apiService = createApi({
       query: () => "chapters",
     }), */
     getChaptersByStoryId: builder.query({
-      query: (storyId) => `chapters?storyId=${storyId}`, // Filtro per ottenere solo i capitoli associati alla storia specifica
+      query: (storyId) => `chapters?storyId=${storyId}`,
+      providesTags: ["Chapter"], // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
     addChapter: builder.mutation({
       query: (chapter) => ({
@@ -109,6 +154,7 @@ export const apiService = createApi({
         method: "POST",
         body: chapter,
       }),
+      invalidatesTags: ["Chapter"],
     }),
     updateChapter: builder.mutation({
       query: (chapter) => ({
@@ -116,32 +162,7 @@ export const apiService = createApi({
         method: "PUT",
         body: chapter,
       }),
-    }),
-
-    getUserStories: builder.query({
-      query: (userStories) => {
-        let params = new URLSearchParams();
-        if (userStories?.storyId) params.append("storyId", userStories.storyId);
-        if (userStories?.userId) params.append("userId", userStories.userId);
-
-        return `userStories${params.toString() ? `?${params.toString()}` : ""}`;
-      },
-    }),
-
-    addUserStory: builder.mutation({
-      query: (newStory) => ({
-        url: "userStories",
-        method: "POST",
-        body: newStory,
-      }),
-    }),
-
-    updateUserStories: builder.mutation({
-      query: (userStory) => ({
-        url: `userStories/${userStory.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
-        method: "PUT",
-        body: userStory,
-      }),
+      invalidatesTags: ["Chapter"],
     }),
 
     deleteChapter: builder.mutation({
@@ -149,13 +170,10 @@ export const apiService = createApi({
         url: `chapters/${chapter.id}`, // L'ID del capitolo è passato nel body o come parte dell'URL
         method: "DELETE",
       }),
+      invalidatesTags: ["Chapter"],
     }),
-    getUserById: builder.query({
-      query: (id)=>`/users/${id}`
-    })
   }),
 });
-
 export const {
   useAddStoryMutation,
   useGetUsersQuery,
