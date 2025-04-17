@@ -10,6 +10,7 @@ import { IconPencil } from "@tabler/icons-react";
 import BackButton from "../components/BackButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAddChapterMutation } from "../services/apiService";
+import Button from "../components/Button";
 
 export default function NewStory_2_list() {
   const navigate = useNavigate();
@@ -99,14 +100,12 @@ export default function NewStory_2_list() {
               }
               toast.dismiss(deleteToast);
             }}
-            className="bg-red-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
-          >
+            className="bg-red-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2">
             Confirm
           </button>
           <button
             onClick={() => toast.dismiss(deleteToast)}
-            className="bg-gray-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
-          >
+            className="bg-gray-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2">
             Cancel
           </button>
         </div>
@@ -139,8 +138,7 @@ export default function NewStory_2_list() {
               .map((chapter) => (
                 <li
                   key={chapter.id}
-                  className="flex justify-between p-3 rounded-lg border-2 border-stroke-brand cursor-pointer hover:bg-gray-100"
-                >
+                  className="flex justify-between p-3 rounded-lg border-2 border-stroke-brand cursor-pointer hover:bg-gray-100">
                   <span className="font-script flex gap-2">
                     <h2>{chapter.title}</h2>
                     <h2>{chapter.order}</h2>
@@ -165,34 +163,32 @@ export default function NewStory_2_list() {
             <input
               type="number"
               placeholder="Chapter number"
-              className="border border-gray-300 rounded px-3 py-1 w-48 text-center"
+              className="border border-gray-300 rounded-[50px] px-3 py-1 w-48 text-center focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all text-input-text-brand placeholder:text-gray-500"
               value={customOrder}
               onChange={(e) => setCustomOrder(e.target.value)}
               min="1"
             />
             <div className="flex gap-4">
-              <button
-                onClick={handleAddChapter}
-                className="bg-primary-brand text-white px-4 py-1 rounded"
-              >
+              <Button onClick={handleAddChapter} isColorYellow={true}>
                 Create
-              </button>
-              <button
+              </Button>
+              
+              <Button
                 onClick={() => {
                   setShowCreateForm(false);
                   setCustomOrder("");
-                }}
-                className="bg-gray-400 text-white px-4 py-1 rounded"
-              >
+                }}>
                 Cancel
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <div className="mt-10 mb-10 mr-15 ml-15 px-4 py-1 bg-primary-brand rounded-lg text-secondary-brand font-script-semibold text-center cursor-pointer">
-            <button type="button" onClick={() => setShowCreateForm(true)}>
-              Add a new chapter
-            </button>
+          <div className="mt-10 mb-10 mr-15 ml-15 font-script-semibold text-center cursor-pointer">
+            <Button
+              onClick={() => setShowCreateForm(true)}
+              children={"Create a new chapter"}
+              isColorYellow={true}
+            />
           </div>
         )}
       </div>

@@ -7,7 +7,7 @@ export default function HeaderNavbar({ user }) {
   const navigate = useNavigate();
 
   return (
-    <header className="sticky top-0 flex flex-row justify-around items-center bg-bg-brand z-45 py-2">
+    <header className="fixed w-full top-0 flex flex-row justify-around items-center bg-bg-brand z-45 py-2 ">
       <HamburgerMenu />
 
       <Searchbar />

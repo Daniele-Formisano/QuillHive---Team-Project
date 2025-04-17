@@ -83,11 +83,11 @@ export default function UserLibrary() {
     return (
       <div className="bg-bg-brand min-h-screen flex flex-col">
         <HeaderNavbar user={user} />
-        <div className="pl-2 pr-2 mt-5">
+        <div className="pl-2 pr-2 mt-18 ">
           <FilterButton optionsFilter={filterButton} onClick={handleClick} />
         </div>
 
-        <div className="flex flex-col grow justify-between">
+        <div className="flex flex-col grow justify-between ">
           {/* Se viene selezionato Reading Now */}
           {filterButton[0].active && (
             <div>
