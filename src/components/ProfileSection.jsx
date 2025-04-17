@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import ButtonAddFile from "./ButtonAddFile";
 import Loader from "./Loader";
 import clsx from "clsx";
+import CreateStoryCard from "./CreateStoryCard";
 
 export default function ProfileSection({ user, urlId }) {
   const { languages, artistType } = useSelector((state) => state.global);
@@ -24,7 +25,6 @@ export default function ProfileSection({ user, urlId }) {
     JSON.parse(localStorage.getItem("user"))
   );
   const [triggerGetUser] = useLazyGetUsersQuery();
-  console.log(userData);
 
   /* Chiamata per ricevere gli userArtistTypes */
   const {
@@ -47,13 +47,9 @@ export default function ProfileSection({ user, urlId }) {
     error: errorUserLanguages,
   } = useGetUserLanguagesQuery(urlId);
 
-  console.log(userLanguages);
-  console.log(userArtistTypes);
-
   /* useEffect che, raccolti i dati da userLanguages e userArtistType, li mette in relazione con le lingue e gli artisti e li aggiunge all'utente visualizzabile */
 
   useEffect(() => {
-    console.log(user);
     // Se l'utente ha già artistType salvato (da localStorage), non sovrascriverlo
 
     if (
@@ -105,7 +101,6 @@ export default function ProfileSection({ user, urlId }) {
   const loggedUserId = useSelector((state) => state.global.user?.id);
 
   const isOwner = urlId === loggedUserId;
-  console.log(loggedUserId);
 
   function handleSetIsEdititing() {
     setIsEditing(true);
@@ -117,7 +112,7 @@ export default function ProfileSection({ user, urlId }) {
 
     try {
       const res = await updateUser(updatedUser).unwrap(); // unwrap per gestire errori facilmente
-      console.log("Utente aggiornato:", res);
+
       // opzionale: dispatch(setUser(res)) se vuoi aggiornare lo stato manualmente
     } catch (err) {
       console.error("Errore nell'aggiornamento:", err);
@@ -128,9 +123,6 @@ export default function ProfileSection({ user, urlId }) {
   async function checkUsernameExists(username) {
     try {
       const response = await triggerGetUser({ username: username.trim() });
-
-      // Log della risposta per controllare la struttura
-      console.log("Response from API:", response);
 
       // Verifica che la risposta contenga effettivamente i dati
       if (response.data && response.data.length > 0) {
@@ -225,8 +217,6 @@ export default function ProfileSection({ user, urlId }) {
   if (errorProjects || errorUserArtistTypes) return <p>Error </p>;
   if (!userArtistTypes) return <p>No artists</p>;
   if (!userProjects) return <p>No projects</p>;
-
-  console.log(userProjects);
 
   if (userData) {
     return (
@@ -372,7 +362,7 @@ export default function ProfileSection({ user, urlId }) {
               }
             >
               {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
-              <div className="flex flex-col items-center mb-8 gap-2">
+              <div className="flex flex-col items-center mb-8 gap-2 text-secondary-brand">
                 <ProfileIcon
                   width={"w-[200px]"}
                   height={"h-[200px]"}
@@ -440,14 +430,14 @@ export default function ProfileSection({ user, urlId }) {
                 <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl" />
                 <div className="">
                   <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-                    {userProjects.length > 0 ? (
+                    {userProjects.length > 0 &&
                       userProjects.map((project) => (
                         <Card key={project.id} story={project} />
-                      ))
-                    ) : (
-                      <p className="font-script text-secondary-brand">
-                        You haven't created any story yet...
-                      </p>
+                      ))}
+                    {isOwner && (
+                      <li className="mt-8">
+                        <CreateStoryCard />
+                      </li>
                     )}
                   </ul>
                 </div>

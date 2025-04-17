@@ -128,6 +128,7 @@ export const apiService = createApi({
 
     getUserProjects: builder.query({
       query: (userId) => `stories?userId=${userId}`,
+      invalidatesTags: ["Chapter"],
     }),
 
     getUserById: builder.query({
@@ -171,6 +172,9 @@ export const apiService = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["Chapter"],
+    }),
+    getUserById: builder.query({
+      query: (id) => `/users/${id}`,
     }),
   }),
 });
