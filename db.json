@@ -6,7 +6,7 @@
       "email": "georgeorwell@gmail.com",
       "password": "Th3Ys3Eus!",
       "profile_picture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN898POpDNoQUwvkcRFztbd2DAwEe5AHtpsg&s",
-      "bio": "Ho preso spunto dal grande fratello ciao! ",
+      "bio": "Ho preso spunto dal grande fratello ciao!",
       "account_created_at": null,
       "pronouns": "He/Him",
       "languages": [
@@ -73,6 +73,16 @@
       "bio": "Sono uno scrittore di diversi generi",
       "account_created_at": null,
       "pronouns": "he/him"
+    },
+    {
+      "id": "6",
+      "username": "Daniele",
+      "email": "danieleformisano5@gmail.com",
+      "password": "Sasasasa",
+      "profile_picture": null,
+      "bio": null,
+      "account_created_at": "2025-04-16T20:37:16.668Z",
+      "pronouns": "He/Him"
     }
   ],
   "languages": [
@@ -347,6 +357,11 @@
       "id": "1",
       "userId": "7",
       "artist_typeId": "4"
+    },
+    {
+      "id": "1",
+      "userId": "6",
+      "artist_typeId": "1"
     }
   ],
   "stories": [
@@ -423,36 +438,19 @@
       "languageId": "1"
     },
     {
-      "id": "9c2b",
-      "title": "experiment",
-      "plot": "foffi",
-      "usersId": "1",
+      "id": "6faa",
+      "title": "Le poesie",
+      "plot": "Questa è una raccolta di poesia",
+      "userId": "6",
       "cover_image": null,
       "status": "draft",
       "likes": 0,
-      "created_at": "2025-04-16T15:53:07.616Z",
+      "created_at": "2025-04-16T21:16:13.553Z",
       "updated_at": null,
       "genres": [
         {
-          "id": "1",
-          "name": "Action"
-        }
-      ]
-    },
-    {
-      "id": "de4a",
-      "title": "porca miseria",
-      "plot": "AAAAAA",
-      "usersId": "1",
-      "cover_image": null,
-      "status": "draft",
-      "likes": 0,
-      "created_at": "2025-04-16T15:55:48.347Z",
-      "updated_at": null,
-      "genres": [
-        {
-          "id": "9",
-          "name": "Horror"
+          "id": "24",
+          "name": "Poetry"
         }
       ]
     }
@@ -704,12 +702,12 @@
       "updated_at": null
     },
     {
-      "id": "1287",
-      "storyId": "de4a",
+      "id": "ce69",
+      "storyId": "6faa",
       "title": "Chapter",
       "order": 1,
-      "content": "",
-      "created_at": "2025-04-16T15:56:16.917Z",
+      "content": "Se ni mondo esistesse un po' di bene, e ognun si honsiderasse suo fratello, ci sarebbero meno pensieri e meno pene e il mondo ne sarebbe assai più bello.\nSi oke ma oggi siamo davanti la corte di Assisi e lei è imputato di 16 omicidi.\nLetsgosky!",
+      "created_at": "2025-04-16T21:38:45.605Z",
       "updated_at": null
     }
   ],
@@ -755,6 +753,27 @@
       "storyId": "1",
       "status": null,
       "saved": true
+    },
+    {
+      "id": "12ad",
+      "userId": "6",
+      "storyId": "1",
+      "status": null,
+      "saved": true
+    },
+    {
+      "id": "90a8",
+      "userId": "6",
+      "storyId": "2",
+      "status": null,
+      "saved": true
+    },
+    {
+      "id": "896f",
+      "userId": "6",
+      "storyId": "4",
+      "status": null,
+      "saved": true
     }
   ],
   "userGenres": [
@@ -787,6 +806,11 @@
       "id": "6",
       "userId": "6",
       "genreId": "8"
+    },
+    {
+      "id": "7",
+      "userId": "6",
+      "genreId": "1"
     }
   ]
 }

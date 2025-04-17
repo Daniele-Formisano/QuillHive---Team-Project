@@ -56,7 +56,7 @@ export default function SignupPages({ genres, artistTypes }) {
         try {
           //invio dei dati al db dell'user
           await addUsers(newUser).unwrap();
-
+          localStorage.setItem("user", JSON.stringify(newUser));
           //invio dei dati dei generi selezionati dall'utente nel db
           const userGenres = await triggerGetUserGenres().unwrap();
 

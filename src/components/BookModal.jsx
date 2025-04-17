@@ -8,11 +8,12 @@ import {
 import Button from "./Button";
 import SaveButton from "./ButtonSave";
 import { useNavigate } from "react-router-dom";
+import { IconBook } from "@tabler/icons-react";
 
 function BookModal({ story, isOpen, onClose, user, author }) {
   if (!story) return null;
   const navigate = useNavigate();
-  
+
   return (
     <>
       {/* //scurire background quando open  */}
@@ -21,11 +22,18 @@ function BookModal({ story, isOpen, onClose, user, author }) {
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
           <DialogPanel className="max-w-xl space-y-4 border-transparent rounded-2xl bg-white px-3 pt-3 pb-7">
             <div className="relative ">
-              <img
-                src={story.cover_image}
-                alt="cover book "
-                className="w-full h-full rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
-              />
+              {story.cover_image ? (
+                <img
+                  src={story.cover_image}
+                  alt="cover book "
+                  className="w-full h-full rounded-t-2xl rounded-br-[72px] rounded-bl-2xl "
+                />
+              ) : (
+                <div className="flex flex-col justify-center items-center rounded-2xl min-w-[330px] min-h-[500px] border-secondary-brand border-1 text-secondary-brand">
+                  <IconBook stroke={2} color="#203955" />
+                  <span>{story.title}</span>
+                </div>
+              )}
               <div className=" absolute -bottom-1.5 right-2 ">
                 {user && <SaveButton storyId={story.id} userId={user.id} />}
               </div>

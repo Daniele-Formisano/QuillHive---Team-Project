@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import BookModal from "./BookModal";
 import { useGetUserByIdQuery } from "../services/apiService";
 import Loader from "./Loader";
+import { IconBook } from "@tabler/icons-react";
 
 function Card({ story }) {
   // props passate da Home.jsx
@@ -19,15 +20,26 @@ function Card({ story }) {
     <div className="inline-flex justify-center">
       <li
         key={story.id}
-        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center">
-        <img
-          src={story.cover_image}
-          alt="Book cover"
-          width={150}
-          height={230}
-          className="border-transparent rounded-2xl w-[150px] h-[230px]   hover:cursor-pointer"
-          onClick={() => setSelectedStory(story)}
-        />
+        className="w-[150px] h-[300px] border-transparent rounded-2xl  mt-8 flex flex-col items-center"
+      >
+        {story.cover_image ? (
+          <img
+            src={story.cover_image}
+            alt="Book cover"
+            width={150}
+            height={230}
+            className="border-transparent rounded-2xl w-[150px] h-[230px]   hover:cursor-pointer"
+            onClick={() => setSelectedStory(story)}
+          />
+        ) : (
+          <div
+            onClick={() => setSelectedStory(story)}
+            className="flex flex-col justify-center items-center rounded-2xl w-[150px] h-[230px] border-secondary-brand border-1 text-secondary-brand bg-primary-brand"
+          >
+            <IconBook stroke={2} color="#203955" />
+            <span>{story.title}</span>
+          </div>
+        )}
 
         {/* {showTooltip && (
           <div className="relative">

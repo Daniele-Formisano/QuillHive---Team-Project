@@ -34,7 +34,7 @@ export default function SignupPageArtistTypes({ artistTypes, nextPage }) {
           </h1>
 
           <h3 className="font-script text-sm text-secondary-brand">
-            Select your creative role—choose at least 1, up to 2, or just
+            Select up to 2 creative roles that describe yourself, or just
             continue as a reader.
           </h3>
         </div>
