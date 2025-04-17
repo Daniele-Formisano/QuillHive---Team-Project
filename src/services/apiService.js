@@ -88,6 +88,7 @@ export const apiService = createApi({
 
     getUserProjects: builder.query({
       query: (userId) => `stories?userId=${userId}`,
+      invalidatesTags: ["Chapter"],
     }),
 
     updateUser: builder.mutation({
@@ -151,8 +152,8 @@ export const apiService = createApi({
       }),
     }),
     getUserById: builder.query({
-      query: (id)=>`/users/${id}`
-    })
+      query: (id) => `/users/${id}`,
+    }),
   }),
 });
 
