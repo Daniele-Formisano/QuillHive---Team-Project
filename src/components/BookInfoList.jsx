@@ -29,7 +29,7 @@ export default function BookInfoList({ story, user }) {
 
   function handleClick() {
     if (storyChapters.length === 0) {
-      toast.error("You can't read this story because there are no chapters")
+      toast.error("You can't read this story because there are no chapters");
       return;
     }
     navigate(`/story/${story.id}/read-story/chapter/${1}`);
@@ -58,14 +58,16 @@ export default function BookInfoList({ story, user }) {
           </div>
           {story.userId === user?.id && (
             <div
-              className="absolute -bottom-4.5 -left-4.5"
-              onClick={handleClickEdit}>
+              className="absolute -bottom-3.5 -left-4.5"
+              onClick={handleClickEdit}
+            >
               <svg
-                width="40"
-                height="46"
+                width="48"
+                height="48"
                 viewBox="0 0 40 46"
                 fill="none"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   d="M17 1.73205C18.8564 0.660254 21.1436 0.660254 23 1.73205L36.9186 9.76795C38.775 10.8397 39.9186 12.8205 39.9186 14.9641V31.0359C39.9186 33.1795 38.775 35.1603 36.9186 36.2321L23 44.2679C21.1436 45.3397 18.8564 45.3397 17 44.2679L3.08142 36.2321C1.22501 35.1603 0.0814152 33.1795 0.0814152 31.0359L0.0814152 14.9641C0.0814152 12.8205 1.22501 10.8397 3.08142 9.76795L17 1.73205Z"
                   fill="#F3BC26"
@@ -109,7 +111,8 @@ export default function BookInfoList({ story, user }) {
             viewBox="0 0 36 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="none">
+            preserveAspectRatio="none"
+          >
             <rect x="17" y="0" width="3" height="100%" fill="#203955" rx="3" />
           </svg>
         </div>
