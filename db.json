@@ -8,31 +8,7 @@
       "profile_picture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN898POpDNoQUwvkcRFztbd2DAwEe5AHtpsg&s",
       "bio": "Ho preso spunto dal grande fratello ciao!",
       "account_created_at": null,
-      "pronouns": "He/Him",
-      "languages": [
-        {
-          "id": "1",
-          "language": "italian"
-        },
-        {
-          "id": "2",
-          "language": "english"
-        },
-        {
-          "id": "3",
-          "language": "french"
-        }
-      ],
-      "artistType": [
-        {
-          "id": "1",
-          "name": "Writer"
-        },
-        {
-          "id": "2",
-          "name": "Photographer"
-        }
-      ]
+      "pronouns": "He/Him"
     },
     {
       "id": "2",
@@ -328,9 +304,9 @@
     {
       "id": "1",
       "title": "1984",
-      "plot": "Una critica alla società totalitaria e al controllo della mente.",
+      "plot": "A critique of totalitarian society and mind control.",
       "userId": "1",
-      "cover_image": "https://www.ilpost.it/wp-content/uploads/2021/01/orwell_einaudi_2.jpg",
+      "cover_image": "https://m.media-amazon.com/images/I/61NAx5pd6XL._AC_UF1000,1000_QL80_.jpg",
       "status": "completato",
       "likes": 3574,
       "created_at": null,
@@ -339,10 +315,10 @@
     },
     {
       "id": "2",
-      "title": "Il nome della rosa",
-      "plot": "Un romanzo storico con elementi di giallo e filosofia medievale.",
+      "title": "The Name of the Rose",
+      "plot": "A historical novel with elements of mystery and medieval philosophy.",
       "userId": "2",
-      "cover_image": "https://uploads.acciobooks.com/958655/3....PNG",
+      "cover_image": "https://m.media-amazon.com/images/I/819SFV6rfRL.jpg",
       "status": "completato",
       "likes": 6542,
       "created_at": null,
@@ -351,8 +327,8 @@
     },
     {
       "id": "3",
-      "title": "Orgoglio e pregiudizio",
-      "plot": "Una storia d'amore e di critica sociale nell'Inghilterra del XIX secolo.",
+      "title": "Pride and Prejudice",
+      "plot": "A story of love and social criticism in 19th-century England.",
       "userId": "3",
       "cover_image": "https://i0.wp.com/illabirintodeilibri.altervista.org/wp-content/uploads/2020/04/SST1_immagini_collezione-1-1.png?resize=415%2C640&ssl=1",
       "status": "completato",
@@ -363,10 +339,10 @@
     },
     {
       "id": "4",
-      "title": "Il piccolo principe",
-      "plot": "Un racconto filosofico e poetico sulla vita e l'amicizia.",
+      "title": "The Little Prince",
+      "plot": "A philosophical and poetic tale about life and friendship.",
       "userId": "4",
-      "cover_image": "https://www.lafeltrinelli.it/images/9788854172388_0_0_200_0_75.jpg",
+      "cover_image": "https://m.media-amazon.com/images/I/81G2R0luQJL._AC_UF1000,1000_QL80_.jpg",
       "status": "completato",
       "likes": 15321,
       "created_at": null,
@@ -376,9 +352,9 @@
     {
       "id": "5",
       "title": "Moby Dick",
-      "plot": "La storia della caccia ossessiva alla balena bianca.",
+      "plot": "The story of the obsessive white whale hunt.",
       "userId": "5",
-      "cover_image": "https://www.ibs.it/images/9788807900761_0_0_424_0_75.jpg",
+      "cover_image": "https://m.media-amazon.com/images/I/81JptuqfQWL._UF1000,1000_QL80_.jpg",
       "status": "non completato",
       "likes": 6431,
       "created_at": null,
@@ -387,10 +363,10 @@
     },
     {
       "id": "6",
-      "title": "Il signore degli anelli",
-      "plot": "Un'epica avventura fantasy per salvare la Terra di Mezzo.",
+      "title": "The Lord Of The Rings",
+      "plot": "An epic fantasy adventure to save the Middle Earth.",
       "userId": "5",
-      "cover_image": "https://media.anobii.com/covers/01a155cec21d6e2b81/175/268/2.5/hardcover/png/1680089415",
+      "cover_image": "https://m.media-amazon.com/images/I/7125+5E40JL._AC_UF1000,1000_QL80_.jpg",
       "status": "completato",
       "likes": 54313,
       "created_at": null,
@@ -685,7 +661,7 @@
       "id": "959b",
       "userId": "1",
       "storyId": "1",
-      "status": null,
+      "status": "reading",
       "saved": true
     }
   ],

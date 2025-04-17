@@ -5,7 +5,7 @@ export const apiService = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
   }),
-  tagTypes: ["Post", "UserStory", "Chapter", "Story"], //for auto refetching
+  tagTypes: ["Post", "UserStory", "Chapter", "Story", "User"], //for auto refetching
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: (user) => {
@@ -17,6 +17,7 @@ export const apiService = createApi({
         if (user?.id) params.append("id", user.id);
         return `users${params.toString() ? `?${params.toString()}` : ""}`;
       },
+      providesTags: ["User"],
     }),
 
     addUsers: builder.mutation({
@@ -25,6 +26,7 @@ export const apiService = createApi({
         method: "POST",
         body: user,
       }),
+      invalidatesTags: ["User"],
     }),
 
     getUserGenres: builder.query({

@@ -220,10 +220,10 @@ export default function ProfileSection({ user, urlId }) {
 
   if (userData) {
     return (
-      <div className="flex flex-col justify-center items-center overflow-y-scroll overflow-x-hidden px-10 py-5">
+      <div className="flex flex-col justify-center overflow-y-scroll overflow-x-hidden px-10 py-5">
         {isEditing ? (
           <form
-            className="flex flex-col gap-4 w-full px-4 font-script"
+            className="flex flex-col gap-4 w-full font-script"
             onSubmit={handleSubmit}
           >
             {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente in user */}
@@ -356,11 +356,7 @@ export default function ProfileSection({ user, urlId }) {
                 {<ButtonEdit handleClick={handleSetIsEdititing} />}
               </div>
             )}
-            <div
-              className={
-                (clsx("flex flex-col gap-4 w-full px-6"), isOwner && "px-10")
-              }
-            >
+            <div className="flex flex-col gap-4 w-full">
               {/* Div che contiene l'svg con l'immagine renderizzata in base all'url presente nell'user */}
               <div className="flex flex-col items-center mb-8 gap-2 text-secondary-brand">
                 <ProfileIcon

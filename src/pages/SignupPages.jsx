@@ -11,8 +11,9 @@ import {
   useLazyGetUserGenresQuery,
   useLazyGetUsersQuery,
 } from "../services/apiService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { setUser } from "../features/global/globalSlice";
 
 export default function SignupPages({ genres, artistTypes }) {
   const [stepSignup, setStepSingup] = useState(1);
@@ -24,6 +25,7 @@ export default function SignupPages({ genres, artistTypes }) {
   const [AddUserArtistTypes] = useAddUserArtistTypesMutation();
   const formValues = useSelector((state) => state.signup);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function nextPage(page) {
     setStepSingup(page);
@@ -86,6 +88,8 @@ export default function SignupPages({ genres, artistTypes }) {
               };
 
               await AddUserArtistTypes(userArtistType);
+
+              dispatch(setUser(newUser));
               localStorage.setItem("user", JSON.stringify(newUser)); // salva l'utente nel local storage
             }
           }
