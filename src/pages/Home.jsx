@@ -50,7 +50,7 @@ function Home() {
       <HeaderNavbar user={loggedUser} />
 
       <main className=" flex flex-col  justify-center overflow-y-scroll min-h-screen scrollbar-hide">
-        <div className="flex flex-col gap-8 mb-5 pt-20">
+        <div className="flex flex-col gap-8 mb-5 pt-18">
           <p className="flex justify-start text-secondary-brand font-title text-center text-2xl pl-5">
             Explore the hive
           </p>

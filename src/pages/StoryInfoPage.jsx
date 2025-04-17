@@ -19,7 +19,7 @@ export default function StoryInfoPage() {
       <HeaderNavbar user={loggedUser} />
 
       {/* Sezione main della pagina che contiene le info della storia prese dal componente */}
-      <main className="overflow-scroll">
+      <main className="overflow-scroll pt-18">
         <div className="pl-2">
           <BackButton pageURL={"/home"} />
         </div>
