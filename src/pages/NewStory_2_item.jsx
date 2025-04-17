@@ -35,8 +35,8 @@ export default function NewStory_2_item() {
     }
   }, [chapter]);
 
-  const handleChange = (e) => {
-    setChapterContent(e.target.value);
+  const handleChange = (newMarkdown) => {
+    setChapterContent(newMarkdown);
     setHasUnsavedChanges(true);
   };
 

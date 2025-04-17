@@ -130,7 +130,7 @@ export const apiService = createApi({
 
     getUserProjects: builder.query({
       query: (userId) => `stories?userId=${userId}`,
-      invalidatesTags: ["Chapter"],
+      invalidatesTags:["Chapter"]
     }),
 
     getUserById: builder.query({

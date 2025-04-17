@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import { useSelector } from "react-redux";
 import HamburgerForChapters from "../components/HamburgerForChapters";
+import { MDXEditor } from "@mdxeditor/editor";
 
 export default function ReadingPage() {
   const { storyId, chapterOrder } = useParams();
@@ -72,14 +73,19 @@ export default function ReadingPage() {
                 {chapters[chapterOrder - 1].title}
               </h1>
 
-              <p>{chapters[chapterOrder - 1].content}</p>
+              {/* <p>{chapters[chapterOrder - 1].content}</p> */}
+              {/* re-converting raw mdxtext in readable text */}
+              <MDXEditor
+                markdown={chapters[chapterOrder - 1].content}
+                readOnly={true}
+                className="w-full p-4 prose max-w-none border-0 bg-white"
+              />
 
               {Number(chapters[chapterOrder - 1].order) === chapters.length && (
                 <Button
                   isColorYellow={true}
                   textSize={"text-base"}
-                  onClick={() => navigate(`/story/${storyId}/info`)}
-                >
+                  onClick={() => navigate(`/story/${storyId}/info`)}>
                   I completed reading this story
                 </Button>
               )}

@@ -129,7 +129,7 @@ function Home() {
       </main>
 
       {/* z-index serve per non scivolare sotto l'overlay delal modal, attenzione ai conflitti con hamburgherMenu */}
-      <div className=" font-title fixed bottom-0  w-full flex justify-center items-center z-30">
+      <div className="font-title fixed bottom-0 w-full flex justify-center items-center z-30">
         <Navbar user={loggedUser} />
       </div>
     </div>
