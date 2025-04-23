@@ -97,12 +97,11 @@ export const apiService = createApi({
         body: updatedUserData,
       }),
     }),
-    /* getChapters: builder.query({
-      query: () => "chapters",
-    }), */
+
     getChaptersByStoryId: builder.query({
       query: (storyId) => `chapters?storyId=${storyId}`, // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
+
     addChapter: builder.mutation({
       query: (chapter) => ({
         url: "chapters",
@@ -110,6 +109,7 @@ export const apiService = createApi({
         body: chapter,
       }),
     }),
+
     updateChapter: builder.mutation({
       query: (chapter) => ({
         url: `chapters/${chapter.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
@@ -150,9 +150,10 @@ export const apiService = createApi({
         method: "DELETE",
       }),
     }),
+
     getUserById: builder.query({
-      query: (id)=>`/users/${id}`
-    })
+      query: (id) => `/users/${id}`,
+    }),
   }),
 });
 
