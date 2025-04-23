@@ -127,7 +127,7 @@ export default function NewStory_2_item() {
       </div>
 
       {/* TITOLO CAPITOLO EDITABILE */}
-      <div className="flex gap-2 justify-center font-script-semibold mb-6 items-center">
+      <div className="flex gap-2 justify-center font-script-semibold mb-4 items-center">
         {isEditingTitle ? (
           <input
             type="text"
@@ -154,9 +154,11 @@ export default function NewStory_2_item() {
 
       {/* TEXT AREA CAPITOLO */}
       <ChapInput
-        handleChange={handleChange}
+        handleChange={(md) => {
+          setChapterContent(md);
+          setHasUnsavedChanges(true);
+        }}
         value={chapterContent}
-        name="content"
       />
     </form>
   );

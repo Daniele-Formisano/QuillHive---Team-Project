@@ -41,6 +41,28 @@
   --font-script-bold: Intelo-bold, sans-serif;
   --font-title: Abril Fatface, serif;
 }
-.scrollbar-hide{
+.scrollbar-hide {
   scrollbar-width: none;
+}
+
+@layer components {
+  /* Stile per la toolbar */
+  .mdxeditor-toolbar {
+    @apply bg-[#203955] text-white border-none rounded-lg p-2 flex gap-1 shadow-md max-w-full overflow-x-auto whitespace-nowrap;
+  }
+
+  /* Stile per i pulsanti della toolbar */
+  .mdxeditor-toolbar button {
+    @apply bg-transparent border-none text-white px-2 py-1 rounded-md hover:bg-[#f5c43d] hover:text-[#203955] transition-colors;
+  }
+
+  /* Stile per il pulsante attivo nella toolbar */
+  .mdxeditor-toolbar button[aria-pressed="true"] {
+    @apply bg-[#f5c43d] text-[#203955];
+  }
+
+  /* Nascondi la popup container (se presente) */
+  .mdxeditor-popup-container {
+    display: none !important;
+  }
 }
