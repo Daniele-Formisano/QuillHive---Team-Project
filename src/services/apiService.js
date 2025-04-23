@@ -144,13 +144,12 @@ export const apiService = createApi({
         body: updatedUserData,
       }),
     }),
-    /* getChapters: builder.query({
-      query: () => "chapters",
-    }), */
+
     getChaptersByStoryId: builder.query({
       query: (storyId) => `chapters?storyId=${storyId}`,
       providesTags: ["Chapter"], // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
+
     addChapter: builder.mutation({
       query: (chapter) => ({
         url: "chapters",
@@ -159,6 +158,7 @@ export const apiService = createApi({
       }),
       invalidatesTags: ["Chapter"],
     }),
+
     updateChapter: builder.mutation({
       query: (chapter) => ({
         url: `chapters/${chapter.id}`, // Assicurati di passare l'id del capitolo per l'aggiornamento
@@ -175,6 +175,7 @@ export const apiService = createApi({
       }),
       invalidatesTags: ["Chapter"],
     }),
+
     getUserById: builder.query({
       query: (id) => `/users/${id}`,
     }),

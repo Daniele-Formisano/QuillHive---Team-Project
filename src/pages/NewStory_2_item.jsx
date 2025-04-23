@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import { useEffect, useState } from "react";
 import ChapInput from "../components/ChapInput";
+import { IconPencil } from "@tabler/icons-react";
 import BackButton from "../components/BackButton";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -22,16 +23,17 @@ export default function NewStory_2_item() {
     isError,
   } = useGetChaptersByStoryIdQuery(storyId);
 
-  // Filtra i capitoli per ottenere solo quello con l'ID specifico
   const chapter = chapters?.find((chap) => chap.id === chapterId);
 
   const [chapterContent, setChapterContent] = useState("");
+  const [chapterTitle, setChapterTitle] = useState("");
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
-  // Aggiorna lo stato con i dati del capitolo quando la risposta è ricevuta
   useEffect(() => {
     if (chapter) {
       setChapterContent(chapter.content);
+      setChapterTitle(chapter.title || "Chapter");
     }
   }, [chapter]);
 
@@ -49,7 +51,11 @@ export default function NewStory_2_item() {
     }
 
     try {
-      await updateChapterMutation({ ...chapter, content: chapterContent });
+      await updateChapterMutation({
+        ...chapter,
+        content: chapterContent,
+        title: chapterTitle,
+      });
       toast.dismiss();
       toast.success("Chapter updated successfully!");
       setHasUnsavedChanges(false);
@@ -58,9 +64,6 @@ export default function NewStory_2_item() {
       toast.error("Failed to update chapter.");
     }
   };
-
-  if (isLoading) return <Loader />;
-  if (isError) return <h2>Error loading chapter.</h2>;
 
   const handleBack = () => {
     if (hasUnsavedChanges) {
@@ -74,14 +77,12 @@ export default function NewStory_2_item() {
                   await updateChapterMutation({
                     ...chapter,
                     content: chapterContent,
+                    title: chapterTitle,
                   });
-                  toast.dismiss();
                   toast.success("Chapter saved successfully!");
                   setHasUnsavedChanges(false);
-
                   navigate(pageUrl);
                 } catch (error) {
-                  toast.dismiss();
                   toast.error("Failed to save chapter.");
                 }
                 toast.dismiss(deleteToast);
@@ -92,7 +93,7 @@ export default function NewStory_2_item() {
             </button>
             <button
               onClick={() => {
-                navigate(pageUrl);
+                navigate(pageUrl, { state: { refetch: true } });
                 toast.dismiss(deleteToast);
               }}
               className="bg-gray-500 text-white p-2 pr-4 pl-4 rounded mt-4 mb-2"
@@ -107,16 +108,17 @@ export default function NewStory_2_item() {
         }
       );
     } else {
-      navigate(pageUrl);
+      navigate(pageUrl, { state: { refetch: true } });
     }
   };
+
+  if (isLoading) return <Loader />;
+  if (isError) return <h2>Error loading chapter.</h2>;
 
   return (
     <form className="ml-4 mr-4" onSubmit={handleSubmit}>
       <div className="flex justify-between mb-10 mt-3">
-        {/* INDIETRO */}
         <BackButton onClick={handleBack} />
-        {/* SAVE */}
         <div className="w-[110px]">
           <Button type="submit" isColorYellow={true}>
             Save
@@ -124,17 +126,39 @@ export default function NewStory_2_item() {
         </div>
       </div>
 
-      {/* TARGHETTA CAPITOLO */}
-      <div className="flex gap-2 justify-center font-script-semibold mb-2">
-        <h2>CHAPTER</h2>
-        <h2>{chapter?.order}</h2>
+      {/* TITOLO CAPITOLO EDITABILE */}
+      <div className="flex gap-2 justify-center font-script-semibold mb-4 items-center">
+        {isEditingTitle ? (
+          <input
+            type="text"
+            value={chapterTitle}
+            onChange={(e) => {
+              setChapterTitle(e.target.value);
+              setHasUnsavedChanges(true);
+            }}
+            onBlur={() => setIsEditingTitle(false)}
+            className="text-xl text-center border-b border-gray-400 focus:outline-none"
+            autoFocus
+          />
+        ) : (
+          <>
+            <h2 className="text-xl">{chapterTitle}</h2>
+            <IconPencil
+              stroke={2}
+              className="cursor-pointer"
+              onClick={() => setIsEditingTitle(true)}
+            />
+          </>
+        )}
       </div>
 
-      {/* TEXT INPUT */}
+      {/* TEXT AREA CAPITOLO */}
       <ChapInput
-        handleChange={handleChange}
+        handleChange={(md) => {
+          setChapterContent(md);
+          setHasUnsavedChanges(true);
+        }}
         value={chapterContent}
-        name="content"
       />
     </form>
   );
