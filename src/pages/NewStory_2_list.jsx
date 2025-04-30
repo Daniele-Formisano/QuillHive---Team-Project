@@ -2,18 +2,19 @@ import {
   useDeleteChapterMutation,
   useGetChaptersByStoryIdQuery,
 } from "../services/apiService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import { IconTrash } from "@tabler/icons-react";
 import { IconPencil } from "@tabler/icons-react";
 import BackButton from "../components/BackButton";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useAddChapterMutation } from "../services/apiService";
 import Button from "../components/Button";
 
 export default function NewStory_2_list() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { storyId } = useParams();
   const {
     data: chapters,
@@ -34,6 +35,12 @@ export default function NewStory_2_list() {
     created_at: new Date(),
     updated_at: null,
   });
+
+  useEffect(() => {
+    if (location.state?.refetch) {
+      refetch();
+    }
+  }, [location.state, refetch]);
 
   async function handleAddChapter() {
     const parsedOrder = parseInt(customOrder, 10);
@@ -125,7 +132,7 @@ export default function NewStory_2_list() {
     <div>
       {/* INDIETRO */}
       <span className="flex justify-between items-center m-2 mb-6">
-        <BackButton pageURL={"/library"} />
+        <BackButton pageURL={"/home"} />
       </span>
       {/* CHAPTER LIST */}
       <div>
@@ -138,10 +145,11 @@ export default function NewStory_2_list() {
               .map((chapter) => (
                 <li
                   key={chapter.id}
-                  className="flex justify-between p-3 rounded-lg border-2 border-stroke-brand cursor-pointer hover:bg-gray-100">
-                  <span className="font-script flex gap-2">
+                  className="flex justify-between p-3 rounded-lg border-2 border-stroke-brand cursor-pointer hover:bg-gray-100"
+                >
+                  <span className="font-script flex gap-3">
+                    <h2>{chapter.order}.</h2>
                     <h2>{chapter.title}</h2>
-                    <h2>{chapter.order}</h2>
                   </span>
 
                   <span className="flex gap-2.5">
@@ -161,13 +169,23 @@ export default function NewStory_2_list() {
         {showCreateForm ? (
           <div className="mt-8 flex flex-col items-center gap-4">
             <input
-              type="number"
+              type="text"
               placeholder="Chapter number"
               className="border border-gray-300 rounded-[50px] px-3 py-1 w-48 text-center focus:outline-none focus:ring-primary-brand focus:border-primary-brand transition-all text-input-text-brand placeholder:text-gray-500"
               value={customOrder}
-              onChange={(e) => setCustomOrder(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                // Permette solo cifre
+                if (/^\d*$/.test(value)) {
+                  setCustomOrder(value);
+                } else {
+                  toast.error("Only numbers are allowed.");
+                }
+              }}
               min="1"
             />
+
             <div className="flex gap-4">
               <Button onClick={handleAddChapter} isColorYellow={true}>
                 Create

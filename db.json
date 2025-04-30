@@ -49,6 +49,16 @@
       "bio": "Sono uno scrittore di diversi generi",
       "account_created_at": null,
       "pronouns": "he/him"
+    },
+    {
+      "id": "6",
+      "username": "markwhite",
+      "email": "markwhite@mail.com",
+      "password": "markwhite12",
+      "profile_picture": null,
+      "bio": null,
+      "account_created_at": "2025-04-29T23:48:48.706Z",
+      "pronouns": "They/Them"
     }
   ],
   "languages": [
@@ -298,6 +308,16 @@
       "id": "7",
       "userId": "4",
       "artistTypeId": "4"
+    },
+    {
+      "id": "1",
+      "userId": "6",
+      "artist_typeId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "6",
+      "artist_typeId": "4"
     }
   ],
   "stories": [
@@ -372,6 +392,35 @@
       "created_at": null,
       "updated_at": null,
       "languageId": "1"
+    },
+    {
+      "id": "e8b6",
+      "title": "My story",
+      "plot": "my story",
+      "userId": "6",
+      "cover_image": null,
+      "status": "draft",
+      "likes": 0,
+      "created_at": "2025-04-29T23:51:50.747Z",
+      "updated_at": null,
+      "genres": [
+        {
+          "id": "1",
+          "name": "Action"
+        },
+        {
+          "id": "4",
+          "name": "Sci-fi"
+        },
+        {
+          "id": "12",
+          "name": "Comedy"
+        },
+        {
+          "id": "17",
+          "name": "Mystery"
+        }
+      ]
     }
   ],
   "storyGenres": [
@@ -619,6 +668,15 @@
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "created_at": null,
       "updated_at": null
+    },
+    {
+      "id": "6604",
+      "storyId": "e8b6",
+      "title": "Chapter",
+      "order": 1,
+      "content": "Hello **This is my story**",
+      "created_at": "2025-04-29T23:52:05.349Z",
+      "updated_at": null
     }
   ],
   "userStories": [
@@ -663,6 +721,13 @@
       "storyId": "1",
       "status": "reading",
       "saved": true
+    },
+    {
+      "id": "ab34",
+      "userId": "6",
+      "storyId": "2",
+      "status": null,
+      "saved": true
     }
   ],
   "userGenres": [
@@ -680,6 +745,26 @@
       "id": "3",
       "userId": "1",
       "genreId": "17"
+    },
+    {
+      "id": "4",
+      "userId": "6",
+      "genreId": "1"
+    },
+    {
+      "id": "5",
+      "userId": "6",
+      "genreId": "5"
+    },
+    {
+      "id": "6",
+      "userId": "6",
+      "genreId": "8"
+    },
+    {
+      "id": "8",
+      "userId": "6",
+      "genreId": "26"
     }
   ]
 }
