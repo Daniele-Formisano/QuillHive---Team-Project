@@ -1,3 +1,17 @@
+function addDelData(dbData, newData, key) {
+  // recuperiamo i dati presenti nella nostra richiesta ma non nel DB
+  const addData = newData.filter(
+    (data) => !dbData.some((dataDb) => dataDb[key] === data.id)
+  );
+
+  // recuperiamo i dati presenti nel DB, ma non nella nostra richiesta, per rimuoverle
+  const removeData = dbData.filter(
+    (dataDb) => !newData.some((data) => data.id === dataDb[key])
+  );
+
+  return { dataToAdd: addData, dataToRemove: removeData };
+}
+
 async function routes(fastify, options) {
   // ottiene tutti gli elemnti di users
   fastify.get("/", async (request, reply) => {
@@ -32,18 +46,18 @@ async function routes(fastify, options) {
       }
 
       const { rows: languageRows } = await client.query(
-        "SELECT L.language FROM user_languages AS UL JOIN languages AS L ON UL.language_id = L.id WHERE user_id = $1",
+        "SELECT L.id, L.language FROM user_languages AS UL JOIN languages AS L ON UL.language_id = L.id WHERE user_id = $1",
         [id]
       );
 
       const { rows: artistTypeRows } = await client.query(
-        "SELECT A.name FROM user_artist_types AS UA JOIN artist_types AS A ON UA.artist_type_id = A.id WHERE user_id = $1",
+        "SELECT A.id, A.name FROM user_artist_types AS UA JOIN artist_types AS A ON UA.artist_type_id = A.id WHERE user_id = $1",
         [id]
       );
 
       const user = rows[0];
-      user.languages = languageRows.map((language) => language.language);
-      user.artistTypes = artistTypeRows.map((artistType) => artistType.name);
+      user.languages = languageRows.map((language) => language);
+      user.artistTypes = artistTypeRows.map((artistType) => artistType);
 
       return { user };
     } catch (error) {
@@ -52,6 +66,99 @@ async function routes(fastify, options) {
       });
     } finally {
       client.release();
+    }
+  });
+
+  // modificare i dati dell'utente
+  fastify.put("/:id", async (request, reply) => {
+    const { id } = request.params;
+    const { username, pronouns, bio, profile_picture, languages, artistTypes } =
+      request.body;
+    const client = await fastify.pg.connect();
+
+    try {
+      const { rows: validUsername } = await client.query(
+        "SELECT username FROM users WHERE LOWER(username) = $1 AND id !=$2",
+        [username.toLowerCase(), id]
+      );
+
+      console.log("Validazione", validUsername);
+
+      if (validUsername.length > 0) {
+        return reply.code(400).send({
+          error: "Username already exist",
+        });
+      }
+
+      // query per aggiornare i dati "semplici" nell'utente
+      await client.query(
+        "UPDATE users SET username = $2, pronouns = $3, bio = $4, profile_picture = $5, updated_at = NOW() WHERE id=$1",
+        [id, username, pronouns, bio, profile_picture]
+      );
+
+      const { rows: dbUserLanguages } = await client.query(
+        "SELECT * FROM user_languages WHERE user_id=$1",
+        [id]
+      );
+
+      const updatedLanguages = addDelData(
+        dbUserLanguages,
+        languages,
+        "language_id"
+      );
+
+      if (updatedLanguages.dataToAdd.length) {
+        // ciclo for per aggiungere le lingue nella tabella incrociata
+        for (const lang of updatedLanguages.dataToAdd) {
+          await client.query(
+            "INSERT INTO user_languages (user_id, language_id) VALUES ($1, $2)",
+            [id, lang.id]
+          );
+        }
+      }
+
+      if (updatedLanguages.dataToRemove.length) {
+        // ciclo for per eliminare le lingue nella tabella incrociata
+        for (const lang of updatedLanguages.dataToRemove) {
+          await client.query("DELETE FROM user_languages WHERE id=$1", [
+            lang.id,
+          ]);
+        }
+      }
+
+      const { rows: dbUserArtistTypes } = await client.query(
+        "SELECT * FROM user_artist_types WHERE user_id=$1",
+        [id]
+      );
+
+      const updatedArtistTypes = addDelData(
+        dbUserArtistTypes,
+        artistTypes,
+        "artist_type_id"
+      );
+
+      if (updatedArtistTypes.dataToAdd.length) {
+        // ciclo for per aggiungere i tipi di artista nella tabella incrociata
+        for (const artistType of updatedArtistTypes.dataToAdd) {
+          await client.query(
+            "INSERT INTO user_artist_types (user_id, artist_type_id) VALUES ($1, $2)",
+            [id, artistType.id]
+          );
+        }
+      }
+
+      if (updatedArtistTypes.dataToRemove.length) {
+        // ciclo for per eliminare i tipi di artista nella tabella incrociata
+        for (const artistType of updatedArtistTypes.dataToRemove) {
+          await client.query("DELETE FROM user_artist_types WHERE id=$1", [
+            artistType.id,
+          ]);
+        }
+      }
+    } catch (error) {
+      reply.code(500).send({
+        error: "An error occurred updating your data",
+      });
     }
   });
 }
