@@ -25,6 +25,9 @@ fastify.decorate("authenticate", async (request, reply) => {
 
 // registriamo le rotte
 fastify.register(require("./routes/users"), { prefix: "/api/users" });
+fastify.register(require("./routes/artistTypes"), {
+  prefix: "/api/artistTypes",
+});
 
 fastify.get("/", async () => {
   return { status: "Server OK" };
