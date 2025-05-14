@@ -105,6 +105,37 @@ async function routes(fastify, options) {
       client.release();
     }
   });
+
+  // rotta per ottenere tutte le storie di un utente
+  fastify.get("/storiesOfUser/:id", async (request, reply) => {
+    const { id } = request.params;
+
+    const client = await fastify.pg.connect();
+
+    try {
+      const { rows: validUser } = await client.query(
+        "SELECT id FROM users WHERE id = $1",
+        [id]
+      );
+
+      if (!validUser.length) {
+        return reply.code(404).send({ error: "user not found" });
+      }
+
+      const { rows } = await client.query(
+        "SELECT * FROM stories WHERE user_id = $1",
+        [id]
+      );
+
+      return { stories: rows };
+    } catch (error) {
+      reply.code(500).send({
+        error: "An error occurred while fetching the story",
+      });
+    } finally {
+      client.release();
+    }
+  });
 }
 
 module.exports = routes;

@@ -13,7 +13,7 @@ function addDelData(dbData, newData, key) {
 }
 
 async function routes(fastify, options) {
-  // ottiene tutti gli elemnti di users
+  // ottiene tutti gli elementi di users
   fastify.get("/", async (request, reply) => {
     const client = await fastify.pg.connect();
 
@@ -159,6 +159,68 @@ async function routes(fastify, options) {
       reply.code(500).send({
         error: "An error occurred updating your data",
       });
+    }
+  });
+
+  // ottiene le informazioni della storia (ovvero status e saved) in base all'id, in associazione all'utente
+  fastify.get("/:userId/:storyId", async (request, reply) => {
+    const { userId, storyId } = request.params;
+
+    const client = await fastify.pg.connect();
+
+    try {
+      const { rows: validUser } = await client.query(
+        "SELECT id FROM users WHERE id = $1",
+        [userId]
+      );
+
+      if (!validUser.length) {
+        return reply.code(404).send({ error: "user not found" });
+      }
+
+      const { rows: validStory } = await client.query(
+        "SELECT id FROM stories WHERE id = $1",
+        [storyId]
+      );
+
+      if (!validStory.length) {
+        return reply.code(404).send({ error: "story not found" });
+      }
+
+      const { rows } = await client.query(
+        "SELECT * FROM user_stories WHERE user_id = $1 AND story_id = $2",
+        [userId, storyId]
+      );
+
+      return { userStories: rows };
+    } catch (error) {
+      reply.code(500).send({
+        error:
+          "An error occurred while fetching the story status for this user",
+      });
+    } finally {
+      client.release();
+    }
+  });
+
+  // modifcare le informazioni della storia (ovvero status e saved) in base all'id, in associazione all'utente
+  fastify.post("/:userId/:storyId", async (request, reply) => {
+    const { userId, storyId } = request.params;
+    const { status, saved } = request.body;
+
+    const client = await fastify.pg.connect();
+
+    try {
+      await client.query(
+        "INSERT INTO user_stories (user_id, story_id, status, saved) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id, story_id) DO UPDATE SET status = EXCLUDED.status, saved = EXCLUDED.saved",
+        [userId, storyId, status, saved]
+      );
+    } catch (error) {
+      reply.code(500).send({
+        error: "An error occurred updating your data",
+      });
+    } finally {
+      client.release();
     }
   });
 }
