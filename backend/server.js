@@ -28,6 +28,7 @@ fastify.register(require("./routes/users"), { prefix: "/api/users" });
 fastify.register(require("./routes/artistTypes"), {
   prefix: "/api/artistTypes",
 });
+fastify.register(require("./routes/chapters"), { prefix: "/api" });
 
 fastify.get("/", async () => {
   return { status: "Server OK" };
