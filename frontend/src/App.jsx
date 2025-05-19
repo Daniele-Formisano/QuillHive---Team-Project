@@ -15,17 +15,20 @@ import {
   setArtistTypes,
 } from "./features/global/globalSlice";
 import Login from "./pages/Login";
+import LandingPage from "./pages/LandingPage";
+import Loader from "./components/Loader";
+/*
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
 import SignupPages from "./pages/SignupPages";
 import Home from "./pages/Home";
-import LandingPage from "./pages/LandingPage";
 import UserLibrary from "./pages/UserLibrary";
-import Loader from "./components/Loader";
+
 import ProfilePages from "./pages/ProfilePages";
 import StoryInfoPage from "./pages/StoryInfoPage";
 import ReadingPage from "./pages/ReadingPage";
+*/
 
 export default function App() {
   const {
@@ -99,18 +102,18 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login languages={dataLanguage} />} />
-        <Route
+        {/* <Route
           path="/signup"
           element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
         />
         <Route path="/home" element={<Home />}></Route>
 
-        {/* CREAZIONE E MODIFICA STORIA */}
+        { CREAZIONE E MODIFICA STORIA }
         <Route
           path="/stories/create"
           element={<NewStory_1 genres={dataGenres} />}
         />
-        {/* <Route path="story/:id/edit" element={<NewStory_2 />} /> */}
+
         <Route
           path="story/:id/info"
           element={<StoryInfoPage stories={dataStories} />}
@@ -130,7 +133,7 @@ export default function App() {
 
         <Route path="/profile/:id" element={<ProfilePages />} />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
-        <Route path="/library" element={<UserLibrary />} />
+        <Route path="/library" element={<UserLibrary />} /> */}
       </Routes>
     )
   );

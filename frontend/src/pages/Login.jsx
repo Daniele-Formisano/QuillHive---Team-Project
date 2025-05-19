@@ -3,8 +3,8 @@ import LoginForm from "../components/LoginForm";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
-  useLazyGetUserLanguagesQuery,
-  useLazyGetUsersQuery,
+  useLoginMutation,
+  useLazyGetUserByIdQuery,
 } from "../services/apiService";
 import { useDispatch } from "react-redux";
 import { setUser } from "../features/global/globalSlice";
@@ -12,15 +12,16 @@ import BackButton from "../components/BackButton";
 
 export default function Login({ languages }) {
   const [inputsValue, setinputsValue] = useState({
-    email: "",
+    usernameOrEmail: "",
     password: "",
   });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [triggerGetUser] = useLazyGetUsersQuery();
-  const [triggerGetUserLanguages] = useLazyGetUserLanguagesQuery();
+  const [login] = useLoginMutation();
+
+  const [triggerGetUserById] = useLazyGetUserByIdQuery();
 
   // funzione per modifcare lo stato che controlla gli inputs del form
   function handleChange(e) {
@@ -31,31 +32,6 @@ export default function Login({ languages }) {
     }));
   }
 
-  async function fetchUserLanguages(id) {
-    try {
-      const response = await triggerGetUserLanguages(id);
-
-      if (!response.data.length) {
-        return [];
-      }
-
-      // per estrarre solo l'id dalla tabella userLanguages
-      const userLanguagesId = response.data.map(
-        (userLanguages) => userLanguages.languageId
-      );
-
-      //metch tra l'id delle lingue e quello presente nella tabella userLanguages
-      const userLanguages = languages.filter((language) =>
-        userLanguagesId.includes(language.id)
-      );
-
-      return userLanguages;
-    } catch (error) {
-      console.error("Error fetching user languages:", error);
-      return [];
-    }
-  }
-
   // funzione per inviare il form, verificare l'utente se esiste, nel caso settarlo in redux, e redirect alla home
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,29 +39,26 @@ export default function Login({ languages }) {
     toast.promise(
       async () => {
         try {
-          const response = await triggerGetUser(inputsValue);
+          console.log(inputsValue);
+          const response = await login(inputsValue).unwrap();
 
-          if (!response.data.length) {
-            throw new Error("Invalid email or password");
-          }
+          const { token, user } = response;
 
-          const [user] = response.data;
-          const userLanguages = await fetchUserLanguages(user.id);
-          const userWithLanguages = { ...user, languages: userLanguages };
+          const userData = await triggerGetUserById(user.id).unwrap();
 
-          dispatch(setUser(userWithLanguages)); // impostare l'utente nel redux con le lingue parlate
-          console.log(userWithLanguages);
-          localStorage.setItem("user", JSON.stringify(userWithLanguages)); // salva l'utente nel local storage
+          dispatch(setUser(userData)); // impostare l'utente nel redux con le lingue parlate
+          localStorage.setItem("user", JSON.stringify(userData)); // salva l'utente nel local storage
+          localStorage.setItem("token", JSON.stringify(token));
           navigate("/home");
-          return response;
         } catch (error) {
+          console.log(error);
           throw error;
         }
       },
       {
         loading: "Loading...",
         success: "Logged",
-        error: (err) => err.message || "Error",
+        error: (error) => error?.data?.error || "Error",
       }
     );
   }

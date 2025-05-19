@@ -9,12 +9,12 @@ export default function LoginForm({ inputsValue, onChange, onSubmit }) {
         <div className="flex flex-col gap-5">
           <InputField
             label={"E-mail or Username"}
-            id={"email"}
+            id={"usernameEmail"}
             type={"text"}
             placeholder={"Email or Username"}
             value={inputsValue.email}
             onChange={onChange}
-            name={"email"}
+            name={"usernameOrEmail"}
             autoComplete={"username"}
             required
           />
