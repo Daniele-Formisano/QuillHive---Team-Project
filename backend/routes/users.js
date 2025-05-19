@@ -223,6 +223,43 @@ async function routes(fastify, options) {
       client.release();
     }
   });
+
+  // verifica se username o email sono disponibili
+  fastify.post("/validUsernameOrEmail", async (request, reply) => {
+    const { username, email } = request.body;
+
+    const client = await fastify.pg.connect();
+
+    try {
+      if (username) {
+        const { rows: validUsername } = await client.query(
+          "SELECT id, username FROM users WHERE LOWER(username) = $1",
+          [username.toLowerCase()]
+        );
+
+        if (validUsername.length) {
+          return reply.code(400).send({ error: "username already exists" });
+        }
+      }
+
+      if (email) {
+        const { rows: validEmail } = await client.query(
+          "SELECT id, email FROM users WHERE LOWER(email) = $1",
+          [email.toLowerCase()]
+        );
+
+        if (validEmail.length) {
+          return reply.code(400).send({ error: "Email already exists" });
+        }
+      }
+    } catch (error) {
+      reply.code(500).send({
+        error: "An error occurred updating your data",
+      });
+    } finally {
+      client.release();
+    }
+  });
 }
 
 module.exports = routes;

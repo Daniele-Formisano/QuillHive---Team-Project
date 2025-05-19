@@ -9,7 +9,7 @@ async function routes(fastify, options) {
 
     try {
       const { rows } = await client.query(
-        "SELECT id, username, email, password FROM users WHERE LOWER(username) = $1 OR email = $1",
+        "SELECT id, username, email, password FROM users WHERE LOWER(username) = $1 OR LOWER(email) = $1",
         [usernameOrEmail.toLowerCase()]
       );
 
