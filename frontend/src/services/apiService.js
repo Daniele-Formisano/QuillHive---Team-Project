@@ -36,6 +36,15 @@ export const apiService = createApi({
       //invalidatesTags: ["User"],
     }),
 
+    // rotta validazione username e email utente
+    validationUsernameEmail: builder.mutation({
+      query: (usernameOrEmail) => ({
+        url: "api/users/validUsernameOrEmail",
+        method: "POST",
+        body: usernameOrEmail,
+      }),
+    }),
+
     // per modificare le informazioni di un user
     updateUser: builder.mutation({
       query: (updatedUserData) => ({
@@ -156,4 +165,5 @@ export const {
   useAddUserStoriesMutation,
   useDeleteChapterMutation,
   useLazyGetUserByIdQuery,
+  useValidationUsernameEmailMutation,
 } = apiService;

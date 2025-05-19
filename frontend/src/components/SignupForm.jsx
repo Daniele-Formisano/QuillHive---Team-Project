@@ -42,7 +42,7 @@ export default function SignupForm({
             maxLength="12"
           />
           <InputField
-            label={"Password"}
+            label={"Password (min. 8 characters)"}
             id={"password"}
             type={"password"}
             placeholder={"Enter a password"}

@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../features/global/globalSlice";
 import BackButton from "../components/BackButton";
 
-export default function Login({ languages }) {
+export default function Login() {
   const [inputsValue, setinputsValue] = useState({
     usernameOrEmail: "",
     password: "",
@@ -39,19 +39,17 @@ export default function Login({ languages }) {
     toast.promise(
       async () => {
         try {
-          console.log(inputsValue);
           const response = await login(inputsValue).unwrap();
 
           const { token, user } = response;
 
           const userData = await triggerGetUserById(user.id).unwrap();
 
-          dispatch(setUser(userData)); // impostare l'utente nel redux con le lingue parlate
+          dispatch(setUser(userData)); // impostare l'utente nel redux
           localStorage.setItem("user", JSON.stringify(userData)); // salva l'utente nel local storage
           localStorage.setItem("token", JSON.stringify(token));
           navigate("/home");
         } catch (error) {
-          console.log(error);
           throw error;
         }
       },

@@ -17,11 +17,12 @@ import {
 import Login from "./pages/Login";
 import LandingPage from "./pages/LandingPage";
 import Loader from "./components/Loader";
+import SignupPages from "./pages/SignupPages";
 /*
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
-import SignupPages from "./pages/SignupPages";
+
 import Home from "./pages/Home";
 import UserLibrary from "./pages/UserLibrary";
 
@@ -56,20 +57,24 @@ export default function App() {
 
   useEffect(() => {
     if (dataGenres) {
-      dispatch(setGenres(dataGenres));
+      const { genres } = dataGenres;
+      dispatch(setGenres(genres));
     }
 
     if (dataLanguage) {
-      dispatch(setLanguages(dataLanguage));
+      const { languages } = dataLanguage;
+      dispatch(setLanguages(languages));
     }
 
     if (dataArtist) {
-      dispatch(setArtistTypes(dataArtist));
+      const { artistTypes } = dataArtist;
+      dispatch(setArtistTypes(artistTypes));
     }
   });
   useEffect(() => {
     if (dataStories) {
-      dispatch(setStories(dataStories));
+      const { stories } = dataStories;
+      dispatch(setStories(stories));
     }
   });
 
@@ -101,11 +106,9 @@ export default function App() {
     dataStories && (
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login languages={dataLanguage} />} />
-        {/* <Route
-          path="/signup"
-          element={<SignupPages genres={dataGenres} artistTypes={dataArtist} />}
-        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignupPages />} />
+        {/*
         <Route path="/home" element={<Home />}></Route>
 
         { CREAZIONE E MODIFICA STORIA }

@@ -6,7 +6,7 @@ import {
   setAcceptPrivacy,
   togglePronouns,
 } from "../features/signup/signupSlice";
-import { useLazyGetUsersQuery } from "../services/apiService";
+import { useValidationUsernameEmailMutation } from "../services/apiService";
 import toast from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import { useEffect, useState } from "react";
@@ -20,8 +20,8 @@ const pronouns = [
 
 export default function SignupPageForm({ nextPage }) {
   const dispatch = useDispatch();
+  const [validationUsernameEmail] = useValidationUsernameEmailMutation();
   const formValues = useSelector((state) => state.signup);
-  const [triggerGetUser] = useLazyGetUsersQuery();
   const [selectPronoun, setPronoun] = useState([]); // per controllare lo stato della select dei pronomi
 
   // funzione per settare i valori e cambiamenti dei campi del form nel redux in tempo reale
@@ -48,17 +48,17 @@ export default function SignupPageForm({ nextPage }) {
     }
   }
 
-  // funzione per eseguire requestAPI per verifica valori già presenti nel db json
+  // funzione per controllare se username o email sono già stati utilizzati per altri user
   async function checkValue(name, messageError) {
-    const response = await triggerGetUser({
-      [name]: formValues[name].trim(),
-    });
+    try {
+      const response = await validationUsernameEmail({
+        [name]: formValues[name].trim(),
+      }).unwrap();
 
-    if (response.data.length) {
+      return true;
+    } catch (error) {
       toast.error(messageError);
       return false;
-    } else {
-      return true;
     }
   }
 
@@ -98,7 +98,6 @@ export default function SignupPageForm({ nextPage }) {
 
   // aggiornare lo stato nel redux dei pronomi
   useEffect(() => {
-    console.log(selectPronoun);
     dispatch(togglePronouns(selectPronoun[0]?.name));
   }, [selectPronoun]);
 
