@@ -68,14 +68,15 @@ export const apiService = createApi({
 
     // per ottenere una singola storia che l'utente ha salvato o inizato a leggere
     getUserStory: builder.query({
-      query: (userStory) => `api/users/userStories/${userId}/${storyId}`,
+      query: (userStory) =>
+        `api/users/userStories/${userStory.userId}/${userStory.storyId}`,
       //providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
     }),
 
     // per inserire le storie che l'utente ha salvato o inizato a leggere
     addUserStories: builder.mutation({
       query: (userStories) => ({
-        url: `api/users/${userStories.userId}/${userStories.storyId}`,
+        url: `api/users/userStories/${userStories.userId}/${userStories.storyId}`,
         method: "POST",
         body: { status: userStories.status, saved: userStories.saved },
       }),
@@ -162,6 +163,7 @@ export const {
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
   useGetUserStoriesQuery,
+  useGetUserStoryQuery,
   useLazyGetStoriesQuery,
   useGetChaptersByStoryIdQuery,
   useAddChapterMutation,

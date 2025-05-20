@@ -18,7 +18,7 @@ export default function UserLibrary() {
     { text: "Saved", active: false },
   ]);
   const [stories, setStories] = useState([]);
-  const [storiesOfUsers, setStoriesOfUsers] = useState([]);
+  const [storiesOfUserArray, setStoriesOfUserArray] = useState([]);
   const user = useSelector((state) => state.global.user);
 
   // per ottenere tutte le storie salvate o inizate a leggere dall'user
@@ -39,13 +39,15 @@ export default function UserLibrary() {
 
   useEffect(() => {
     if (!loadingUserStories && userStories) {
-      setStories(userStories);
+      const { userStories: stories } = userStories;
+      setStories(stories);
     }
   }, [loadingUserStories, userStories]);
 
   useEffect(() => {
     if (!loadingStoriesOfUser && storiesOfUser) {
-      setStoriesOfUsers(storiesOfUser);
+      const { stories } = storiesOfUser;
+      setStoriesOfUserArray(stories);
     }
   }, [loadingStoriesOfUser, storiesOfUser]);
 
@@ -69,7 +71,7 @@ export default function UserLibrary() {
   if (errorStoriesOfUser || errorUserStories)
     return <div>Error: {errorStoriesOfUser || errorUserStories}</div>;
 
-  if (userStories && storiesOfUsers) {
+  if (userStories && storiesOfUser) {
     return (
       <div className="bg-bg-brand min-h-screen flex flex-col">
         <HeaderNavbar user={user} />
@@ -81,19 +83,12 @@ export default function UserLibrary() {
           {/* Se viene selezionato Reading Now */}
           {filterButton[0].active && (
             <div>
-              {stories.length &&
-              userStories.filter((story) => story.status === "reading")
-                .length ? (
+              {stories.filter((story) => story.status === "reading").length ? (
                 <main className="grid grid-cols-2 mb-14">
-                  {userStories
+                  {stories
                     .filter((story) => story.status === "reading")
                     .map((storyFiltered) => (
-                      <Card
-                        key={storyFiltered.id}
-                        story={stories.find(
-                          (story) => story.id === storyFiltered.storyId
-                        )}
-                      />
+                      <Card key={storyFiltered.id} story={storyFiltered} />
                     ))}
                 </main>
               ) : (
@@ -109,9 +104,9 @@ export default function UserLibrary() {
           {/* Se viene selezionato My Creations*/}
           {filterButton[1].active && (
             <div>
-              {storiesOfUsers.length ? (
+              {storiesOfUserArray.length ? (
                 <main className="grid grid-cols-2 mb-14">
-                  {storiesOfUsers.map((story) => (
+                  {storiesOfUserArray.map((story) => (
                     <Card key={story.id} story={story} />
                   ))}
                 </main>
@@ -125,21 +120,15 @@ export default function UserLibrary() {
             </div>
           )}
 
-          {/* Se viene selezionato */}
+          {/* Se viene selezionato Saved*/}
           {filterButton[2].active && (
             <div>
-              {stories.length &&
-              userStories.filter((story) => story.saved === true).length ? (
+              {stories.filter((story) => story.user_saved == true).length ? (
                 <main className="grid grid-cols-2 mb-14 ">
-                  {userStories
-                    .filter((story) => story.saved === true)
+                  {stories
+                    .filter((story) => story.user_saved == true)
                     .map((storyFiltered) => (
-                      <Card
-                        key={storyFiltered.id}
-                        story={stories.find(
-                          (story) => story.id === storyFiltered.storyId
-                        )}
-                      />
+                      <Card key={storyFiltered.id} story={storyFiltered} />
                     ))}
                 </main>
               ) : (

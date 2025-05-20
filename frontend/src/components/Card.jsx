@@ -1,20 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import BookModal from "./BookModal";
-import { useGetUserByIdQuery } from "../services/apiService";
 import Loader from "./Loader";
 import { IconBook } from "@tabler/icons-react";
 
 function Card({ story }) {
-  // props passate da Home.jsx
-  // const [showTooltip, setShowTooltip] = useState(false);
-
-  const { data: author, isLoading } = useGetUserByIdQuery(story.userId);
   const { user: loggedUser } = useSelector((state) => state.global);
 
   const [selectedStory, setSelectedStory] = useState(null);
-
-  if (isLoading) return <Loader />;
 
   return (
     <div className="inline-flex justify-center">
@@ -41,25 +34,14 @@ function Card({ story }) {
           </div>
         )}
 
-        {/* {showTooltip && (
-          <div className="relative">
-            <span className="absolute bottom-[-22px] text-center whitespace-nowrap left-1/2 transform -translate-x-1/2  bg-transparent text-secondary-brand p-2 text-xs rounded  ">
-              {story.title}
-            </span>
-          </div>
-        )} */}
         <div>
-          <span
-            className="font-medium text-[16px] text-center text-secondary-brand  w-[100px] block leading-none mt-2  hover:cursor-pointer  "
-            // onMouseEnter={() => setShowTooltip(true)}
-            // onMouseLeave={() => setShowTooltip(false)}
-          >
+          <span className="font-medium text-[16px] text-center text-secondary-brand  w-[100px] block leading-none mt-2  hover:cursor-pointer  ">
             {story.title}
           </span>
         </div>
 
         <p className="font-light font text-[12px] text-secondary-brand secondary-brand  hover:cursor-pointer ">
-          {isLoading ? "Wait a second!" : author?.username || "not defined"}
+          {story.author || "not defined"}
         </p>
       </li>
       <BookModal
@@ -67,7 +49,6 @@ function Card({ story }) {
         isOpen={!!selectedStory}
         onClose={() => setSelectedStory(null)}
         user={loggedUser}
-        author={author}
       />
     </div>
   );

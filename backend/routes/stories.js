@@ -5,7 +5,7 @@ async function routes(fastify, options) {
 
     try {
       const { rows } = await client.query(
-        "SELECT S.id, S.title, S.plot, S.cover_image, U.username AS user FROM stories AS S JOIN users AS U ON S.user_id = U.id ORDER BY title ASC"
+        "SELECT S.id, S.title, S.plot, S.cover_image, U.id AS author_id, U.username AS author FROM stories AS S JOIN users AS U ON S.user_id = U.id ORDER BY title ASC"
       );
 
       return { stories: rows };
@@ -123,7 +123,7 @@ async function routes(fastify, options) {
       }
 
       const { rows } = await client.query(
-        "SELECT * FROM stories WHERE user_id = $1",
+        "SELECT S.id, S.title, S.plot, S.cover_image, U.id AS author_id, U.username AS author FROM stories AS S JOIN users AS U ON S.user_id = U.id WHERE S.user_id = $1 ORDER BY title ASC ",
         [id]
       );
 

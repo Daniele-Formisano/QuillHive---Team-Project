@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
   useAddUserStoriesMutation,
-  useGetUserStoriesQuery,
+  useGetUserStoryQuery,
 } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 
 export default function SaveButton({ storyId, userId }) {
-  const [userStory, setUserStory] = useState();
+  const [userStoryData, setUserStoryData] = useState();
   const [isSaved, setIsSaved] = useState();
-  const { data: userStories } = useGetUserStoriesQuery({
+  const { data: userStories } = useGetUserStoryQuery({
     userId: userId,
     storyId: storyId,
   });
@@ -18,24 +18,27 @@ export default function SaveButton({ storyId, userId }) {
 
   useEffect(() => {
     if (userStories) {
-      if (userStories.length) {
-        setUserStory(userStories[0]);
-        setIsSaved(userStories[0].saved);
+      const { userStory } = userStories;
+
+      if (userStory.length) {
+        setIsSaved(userStory[0].user_saved);
+        setUserStoryData(userStory[0]);
       }
     }
   }, [userStories]);
 
+  // funzione per il click del salvataggio/rimozione della storia dai salvati
   const handleClick = async () => {
     toast.promise(
       async () => {
         try {
-          const userStoryData = {
-            user_id: userStory.user_id,
-            story_id: userStory.story_id,
-            status: userStory.status,
+          const userStoryUpdate = {
+            userId: userId,
+            storyId: storyId,
+            status: userStoryData.status,
             saved: !isSaved,
           };
-          await addUserStory(userStoryData);
+          await addUserStory(userStoryUpdate);
           setIsSaved(!isSaved);
         } catch (error) {
           throw error;
@@ -43,7 +46,7 @@ export default function SaveButton({ storyId, userId }) {
       },
       {
         loading: "Loading...",
-        success: isSaved ? "story added to saved" : "story removed from saved",
+        success: !isSaved ? "story added to saved" : "story removed from saved",
         error: (error) => error?.data?.error || "Error",
       }
     );
