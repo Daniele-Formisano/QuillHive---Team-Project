@@ -68,7 +68,7 @@ async function routes(fastify, options) {
       for (const genre of genres) {
         await client.query(
           "INSERT INTO user_genres (user_id, genre_id) VALUES ($1, $2)",
-          [user.id, genre.id]
+          [user.id, genre]
         );
       }
 
@@ -77,7 +77,7 @@ async function routes(fastify, options) {
         for (const artistType of artistTypes) {
           await client.query(
             "INSERT INTO user_artist_types (user_id, artist_type_id) VALUES ($1, $2)",
-            [user.id, artistType.id]
+            [user.id, artistType]
           );
         }
       }

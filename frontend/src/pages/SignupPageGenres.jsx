@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import Button from "../components/Button";
 import BackButton from "../components/BackButton";
 
-export default function SignupPageGenres({ genres, nextPage }) {
+export default function SignupPageGenres({ nextPage }) {
+  // lista di tutti i generi
+  const { genres } = useSelector((state) => state.global);
   const { selectedGenres } = useSelector((state) => state.signup);
   const dispatch = useDispatch();
 

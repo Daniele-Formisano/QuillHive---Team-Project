@@ -4,25 +4,19 @@ import SignupPageGenres from "./SignupPageGenres";
 import SignupPageArtistTypes from "./SignupPageArtistTypes";
 import { useNavigate } from "react-router-dom";
 import {
-  useAddUserArtistTypesMutation,
-  useAddUserGenresMutation,
   useAddUsersMutation,
-  useLazyGetUserArtistTypesQuery,
-  useLazyGetUserGenresQuery,
-  useLazyGetUsersQuery,
+  useLoginMutation,
+  useLazyGetUserByIdQuery,
 } from "../services/apiService";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { setUser } from "../features/global/globalSlice";
 
-export default function SignupPages({ genres, artistTypes }) {
+export default function SignupPages() {
   const [stepSignup, setStepSingup] = useState(1);
-  const [triggerGetUser] = useLazyGetUsersQuery();
-  const [triggerGetUserGenres] = useLazyGetUserGenresQuery();
-  const [triggerUserArtistTypes] = useLazyGetUserArtistTypesQuery();
   const [addUsers] = useAddUsersMutation();
-  const [addUserGenres] = useAddUserGenresMutation();
-  const [AddUserArtistTypes] = useAddUserArtistTypesMutation();
+  const [login] = useLoginMutation();
+  const [triggerGetUserById] = useLazyGetUserByIdQuery();
   const formValues = useSelector((state) => state.signup);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,83 +25,52 @@ export default function SignupPages({ genres, artistTypes }) {
     setStepSingup(page);
   }
 
+  // funzione per l'invio di dati del nuovo utente
   async function submitData() {
-    const responseUsers = await triggerGetUser();
-
-    if (responseUsers.error) {
-      console.error("Error: ", responseUsers.error);
-      toast.error("An error occurred, please retry later");
-      return;
-    }
-
-    const userId = responseUsers.data.length + 1;
-
     const newUser = {
-      id: String(userId),
       username: formValues.username,
       email: formValues.email,
       password: formValues.password,
-      profile_picture: null,
-      bio: null,
-      account_created_at: new Date(),
       pronouns: formValues.pronouns.length ? formValues.pronouns[0] : null,
+      genres: formValues.selectedGenres,
+      artistTypes: formValues.selectedArtistTypes,
     };
 
     toast.promise(
       async () => {
         try {
-          //invio dei dati al db dell'user
+          //invio dei dati utente
           await addUsers(newUser).unwrap();
-          localStorage.setItem("user", JSON.stringify(newUser));
-          //invio dei dati dei generi selezionati dall'utente nel db
-          const userGenres = await triggerGetUserGenres().unwrap();
 
-          let userGenresId = userGenres.length + 1;
+          //login dell'utente dopo la registrazione
+          const response = await login({
+            usernameOrEmail: newUser.email,
+            password: newUser.password,
+          }).unwrap();
 
-          for (const genre of formValues.selectedGenres) {
-            const userGenre = {
-              id: String(userGenresId++),
-              userId: String(userId),
-              genreId: String(genre),
-            };
+          const { token, user } = response;
 
-            await addUserGenres(userGenre).unwrap();
-          }
+          const userData = await triggerGetUserById(user.id).unwrap();
 
-          //invio dei dati dei tipi d'artista selezionati dall'utente
-          if (formValues.selectedArtistTypes.length) {
-            const userArtistTypes = await triggerUserArtistTypes().unwrap();
+          console.log(userData);
 
-            let userArtistTypesId = userArtistTypes.length + 1;
-
-            for (const artistType of formValues.selectedArtistTypes) {
-              const userArtistType = {
-                id: String(userArtistTypesId++),
-                userId: String(userId),
-                artist_typeId: String(artistType),
-              };
-
-              await AddUserArtistTypes(userArtistType);
-
-              dispatch(setUser(newUser));
-              localStorage.setItem("user", JSON.stringify(newUser)); // salva l'utente nel local storage
-            }
-          }
+          dispatch(setUser(userData)); // impostare l'utente nel redux
+          localStorage.setItem("user", JSON.stringify(userData)); // salva l'utente nel local storage
+          localStorage.setItem("token", JSON.stringify(token));
         } catch (error) {
-          throw new Error("Signup failed, please retry");
+          console.log(error);
+          throw error;
         }
       },
       {
         loading: "Loading...",
-        success: "Signup Successfully, Welcome in QuillHive",
-        error: (err) => <b>{err.message || "Error"}</b>,
+        success: `Signup Successfully, Welcome in QuillHive ${formValues.username}`,
+        error: (error) => error?.data?.error || "Error",
       }
     );
   }
 
   useEffect(() => {
-    //console.log(stepSignup);
-
     if (stepSignup > 3) {
       submitData();
       navigate("/home");
@@ -120,12 +83,10 @@ export default function SignupPages({ genres, artistTypes }) {
   }
 
   if (stepSignup === 2) {
-    return <SignupPageGenres genres={genres} nextPage={nextPage} />;
+    return <SignupPageGenres nextPage={nextPage} />;
   }
 
   if (stepSignup === 3) {
-    return (
-      <SignupPageArtistTypes artistTypes={artistTypes} nextPage={nextPage} />
-    );
+    return <SignupPageArtistTypes nextPage={nextPage} />;
   }
 }

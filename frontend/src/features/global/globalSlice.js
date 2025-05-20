@@ -4,7 +4,7 @@ const initialState = {
   user: null,
   languages: [],
   selectedGenres: [],
-  artistType: [],
+  artistTypes: [],
   genres: [],
   stories: [],
   storyGenres: [],
@@ -24,7 +24,7 @@ export const globalSlice = createSlice({
       state.genres = action.payload;
     },
     setArtistTypes: (state, action) => {
-      state.artistType = action.payload;
+      state.artistTypes = action.payload;
     },
     setStories: (state, action) => {
       state.stories = action.payload;

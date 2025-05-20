@@ -5,9 +5,12 @@ import Button from "../components/Button";
 import toast from "react-hot-toast";
 import BackButton from "../components/BackButton";
 
-export default function SignupPageArtistTypes({ artistTypes, nextPage }) {
+export default function SignupPageArtistTypes({ nextPage }) {
+  const { artistTypes } = useSelector((state) => state.global);
   const { selectedArtistTypes } = useSelector((state) => state.signup);
   const dispatch = useDispatch();
+
+  console.log(artistTypes);
 
   function toggleArtistTypeAction(id) {
     if (selectedArtistTypes.length >= 2 && !selectedArtistTypes.includes(id)) {
