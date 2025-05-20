@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import FilterButton from "../components/FilterButtons";
 import {
   useGetUserStoriesQuery,
-  useLazyGetStoriesQuery,
+  useGetUserProjectsQuery,
 } from "../services/apiService";
 import { useSelector } from "react-redux";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import HeaderNavbar from "../components/HeaderNavbar";
 
@@ -21,44 +21,33 @@ export default function UserLibrary() {
   const [storiesOfUsers, setStoriesOfUsers] = useState([]);
   const user = useSelector((state) => state.global.user);
 
+  // per ottenere tutte le storie salvate o inizate a leggere dall'user
   const {
     data: userStories,
-    isLoanding,
-    error,
-  } = useGetUserStoriesQuery({ userId: user.id });
+    isLoanding: loadingUserStories,
+    error: errorUserStories,
+  } = useGetUserStoriesQuery(user.id);
 
-  const [triggerGetStories] = useLazyGetStoriesQuery();
+  // per ottenere tute le storie create dall'user
+  const {
+    data: storiesOfUser,
+    isLoading: loadingStoriesOfUser,
+    error: errorStoriesOfUser,
+  } = useGetUserProjectsQuery(user.id);
 
-  const navigate = useNavigate();
-
-  async function storiesData() {
-    const storiesArray = [];
-
-    for (const story of userStories) {
-      // imposta i libri salvati o attualmente in lettura nell'array stories
-      const [dataStory] = await triggerGetStories({
-        storyId: story.storyId,
-      }).unwrap();
-
-      storiesArray.push(dataStory);
-    }
-
-    setStories(storiesArray);
-
-    // imposta i libri dell'utente nell'array storiesOfUsers
-    const dataStoriesOfUser = await triggerGetStories({
-      userId: user.id,
-    }).unwrap();
-
-    setStoriesOfUsers(dataStoriesOfUser);
-  }
+  //const navigate = useNavigate();
 
   useEffect(() => {
-    if (userStories) {
-      storiesData();
-      console.log(userStories);
+    if (!loadingUserStories && userStories) {
+      setStories(userStories);
     }
-  }, [userStories]);
+  }, [loadingUserStories, userStories]);
+
+  useEffect(() => {
+    if (!loadingStoriesOfUser && storiesOfUser) {
+      setStoriesOfUsers(storiesOfUser);
+    }
+  }, [loadingStoriesOfUser, storiesOfUser]);
 
   function handleClick(selectedText) {
     const activeFilter = filterButton.map((filter) =>
@@ -70,14 +59,15 @@ export default function UserLibrary() {
     setFilterButton(activeFilter);
   }
 
-  if (isLoanding)
+  if (loadingUserStories || loadingStoriesOfUser)
     return (
       <div>
         <Loader />
       </div>
     );
 
-  if (error) return <div>Error: {error}</div>;
+  if (errorStoriesOfUser || errorUserStories)
+    return <div>Error: {errorStoriesOfUser || errorUserStories}</div>;
 
   if (userStories && storiesOfUsers) {
     return (
