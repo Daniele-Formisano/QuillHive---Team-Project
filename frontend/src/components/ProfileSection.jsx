@@ -21,10 +21,9 @@ import CreateStoryCard from "./CreateStoryCard";
 
 export default function ProfileSection({ user, isOwn }) {
   const { languages, artistTypes } = useSelector((state) => state.global);
-  const [userData, setUserData] = useState(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    return storedUser?.user || {}; // così userData è direttamente { username, bio, ... }
-  });
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
   const [triggerGetUser] = useLazyGetUsersQuery();
 
   /* Chiamata per ricevere i progetti dell'utente */
