@@ -20,14 +20,14 @@ import Loader from "./components/Loader";
 import SignupPages from "./pages/SignupPages";
 import ProfilePages from "./pages/ProfilePages";
 import UserLibrary from "./pages/UserLibrary";
-/*
+import StoryInfoPage from "./pages/StoryInfoPage";
+import ReadingPage from "./pages/ReadingPage";
 
+/*
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
 import Home from "./pages/Home";
-import StoryInfoPage from "./pages/StoryInfoPage";
-import ReadingPage from "./pages/ReadingPage";
 */
 
 export default function App() {
@@ -109,6 +109,11 @@ export default function App() {
         <Route path="/signup" element={<SignupPages />} />
         <Route path="/profile/:id" element={<ProfilePages />} />
         <Route path="/library" element={<UserLibrary />} />
+        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        <Route
+          path="story/:storyId/read-story/chapter/:chapterOrder"
+          element={<ReadingPage />}
+        />
         {/*
         
         <Route path="/home" element={<Home />}></Route>
@@ -123,10 +128,7 @@ export default function App() {
           path="story/:id/info"
           element={<StoryInfoPage stories={dataStories} />}
         />
-        <Route
-          path="story/:storyId/read-story/chapter/:chapterOrder"
-          element={<ReadingPage />}
-        />
+        
         <Route
           path="/stories/:storyId/chapters"
           element={<NewStory_2_list />}
@@ -136,7 +138,7 @@ export default function App() {
           element={<NewStory_2_item />}
         />
 
-        <Route path="story/:id/info" element={<StoryInfoPage />} />
+        
          */}
       </Routes>
     )

@@ -1,5 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetChaptersByStoryIdQuery } from "../services/apiService";
+import {
+  useGetChaptersByStoryIdQuery,
+  useAddUserStoriesMutation,
+  useLazyGetUserStoryQuery,
+} from "../services/apiService";
 import Loader from "../components/Loader";
 import BackButton from "../components/BackButton";
 import SwitchChapters from "../components/SwitchChapters";
@@ -14,18 +18,23 @@ export default function ReadingPage() {
     state.global.stories.find((story) => story.id == storyId)
   );
 
+  const user = useSelector((state) => state.global.user);
+
   const {
     data: chaptersOfStory,
     isLoading,
     error,
   } = useGetChaptersByStoryIdQuery(storyId);
 
+  const [addUserStories] = useAddUserStoriesMutation();
+  const [triggerUserStory] = useLazyGetUserStoryQuery();
+
   const [chapters, setChapters] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (chaptersOfStory) {
-      const orderedChapters = [...chaptersOfStory].sort(
+      const orderedChapters = [...chaptersOfStory.chapters].sort(
         (a, b) => a.order - b.order
       );
       setChapters(orderedChapters);
@@ -42,6 +51,29 @@ export default function ReadingPage() {
     navigate(
       `/story/${storyId}/read-story/chapter/${Number(chapterOrder) - 1}`
     );
+  }
+
+  // funzione per settare lo status della storia a completed e ritornare alla pagina della storia
+  async function handleClick() {
+    try {
+      const response = await triggerUserStory({
+        userId: user.id,
+        storyId: storyId,
+      }).unwrap();
+
+      const { userStory } = response;
+
+      await addUserStories({
+        userId: user.id,
+        storyId: storyId,
+        status: "completed",
+        saved: userStory[0].user_saved,
+      });
+
+      navigate(`/story/${storyId}/info`);
+    } catch (error) {
+      toast.error(error);
+    }
   }
 
   if (error) return <div>Error: {error}</div>;
@@ -74,11 +106,12 @@ export default function ReadingPage() {
 
               <p>{chapters[chapterOrder - 1].content}</p>
 
-              {Number(chapters[chapterOrder - 1].order) === chapters.length && (
+              {Number(chapters[chapterOrder - 1].chapter_order) ===
+                chapters.length && (
                 <Button
                   isColorYellow={true}
                   textSize={"text-base"}
-                  onClick={() => navigate(`/story/${storyId}/info`)}
+                  onClick={handleClick}
                 >
                   I completed reading this story
                 </Button>
