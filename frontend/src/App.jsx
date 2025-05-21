@@ -19,14 +19,13 @@ import LandingPage from "./pages/LandingPage";
 import Loader from "./components/Loader";
 import SignupPages from "./pages/SignupPages";
 import ProfilePages from "./pages/ProfilePages";
+import UserLibrary from "./pages/UserLibrary";
 /*
+
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
-
 import Home from "./pages/Home";
-import UserLibrary from "./pages/UserLibrary";
-
 import StoryInfoPage from "./pages/StoryInfoPage";
 import ReadingPage from "./pages/ReadingPage";
 */
@@ -109,8 +108,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPages />} />
         <Route path="/profile/:id" element={<ProfilePages />} />
-
+        <Route path="/library" element={<UserLibrary />} />
         {/*
+        
         <Route path="/home" element={<Home />}></Route>
 
         { CREAZIONE E MODIFICA STORIA }
@@ -137,7 +137,7 @@ export default function App() {
         />
 
         <Route path="story/:id/info" element={<StoryInfoPage />} />
-        <Route path="/library" element={<UserLibrary />} /> */}
+         */}
       </Routes>
     )
   );

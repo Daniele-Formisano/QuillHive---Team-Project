@@ -10,7 +10,7 @@ import SaveButton from "./ButtonSave";
 import { useNavigate } from "react-router-dom";
 import { IconBook } from "@tabler/icons-react";
 
-function BookModal({ story, isOpen, onClose, user, author }) {
+function BookModal({ story, isOpen, onClose, user }) {
   if (!story) return null;
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ function BookModal({ story, isOpen, onClose, user, author }) {
             </div>
             {/* aggiungere un controllo che dia un numero massimo di caratteri per evitare che la modal venga coperta da header e navbar  */}
             <DialogTitle className="font-bold text-xl text-center text-secondary-brand whitespace-normal break-words">
-              {story.title} - {author?.username}
+              {story.title} - {story.author}
             </DialogTitle>
             <Description className="text-secondary-brand font-medium text-[14px] whitespace-normal break-words">
               {story.plot}

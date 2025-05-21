@@ -52,10 +52,8 @@ export default function SignupPages() {
 
           const userData = await triggerGetUserById(user.id).unwrap();
 
-          console.log(userData);
-
-          dispatch(setUser(userData)); // impostare l'utente nel redux
-          localStorage.setItem("user", JSON.stringify(userData)); // salva l'utente nel local storage
+          dispatch(setUser(userData.user)); // impostare l'utente nel redux
+          localStorage.setItem("user", JSON.stringify(userData.user)); // salva l'utente nel local storage
           localStorage.setItem("token", JSON.stringify(token));
         } catch (error) {
           console.log(error);

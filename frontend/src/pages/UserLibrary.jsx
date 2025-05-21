@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import FilterButton from "../components/FilterButtons";
 import {
   useGetUserStoriesQuery,
-  useLazyGetStoriesQuery,
+  useGetUserProjectsQuery,
 } from "../services/apiService";
 import { useSelector } from "react-redux";
 import Card from "../components/Card";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import HeaderNavbar from "../components/HeaderNavbar";
 
@@ -18,47 +18,38 @@ export default function UserLibrary() {
     { text: "Saved", active: false },
   ]);
   const [stories, setStories] = useState([]);
-  const [storiesOfUsers, setStoriesOfUsers] = useState([]);
+  const [storiesOfUserArray, setStoriesOfUserArray] = useState([]);
   const user = useSelector((state) => state.global.user);
 
+  // per ottenere tutte le storie salvate o inizate a leggere dall'user
   const {
     data: userStories,
-    isLoanding,
-    error,
-  } = useGetUserStoriesQuery({ userId: user.id });
+    isLoanding: loadingUserStories,
+    error: errorUserStories,
+  } = useGetUserStoriesQuery(user.id);
 
-  const [triggerGetStories] = useLazyGetStoriesQuery();
+  // per ottenere tute le storie create dall'user
+  const {
+    data: storiesOfUser,
+    isLoading: loadingStoriesOfUser,
+    error: errorStoriesOfUser,
+  } = useGetUserProjectsQuery(user.id);
 
-  const navigate = useNavigate();
-
-  async function storiesData() {
-    const storiesArray = [];
-
-    for (const story of userStories) {
-      // imposta i libri salvati o attualmente in lettura nell'array stories
-      const [dataStory] = await triggerGetStories({
-        storyId: story.storyId,
-      }).unwrap();
-
-      storiesArray.push(dataStory);
-    }
-
-    setStories(storiesArray);
-
-    // imposta i libri dell'utente nell'array storiesOfUsers
-    const dataStoriesOfUser = await triggerGetStories({
-      userId: user.id,
-    }).unwrap();
-
-    setStoriesOfUsers(dataStoriesOfUser);
-  }
+  //const navigate = useNavigate();
 
   useEffect(() => {
-    if (userStories) {
-      storiesData();
-      console.log(userStories);
+    if (!loadingUserStories && userStories) {
+      const { userStories: stories } = userStories;
+      setStories(stories);
     }
-  }, [userStories]);
+  }, [loadingUserStories, userStories]);
+
+  useEffect(() => {
+    if (!loadingStoriesOfUser && storiesOfUser) {
+      const { stories } = storiesOfUser;
+      setStoriesOfUserArray(stories);
+    }
+  }, [loadingStoriesOfUser, storiesOfUser]);
 
   function handleClick(selectedText) {
     const activeFilter = filterButton.map((filter) =>
@@ -70,16 +61,17 @@ export default function UserLibrary() {
     setFilterButton(activeFilter);
   }
 
-  if (isLoanding)
+  if (loadingUserStories || loadingStoriesOfUser)
     return (
       <div>
         <Loader />
       </div>
     );
 
-  if (error) return <div>Error: {error}</div>;
+  if (errorStoriesOfUser || errorUserStories)
+    return <div>Error: {errorStoriesOfUser || errorUserStories}</div>;
 
-  if (userStories && storiesOfUsers) {
+  if (userStories && storiesOfUser) {
     return (
       <div className="bg-bg-brand min-h-screen flex flex-col">
         <HeaderNavbar user={user} />
@@ -91,19 +83,12 @@ export default function UserLibrary() {
           {/* Se viene selezionato Reading Now */}
           {filterButton[0].active && (
             <div>
-              {stories.length &&
-              userStories.filter((story) => story.status === "reading")
-                .length ? (
+              {stories.filter((story) => story.status === "reading").length ? (
                 <main className="grid grid-cols-2 mb-14">
-                  {userStories
+                  {stories
                     .filter((story) => story.status === "reading")
                     .map((storyFiltered) => (
-                      <Card
-                        key={storyFiltered.id}
-                        story={stories.find(
-                          (story) => story.id === storyFiltered.storyId
-                        )}
-                      />
+                      <Card key={storyFiltered.id} story={storyFiltered} />
                     ))}
                 </main>
               ) : (
@@ -119,9 +104,9 @@ export default function UserLibrary() {
           {/* Se viene selezionato My Creations*/}
           {filterButton[1].active && (
             <div>
-              {storiesOfUsers.length ? (
+              {storiesOfUserArray.length ? (
                 <main className="grid grid-cols-2 mb-14">
-                  {storiesOfUsers.map((story) => (
+                  {storiesOfUserArray.map((story) => (
                     <Card key={story.id} story={story} />
                   ))}
                 </main>
@@ -135,21 +120,15 @@ export default function UserLibrary() {
             </div>
           )}
 
-          {/* Se viene selezionato */}
+          {/* Se viene selezionato Saved*/}
           {filterButton[2].active && (
             <div>
-              {stories.length &&
-              userStories.filter((story) => story.saved === true).length ? (
+              {stories.filter((story) => story.user_saved == true).length ? (
                 <main className="grid grid-cols-2 mb-14 ">
-                  {userStories
-                    .filter((story) => story.saved === true)
+                  {stories
+                    .filter((story) => story.user_saved == true)
                     .map((storyFiltered) => (
-                      <Card
-                        key={storyFiltered.id}
-                        story={stories.find(
-                          (story) => story.id === storyFiltered.storyId
-                        )}
-                      />
+                      <Card key={storyFiltered.id} story={storyFiltered} />
                     ))}
                 </main>
               ) : (
