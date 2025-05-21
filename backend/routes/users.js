@@ -159,6 +159,8 @@ async function routes(fastify, options) {
       reply.code(500).send({
         error: "An error occurred updating your data",
       });
+    } finally {
+      client.release();
     }
   });
 

@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  useAddUserStoryMutation,
-  useGetUserStoriesQuery,
-  useUpdateUserStoriesMutation,
-} from "../services/apiService";
+import { useGetUserStoriesQuery } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { IconBookmarkFilled, IconBookmarkPlus } from "@tabler/icons-react";
 

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  useGetUserArtistTypesQuery,
-  useGetUserLanguagesQuery,
+  // useGetUserArtistTypesQuery,
+  // useGetUserLanguagesQuery,
   useGetUserProjectsQuery,
   useLazyGetUsersQuery,
   useUpdateUserMutation,
@@ -19,73 +19,22 @@ import Loader from "./Loader";
 import clsx from "clsx";
 import CreateStoryCard from "./CreateStoryCard";
 
-export default function ProfileSection({ user, urlId }) {
-  const { languages, artistType } = useSelector((state) => state.global);
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
+export default function ProfileSection({ user, isOwn }) {
+  const { languages, artistTypes } = useSelector((state) => state.global);
+  const [userData, setUserData] = useState(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    return storedUser?.user || {}; // così userData è direttamente { username, bio, ... }
+  });
   const [triggerGetUser] = useLazyGetUsersQuery();
-
-  /* Chiamata per ricevere gli userArtistTypes */
-  const {
-    data: userArtistTypes,
-    isLoading: isLoadingUserArtistTypes,
-    error: errorUserArtistTypes,
-  } = useGetUserArtistTypesQuery(user.id);
 
   /* Chiamata per ricevere i progetti dell'utente */
   const {
     data: userProjects,
     isLoading: isLoadingProjects,
     error: errorProjects,
-  } = useGetUserProjectsQuery(user.id);
-
-  /* Chiamata per ricevere le lingue dell'utente */
-  const {
-    data: userLanguages,
-    isLoading: isLoadingUserLanguages,
-    error: errorUserLanguages,
-  } = useGetUserLanguagesQuery(urlId);
+  } = useGetUserProjectsQuery(user?.id);
 
   /* useEffect che, raccolti i dati da userLanguages e userArtistType, li mette in relazione con le lingue e gli artisti e li aggiunge all'utente visualizzabile */
-
-  useEffect(() => {
-    // Se l'utente ha già artistType salvato (da localStorage), non sovrascriverlo
-
-    if (
-      userArtistTypes &&
-      userArtistTypes.length > 0 &&
-      userLanguages &&
-      userLanguages.length > 0
-    ) {
-      const userArtistTypesId = userArtistTypes.map(
-        (userArtist) => userArtist.artistTypeId
-      );
-
-      const userLangugesId = userLanguages.map(
-        (userLanguage) => userLanguage.languageId
-      );
-
-      const userArtistsList = artistType.filter((artist) =>
-        userArtistTypesId.includes(artist.id)
-      );
-
-      const userLanguagesList = languages.filter((lang) =>
-        userLangugesId.includes(lang.id)
-      );
-
-      const updatedUser = {
-        ...user,
-        artistType: userArtistsList,
-        languages: userLanguagesList,
-      };
-
-      setUserData(updatedUser);
-    } else {
-      const updatedUser = { ...user, artistType: [] };
-      setUserData(updatedUser);
-    }
-  }, [userArtistTypes, artistType, userLanguages, languages]);
 
   const pronouns = [
     { id: 1, name: "He/Him" },
@@ -100,24 +49,9 @@ export default function ProfileSection({ user, urlId }) {
   const [updateUser, { data, isLoading, error }] = useUpdateUserMutation();
   const loggedUserId = useSelector((state) => state.global.user?.id);
 
-  const isOwner = urlId === loggedUserId;
-
   function handleSetIsEdititing() {
     setIsEditing(true);
   }
-
-  // funzione che aggiorna e verifica i dati dell'utente
-  const handleUpdateData = async () => {
-    const updatedUser = { ...user, ...userData };
-
-    try {
-      const res = await updateUser(updatedUser).unwrap(); // unwrap per gestire errori facilmente
-
-      // opzionale: dispatch(setUser(res)) se vuoi aggiornare lo stato manualmente
-    } catch (err) {
-      console.error("Errore nell'aggiornamento:", err);
-    }
-  };
 
   // Funzione per eseguire la richiesta API per la verifica dell'username
   async function checkUsernameExists(username) {
@@ -164,7 +98,7 @@ export default function ProfileSection({ user, urlId }) {
 
       // Se si tratta di artistType, applica il limite di 2
       if (
-        fieldName === "artistType" &&
+        fieldName === "artistTypes" &&
         !isAlreadySelected &&
         currentField.length >= 2
       ) {
@@ -193,29 +127,26 @@ export default function ProfileSection({ user, urlId }) {
       if (!usernameAvailable) return;
     }
 
-    const mergedUserData = { ...user, ...userData };
+    const updatedUser = { id: userData.id, ...userData };
+    console.log(updatedUser);
 
-    /* try {
-      const res = await updateUser(mergedUserData).unwrap(); // unwrap per gestire errori facilmente
-      console.log("Utente aggiornato:", res);
-      // opzionale: dispatch(setUser(res)) se vuoi aggiornare lo stato manualmente
-    } catch (err) {
-      console.error("Errore nell'aggiornamento:", err);
-    } */
+    try {
+      const response = await updateUser(updatedUser).unwrap();
 
-    dispatch(setUser(mergedUserData));
-    setUserData(mergedUserData);
-    /* handleUpdateData(); */
+      dispatch(setUser(updatedUser));
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+      setUserData(updatedUser);
 
-    localStorage.setItem("user", JSON.stringify(mergedUserData));
-    setUserData(mergedUserData);
-    toast.success("Profile successfully updated!");
-    setIsEditing(false);
+      toast.success("Profile successfully updated!");
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Errore nell'aggiornamento:", error);
+      toast.error("Something went wrong updating your profile.");
+    }
   };
 
-  if (isLoadingProjects || isLoadingUserArtistTypes) return <Loader />;
-  if (errorProjects || errorUserArtistTypes) return <p>Error </p>;
-  if (!userArtistTypes) return <p>No artists</p>;
+  if (isLoadingProjects) return <Loader />;
+  if (errorProjects) return <p>Error </p>;
   if (!userProjects) return <p>No projects</p>;
 
   if (userData) {
@@ -248,14 +179,14 @@ export default function ProfileSection({ user, urlId }) {
                   className="w-full text-4xl p-2 border rounded-md resize-none border-primary-brand"
                 />
                 <ul className="grid grid-cols-2 gap-2 ">
-                  {artistType.map((artist) => (
+                  {artistTypes.map((artist) => (
                     <Checkbox
                       key={artist.id}
                       onChange={() => {
-                        handleChecked(artist, "artistType");
+                        handleChecked(artist, "artistTypes");
                       }}
                       id={`artist-${artist.id}`}
-                      checked={userData.artistType?.some(
+                      checked={userData.artistTypes?.some(
                         (a) => a.id == artist.id
                       )}
                     >
@@ -296,7 +227,7 @@ export default function ProfileSection({ user, urlId }) {
                 Email
               </h3>
               <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full" />
-              <span>{user.email}</span>
+              <span>{userData.email}</span>
             </div>
 
             {/* Sezione che contiene le lingue dell'utente */}
@@ -351,7 +282,7 @@ export default function ProfileSection({ user, urlId }) {
           </form>
         ) : (
           <div className=" max-w-screen font-script">
-            {isOwner && (
+            {isOwn && (
               <div className="flex justify-end pr-10">
                 {<ButtonEdit handleClick={handleSetIsEdititing} />}
               </div>
@@ -367,21 +298,21 @@ export default function ProfileSection({ user, urlId }) {
 
                 <div className="flex flex-col items-center font-script-semibold gap-1">
                   <h2 className="text-4xl  text-secondary-brand">
-                    {userData.username}
+                    {user.username}
                   </h2>
                   <ul className="flex gap-2">
-                    {userData.artistType?.map((artist, index) => (
+                    {user.artistTypes?.map((artist, index) => (
                       <li
                         className="text-xl font-script-semibold text-secondary-brand"
                         key={artist.id}
                       >
                         {artist.name}
-                        {index !== userData.artistType.length - 1 && ","}
+                        {index !== user.artistTypes.length - 1 && ","}
                       </li>
                     ))}
                   </ul>
                   <span className="text-secondary-brand text-m font-script-semibold">
-                    {userData.pronouns}
+                    {user.pronouns}
                   </span>
                 </div>
               </div>
@@ -392,7 +323,7 @@ export default function ProfileSection({ user, urlId }) {
                 </h3>
                 <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl w-full" />
                 <div>
-                  <span>{userData.bio}</span>
+                  <span>{user.bio}</span>
                 </div>
               </div>
               {/* Sezione che contiene la email dell'utente */}
@@ -413,7 +344,7 @@ export default function ProfileSection({ user, urlId }) {
                 <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl " />
 
                 <ul>
-                  {userData.languages?.map((language) => (
+                  {user.languages?.map((language) => (
                     <li key={language.id}>{language.language}</li>
                   ))}
                 </ul>
@@ -426,11 +357,11 @@ export default function ProfileSection({ user, urlId }) {
                 <hr className="bg-hr-brand h-0.5 border-0 rounded-4xl" />
                 <div className="">
                   <ul className="flex flex-row gap-4 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide ">
-                    {userProjects.length > 0 &&
-                      userProjects.map((project) => (
+                    {userProjects.stories.length > 0 &&
+                      userProjects.stories.map((project) => (
                         <Card key={project.id} story={project} />
                       ))}
-                    {isOwner && (
+                    {isOwn && (
                       <li className="mt-8">
                         <CreateStoryCard />
                       </li>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import BookModal from "./BookModal";
-import { useGetUserByIdQuery } from "../services/apiService";
+import { useLazyGetUserByIdQuery } from "../services/apiService";
 import Loader from "./Loader";
 import { IconBook } from "@tabler/icons-react";
 
@@ -9,7 +9,7 @@ function Card({ story }) {
   // props passate da Home.jsx
   // const [showTooltip, setShowTooltip] = useState(false);
 
-  const { data: author, isLoading } = useGetUserByIdQuery(story.userId);
+  const { data: author, isLoading } = useLazyGetUserByIdQuery(story.userId);
   const { user: loggedUser } = useSelector((state) => state.global);
 
   const [selectedStory, setSelectedStory] = useState(null);

@@ -5,6 +5,8 @@ const fastifyJwt = require("@fastify/jwt");
 
 fastify.register(fastifyCors, {
   origin: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 });
 
 fastify.register(fastifyPostgres, {
