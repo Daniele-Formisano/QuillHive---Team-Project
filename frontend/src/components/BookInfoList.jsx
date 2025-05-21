@@ -23,7 +23,7 @@ export default function BookInfoList({ story, user }) {
     error: errorStoryChapters,
   } = useGetChaptersByStoryIdQuery(story.id);
 
-  // funzione per il button che permette di aggiungere il libro con statu reading e conduce ai capitoli della storia
+  // funzione per il button che permette di aggiungere il libro con status reading e conduce ai capitoli della storia
   async function handleClick() {
     if (storyChapters.length === 0) {
       toast.error("You can't read this story because there are no chapters");
