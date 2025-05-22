@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "../components/Button";
 import { useSelector } from "react-redux";
@@ -19,7 +19,7 @@ export default function NewStory_1({ genres }) {
   const [newStory, setNewStory] = useState({
     title: "",
     plot: "",
-    userId: user.id,
+    user_id: user.id,
     cover_image: null,
     status: "draft",
     likes: 0,
@@ -62,35 +62,35 @@ export default function NewStory_1({ genres }) {
     }
 
     try {
-      const response = await addStoryMutation(storyData);
+      const response = await addStoryMutation(storyData).unwrap();
+      console.log(response.story[0].id);
 
-      if (response?.data?.id) {
-        const createdStoryId = response.data.id;
-        toast.success("Story created successfully!");
+      const createdStoryId = response.story[0].id;
+      toast.success("Story created successfully!");
 
-        // CREA IL CAPITOLO 1
-        const firstChapterData = {
-          storyId: createdStoryId,
-          title: "Chapter",
-          order: 1,
-          content: "",
-          created_at: new Date(),
-          updated_at: null,
-        };
+      // CREA IL CAPITOLO 1
+      const firstChapterData = {
+        story_id: createdStoryId,
+        title: "Chapter",
+        chapter_order: 1,
+        content: "",
+        created_at: new Date(),
+        updated_at: null,
+      };
+      console.log(firstChapterData);
 
-        const createdChapter = await addChapterMutation(
-          firstChapterData
-        ).unwrap();
+      const chapterResponse = await addChapterMutation(
+        firstChapterData
+      ).unwrap();
 
-        if (createdChapter?.id) {
-          // VAI DIRETTAMENTE ALLA PAGINA DI MODIFICA DEL CAPITOLO 1
-          navigate(`/stories/${createdStoryId}/chapters/${createdChapter.id}`);
-        } else {
-          toast.error("Story created, but failed to create the first chapter.");
-          navigate(`/stories/${createdStoryId}/chapters`);
-        }
+      const { chapter, message } = chapterResponse;
+
+      if (chapter[0].id) {
+        // VAI DIRETTAMENTE ALLA PAGINA DI MODIFICA DEL CAPITOLO 1
+        navigate(`/stories/${createdStoryId}/chapters/${chapter[0].id}`);
       } else {
-        toast.error("Failed to create the story.");
+        toast.error("Story created, but failed to create the first chapter.");
+        navigate(`/stories/${createdStoryId}/chapters`);
       }
     } catch (error) {
       toast.error("An error occurred while creating the story.");

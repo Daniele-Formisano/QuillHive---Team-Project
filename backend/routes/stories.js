@@ -85,8 +85,8 @@ async function routes(fastify, options) {
       }
 
       // inserire la nuova soria come record nel db
-      await client.query(
-        "INSERT INTO stories (title, plot, user_id, language_id, cover_image) VALUES ($1, $2, $3, $4, $5); ",
+      const { rows } = await client.query(
+        "INSERT INTO stories (title, plot, user_id, language_id, cover_image) VALUES ($1, $2, $3, $4, $5) RETURNING *; ",
         [title, plot, user_id, language_id, cover_image]
       );
 
@@ -97,6 +97,9 @@ async function routes(fastify, options) {
           [title, genre.id]
         );
       }
+      console.log(rows);
+
+      reply.code(200).send({ story: rows });
     } catch (error) {
       reply.code(500).send({
         error: "An error occurred while creating the story",

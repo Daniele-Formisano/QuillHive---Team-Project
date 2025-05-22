@@ -18,6 +18,7 @@ export default function LogoutButton() {
 
   function handleLogout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     dispatch(setUser(null));
     navigate("/");
   }

@@ -20,11 +20,10 @@ import Loader from "./components/Loader";
 import SignupPages from "./pages/SignupPages";
 import ProfilePages from "./pages/ProfilePages";
 import UserLibrary from "./pages/UserLibrary";
-/*
-
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
+/*
 import Home from "./pages/Home";
 import StoryInfoPage from "./pages/StoryInfoPage";
 import ReadingPage from "./pages/ReadingPage";
@@ -109,23 +108,10 @@ export default function App() {
         <Route path="/signup" element={<SignupPages />} />
         <Route path="/profile/:id" element={<ProfilePages />} />
         <Route path="/library" element={<UserLibrary />} />
-        {/*
-        
-        <Route path="/home" element={<Home />}></Route>
-
-        { CREAZIONE E MODIFICA STORIA }
+        {/*CREAZIONE E MODIFICA STORIA */}
         <Route
           path="/stories/create"
-          element={<NewStory_1 genres={dataGenres} />}
-        />
-
-        <Route
-          path="story/:id/info"
-          element={<StoryInfoPage stories={dataStories} />}
-        />
-        <Route
-          path="story/:storyId/read-story/chapter/:chapterOrder"
-          element={<ReadingPage />}
+          element={<NewStory_1 genres={dataGenres.genres} />}
         />
         <Route
           path="/stories/:storyId/chapters"
@@ -135,6 +121,20 @@ export default function App() {
           path="/stories/:storyId/chapters/:chapterId"
           element={<NewStory_2_item />}
         />
+        {/*
+        
+        <Route path="/home" element={<Home />}></Route>
+
+
+        <Route
+          path="story/:id/info"
+          element={<StoryInfoPage stories={dataStories} />}
+        />
+        <Route
+          path="story/:storyId/read-story/chapter/:chapterOrder"
+          element={<ReadingPage />}
+        />
+      
 
         <Route path="story/:id/info" element={<StoryInfoPage />} />
          */}
