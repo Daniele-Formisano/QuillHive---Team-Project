@@ -45,8 +45,8 @@ export default function Login() {
 
           const userData = await triggerGetUserById(user.id).unwrap();
 
-          dispatch(setUser(userData)); // impostare l'utente nel redux
-          localStorage.setItem("user", JSON.stringify(userData)); // salva l'utente nel local storage
+          dispatch(setUser(userData.user)); // impostare l'utente nel redux
+          localStorage.setItem("user", JSON.stringify(userData.user)); // salva l'utente nel local storage
           localStorage.setItem("token", JSON.stringify(token));
           navigate("/home");
         } catch (error) {

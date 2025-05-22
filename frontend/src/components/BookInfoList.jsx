@@ -2,16 +2,19 @@ import SaveButton from "./ButtonSave";
 import { IconBookmark } from "@tabler/icons-react";
 import { IconBook } from "@tabler/icons-react";
 import Button from "./Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   useGetChaptersByStoryIdQuery,
-  useGetUsersQuery,
+  useLazyGetUserStoryQuery,
+  useAddUserStoriesMutation,
 } from "../services/apiService";
 import toast from "react-hot-toast";
 
 export default function BookInfoList({ story, user }) {
   const navigate = useNavigate();
-  const { id } = useParams();
+
+  const [triggerUserStory] = useLazyGetUserStoryQuery();
+  const [addUserStories] = useAddUserStoriesMutation();
 
   /* Chiamata per ricevere i capitoli della storia */
   const {
@@ -20,27 +23,44 @@ export default function BookInfoList({ story, user }) {
     error: errorStoryChapters,
   } = useGetChaptersByStoryIdQuery(story.id);
 
-  /* Chiamata per ricevere l'autore della storia */
-  const {
-    data: author,
-    isLoading: isLoadingAuthor,
-    error: errorAuthor,
-  } = useGetUsersQuery({ id: story.userId });
-
-  function handleClick() {
+  // funzione per il button che permette di aggiungere il libro con status reading e conduce ai capitoli della storia
+  async function handleClick() {
     if (storyChapters.length === 0) {
       toast.error("You can't read this story because there are no chapters");
       return;
     }
-    navigate(`/story/${story.id}/read-story/chapter/${1}`);
+
+    try {
+      // per recuperare le informazioni della storia (saved, status) in base all'utente
+      const response = await triggerUserStory({
+        userId: user.id,
+        storyId: story.id,
+      }).unwrap();
+
+      const { userStory } = response;
+
+      // controllo se il record non esiste o lo status è diverso da reading non effetua la chiamata al DB
+      if (!("status" in userStory) || userStory.status !== "reading") {
+        await addUserStories({
+          userId: user.id,
+          storyId: story.id,
+          status: "reading",
+          saved: userStory[0]?.user_saved || false,
+        });
+      }
+
+      navigate(`/story/${story.id}/read-story/chapter/${1}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleClickEdit() {
     navigate(`/stories/${story.id}/chapters`);
   }
-  if (isLoadingStoryChapters || isLoadingAuthor) return <p>Loading...</p>;
-  if (errorStoryChapters || errorAuthor) return <p>Error loading</p>;
-  if (!storyChapters || !author) return <p>There is no data available</p>;
+  if (isLoadingStoryChapters) return <p>Loading...</p>;
+  if (errorStoryChapters) return <p>Error loading</p>;
+  if (!storyChapters) return <p>There is no data available</p>;
 
   return (
     <div className="flex flex-col gap-8">
@@ -89,7 +109,7 @@ export default function BookInfoList({ story, user }) {
             {story.title}
           </h2>
           <h4 className="font-script-semibold font-medium text-secondary-brand">
-            {author[0].username || "Autore sconosciuto"}
+            {story.author_username || "Autore sconosciuto"}
           </h4>
         </div>
       </div>
@@ -121,7 +141,7 @@ export default function BookInfoList({ story, user }) {
         <div className="flex flex-col items-center justify-center font-script text-secondary-brand">
           <IconBook stroke={2} color="#203955" size={32} />
           <p>Chapters</p>
-          <p className="font-extrabold">{storyChapters?.length}</p>
+          <p className="font-extrabold">{storyChapters?.chapters.length}</p>
         </div>
       </div>
 

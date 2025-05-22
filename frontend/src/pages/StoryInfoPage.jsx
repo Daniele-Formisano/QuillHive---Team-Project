@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BookInfoList from "../components/BookInfoList";
 import { useSelector } from "react-redux";
 import BackButton from "../components/BackButton";
@@ -10,7 +10,6 @@ export default function StoryInfoPage() {
   const { stories } = useSelector((state) => state.global);
   const { id } = useParams();
   const story = stories.find((s) => s.id == id);
-  const navigate = useNavigate();
   const loggedUser = useSelector((state) => state.global.user);
 
   return story ? (

@@ -60,19 +60,25 @@ export const apiService = createApi({
       //invalidatesTags: ["Chapter"],
     }),
 
-    // per ottenere le storie che l'utente ha salvato o inizato a leggere
+    // per ottenere tutte le storie che l'utente ha salvato o inizato a leggere
     getUserStories: builder.query({
-      query: (userStories) =>
-        `api/users/${userStories.userId}/${userStories.storyId}`,
+      query: (id) => `api/users/userStories/${id}`,
+      //providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
+    }),
+
+    // per ottenere una singola storia che l'utente ha salvato o inizato a leggere
+    getUserStory: builder.query({
+      query: (userStory) =>
+        `api/users/userStories/${userStory.userId}/${userStory.storyId}`,
       //providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
     }),
 
     // per inserire le storie che l'utente ha salvato o inizato a leggere
     addUserStories: builder.mutation({
       query: (userStories) => ({
-        url: `api/users/${userStories.userId}/${userStories.storyId}`,
+        url: `api/users/userStories/${userStories.userId}/${userStories.storyId}`,
         method: "POST",
-        body: userStories,
+        body: { status: userStories.status, saved: userStories.saved },
       }),
       //invalidatesTags: ["UserStory"],
     }),
@@ -157,6 +163,8 @@ export const {
   useGetUserProjectsQuery,
   useLazyGetUserProjectsQuery,
   useGetUserStoriesQuery,
+  useGetUserStoryQuery,
+  useLazyGetUserStoryQuery,
   useLazyGetStoriesQuery,
   useGetChaptersByStoryIdQuery,
   useAddChapterMutation,
@@ -164,6 +172,7 @@ export const {
   useUpdateUserMutation,
   useAddUserStoriesMutation,
   useDeleteChapterMutation,
+  useGetUserByIdQuery,
   useLazyGetUserByIdQuery,
   useValidationUsernameEmailMutation,
 } = apiService;

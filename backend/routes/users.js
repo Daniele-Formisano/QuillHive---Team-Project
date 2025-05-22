@@ -159,11 +159,13 @@ async function routes(fastify, options) {
       reply.code(500).send({
         error: "An error occurred updating your data",
       });
+    } finally {
+      client.release();
     }
   });
 
-  // ottiene le informazioni della storia (ovvero status e saved) in base all'id, in associazione all'utente
-  fastify.get("/:userId/:storyId", async (request, reply) => {
+  // ottiene le informazioni della storia (ovvero status e saved) in base all'id della storia, in associazione all'utente
+  fastify.get("/userStories/:userId/:storyId", async (request, reply) => {
     const { userId, storyId } = request.params;
 
     const client = await fastify.pg.connect();
@@ -188,11 +190,11 @@ async function routes(fastify, options) {
       }
 
       const { rows } = await client.query(
-        "SELECT * FROM user_stories WHERE user_id = $1 AND story_id = $2",
+        "SELECT S.id, S.user_id AS author_id, U.username AS author, S.title, S.plot, L.language, S.cover_image, S.saved, S.created_at, S.updated_at, US.status, US.saved AS user_saved FROM user_stories AS US JOIN stories AS S ON US.story_id = S.id JOIN languages AS L ON S.language_id = L.id JOIN users AS U ON S.user_id = U.id WHERE US.user_id = $1 AND US.story_id = $2",
         [userId, storyId]
       );
 
-      return { userStories: rows };
+      return { userStory: rows };
     } catch (error) {
       reply.code(500).send({
         error:
@@ -203,8 +205,40 @@ async function routes(fastify, options) {
     }
   });
 
-  // modifcare le informazioni della storia (ovvero status e saved) in base all'id, in associazione all'utente
-  fastify.post("/:userId/:storyId", async (request, reply) => {
+  // ottiene le informazione delle storie (ovvero status e saved) in base all'id dell'utente
+  fastify.get("/userStories/:userId", async (request, reply) => {
+    const { userId } = request.params;
+
+    const client = await fastify.pg.connect();
+
+    try {
+      const { rows: validUser } = await client.query(
+        "SELECT id FROM users WHERE id = $1",
+        [userId]
+      );
+
+      if (!validUser.length) {
+        return reply.code(404).send({ error: "user not found" });
+      }
+
+      const { rows } = await client.query(
+        "SELECT S.id, S.user_id AS author_id, U.username AS author, S.title, S.plot, L.language, S.cover_image, S.saved, S.created_at, S.updated_at, US.status, US.saved AS user_saved FROM user_stories AS US JOIN stories AS S ON US.story_id = S.id JOIN languages AS L ON S.language_id = L.id JOIN users AS U ON S.user_id = U.id WHERE US.user_id = $1",
+        [userId]
+      );
+
+      return { userStories: rows };
+    } catch (error) {
+      reply.code(500).send({
+        error:
+          "An error occurred while fetching the stories status for this user",
+      });
+    } finally {
+      client.release();
+    }
+  });
+
+  // modifcare le informazioni della storia (ovvero status e saved) in base all'id storia, in associazione all'utente
+  fastify.post("/userStories/:userId/:storyId", async (request, reply) => {
     const { userId, storyId } = request.params;
     const { status, saved } = request.body;
 
