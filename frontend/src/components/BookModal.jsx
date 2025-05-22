@@ -9,10 +9,47 @@ import Button from "./Button";
 import SaveButton from "./ButtonSave";
 import { useNavigate } from "react-router-dom";
 import { IconBook } from "@tabler/icons-react";
+import {
+  useAddUserStoriesMutation,
+  useLazyGetUserStoryQuery,
+} from "../services/apiService";
 
 function BookModal({ story, isOpen, onClose, user }) {
   if (!story) return null;
   const navigate = useNavigate();
+
+  const [triggerUserStory] = useLazyGetUserStoryQuery();
+  const [addUserStory] = useAddUserStoriesMutation();
+
+  console.log(user);
+
+  async function handleClickReadStory() {
+    if (user) {
+      try {
+        // per recuperare le informazioni della storia (saved, status) in base all'utente
+        const response = await triggerUserStory({
+          userId: user.id,
+          storyId: story.id,
+        }).unwrap();
+
+        const { userStory } = response;
+
+        // controllo se il record non esiste o lo status è diverso da reading non effetua la chiamata al DB
+        if (!("status" in userStory) || userStory.status !== "reading") {
+          await addUserStory({
+            userId: user.id,
+            storyId: story.id,
+            status: "reading",
+            saved: userStory[0]?.user_saved || false,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+
+      navigate(`/story/${story.id}/read-story/chapter/${1}`);
+    }
+  }
 
   return (
     <>
@@ -51,9 +88,7 @@ function BookModal({ story, isOpen, onClose, user }) {
                 isColorYellow={true}
                 children={"Read book"}
                 type={"button"}
-                onClick={() =>
-                  navigate(`/story/${story.id}/read-story/chapter/${1}`)
-                }
+                onClick={handleClickReadStory}
               />
               <Button
                 isColorYellow={false}

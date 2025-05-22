@@ -164,6 +164,7 @@ export const {
   useLazyGetUserProjectsQuery,
   useGetUserStoriesQuery,
   useGetUserStoryQuery,
+  useLazyGetUserStoryQuery,
   useLazyGetStoriesQuery,
   useGetChaptersByStoryIdQuery,
   useAddChapterMutation,
