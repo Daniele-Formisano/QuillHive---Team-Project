@@ -123,7 +123,7 @@ export const apiService = createApi({
     // per aggiungere un capitolo in base alla storia
     addChapter: builder.mutation({
       query: (chapter) => ({
-        url: `api/stories/${storyId}/chapters`,
+        url: `api/stories/${chapter.story_id}/chapters`,
         method: "POST",
         body: chapter,
       }),

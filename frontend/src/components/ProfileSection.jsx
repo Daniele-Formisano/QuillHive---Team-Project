@@ -1,7 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  // useGetUserArtistTypesQuery,
-  // useGetUserLanguagesQuery,
   useGetUserProjectsQuery,
   useLazyGetUsersQuery,
   useUpdateUserMutation,

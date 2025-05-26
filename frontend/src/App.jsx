@@ -22,11 +22,10 @@ import ProfilePages from "./pages/ProfilePages";
 import UserLibrary from "./pages/UserLibrary";
 import StoryInfoPage from "./pages/StoryInfoPage";
 import ReadingPage from "./pages/ReadingPage";
-
-/*
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
+/*
 import Home from "./pages/Home";
 */
 
@@ -109,35 +108,33 @@ export default function App() {
         <Route path="/signup" element={<SignupPages />} />
         <Route path="/profile/:id" element={<ProfilePages />} />
         <Route path="/library" element={<UserLibrary />} />
+        {/*CREAZIONE E MODIFICA STORIA */}
+        <Route
+          path="/stories/create"
+          element={<NewStory_1 genres={dataGenres.genres} />}
+        />
         <Route path="story/:id/info" element={<StoryInfoPage />} />
         <Route
           path="story/:storyId/read-story/chapter/:chapterOrder"
           element={<ReadingPage />}
-        />
-        {/*
-        
-        <Route path="/home" element={<Home />}></Route>
-
-        { CREAZIONE E MODIFICA STORIA }
-        <Route
-          path="/stories/create"
-          element={<NewStory_1 genres={dataGenres} />}
         />
 
         <Route
           path="story/:id/info"
           element={<StoryInfoPage stories={dataStories} />}
         />
-        
+
         <Route
           path="/stories/:storyId/chapters"
           element={<NewStory_2_list />}
         />
+
         <Route
           path="/stories/:storyId/chapters/:chapterId"
           element={<NewStory_2_item />}
         />
-
+        {/* 
+        <Route path="/home" element={<Home />}></Route>
         
          */}
       </Routes>

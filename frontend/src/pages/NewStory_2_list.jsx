@@ -17,7 +17,7 @@ export default function NewStory_2_list() {
   const location = useLocation();
   const { storyId } = useParams();
   const {
-    data: chapters,
+    data: chaptersData,
     isLoading,
     isError,
     refetch,
@@ -27,10 +27,12 @@ export default function NewStory_2_list() {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [customOrder, setCustomOrder] = useState("");
 
+  const chapters = chaptersData?.chapters;
+
   const [newChapter, setNewChapter] = useState({
-    storyId: storyId,
+    story_id: storyId,
     title: "Capitolo",
-    order: 1,
+    chapter_order: 1,
     content: "",
     created_at: new Date(),
     updated_at: null,
@@ -41,6 +43,7 @@ export default function NewStory_2_list() {
       refetch();
     }
   }, [location.state, refetch]);
+  console.log(chapters);
 
   async function handleAddChapter() {
     const parsedOrder = parseInt(customOrder, 10);
@@ -50,16 +53,19 @@ export default function NewStory_2_list() {
       return;
     }
 
-    const orderExists = chapters?.some((chap) => chap.order === parsedOrder);
+    const orderExists = chapters?.some(
+      (chap) => chap.chapter_order === parsedOrder
+    );
+
     if (orderExists) {
       toast.error("A chapter with this order already exists.");
       return;
     }
 
     const chapterToCreate = {
-      storyId: storyId,
+      story_id: storyId,
       title: "Chapter",
-      order: parsedOrder,
+      chapter_order: parsedOrder,
       content: "",
       created_at: new Date(),
       updated_at: null,
@@ -68,10 +74,10 @@ export default function NewStory_2_list() {
     try {
       const createdChapter = await addChapterMutation(chapterToCreate).unwrap();
 
-      if (createdChapter?.id) {
+      if (createdChapter.chapter[0].id) {
         setNewChapter({
           ...chapterToCreate,
-          id: createdChapter.id,
+          id: createdChapter.chapter[0].id,
         });
 
         toast.success("Chapter created successfully!");
@@ -142,13 +148,14 @@ export default function NewStory_2_list() {
           <ul className="font-script flex flex-col mr-3 ml-3 gap-1 text-sm text-secondary-brand">
             {chapters
               .filter((chapter) => chapter.id != null)
+              .sort((a, b) => a.chapter_order - b.chapter_order)
               .map((chapter) => (
                 <li
                   key={chapter.id}
                   className="flex justify-between p-3 rounded-lg border-2 border-stroke-brand cursor-pointer hover:bg-gray-100"
                 >
                   <span className="font-script flex gap-3">
-                    <h2>{chapter.order}.</h2>
+                    <h2>{chapter.chapter_order}.</h2>
                     <h2>{chapter.title}</h2>
                   </span>
 

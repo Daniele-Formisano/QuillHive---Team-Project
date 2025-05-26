@@ -18,14 +18,17 @@ export default function NewStory_2_item() {
   const pageUrl = storyId ? `/stories/${storyId}/chapters` : "/library";
 
   const {
-    data: chapters,
+    data: chaptersData,
     isLoading,
     isError,
   } = useGetChaptersByStoryIdQuery(storyId);
 
-  const chapter = chapters?.find((chap) => chap.id === chapterId);
+  const chapters = chaptersData?.chapters;
 
-  const [chapterContent, setChapterContent] = useState("");
+  const chapter = chapters?.find(
+    (chap) => String(chap.id) === String(chapterId)
+  );
+  const [chapterContent, setChapterContent] = useState(chapter?.content);
   const [chapterTitle, setChapterTitle] = useState("");
   const [isEditingTitle, setIsEditingTitle] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
@@ -35,7 +38,7 @@ export default function NewStory_2_item() {
       setChapterContent(chapter.content);
       setChapterTitle(chapter.title || "Chapter");
     }
-  }, [chapter]);
+  }, [chapter, chaptersData]);
 
   const handleChange = (newMarkdown) => {
     setChapterContent(newMarkdown);
@@ -58,6 +61,7 @@ export default function NewStory_2_item() {
       });
       toast.dismiss();
       toast.success("Chapter updated successfully!");
+      setChapterContent(chapterContent);
       setHasUnsavedChanges(false);
     } catch (error) {
       toast.dismiss();
