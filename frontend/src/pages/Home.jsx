@@ -10,12 +10,13 @@ import Footer from "../components/Footer";
 import HeaderNavbar from "../components/HeaderNavbar";
 
 function Home() {
-  const { data: users, isLoading, error } = useGetUsersQuery();
-
+  const { data: { users = [] } = {}, isLoading, error } = useGetUsersQuery();
+//attenzione a cosa returnano le chiamate api e cosa riceve il fornt end. in questo caso non riceve più direttamente array
+//ma un oggetto con array all'interno
   const { user: loggedUser } = useSelector((state) => state.global);
 
   const {
-    data: stories,
+    data: { stories = [] } = {},
     error: storiesError,
     isLoading: storiesLoading,
   } = useGetStoriesQuery();
@@ -31,11 +32,15 @@ function Home() {
     );
   if (error || storiesError) return <div>Error </div>;
 
-  //per evitare di avere tra gli autori anche il proprio profilo
+  console.log(users);
+  //per evitare di avere tra gli autori anche il proprio profilo, 
+  // array per evitare errore dovuto al primo rendering della pagina asincrona chiamata di users
   const selectedUsers = loggedUser
-    ? users.filter((user) => user.id !== loggedUser.id)
-    : users;
-
+  ? (users).filter((user) => user.id !== loggedUser.id)
+  : (users);
+  console.log(selectedUsers);
+  
+console.log(loggedUser);
   //reindirezzamento al proprio profilo se loggato log in se non loggato
   const handleProfileClick = () => {
     if (loggedUser) {

@@ -22,12 +22,11 @@ import ProfilePages from "./pages/ProfilePages";
 import UserLibrary from "./pages/UserLibrary";
 import StoryInfoPage from "./pages/StoryInfoPage";
 import ReadingPage from "./pages/ReadingPage";
+import Home from "./pages/Home";
 import NewStory_1 from "./pages/NewStory_1";
 import NewStory_2_list from "./pages/NewStory_2_list";
 import NewStory_2_item from "./pages/NewStory_2_item";
-/*
-import Home from "./pages/Home";
-*/
+
 
 export default function App() {
   const {
@@ -133,10 +132,10 @@ export default function App() {
           path="/stories/:storyId/chapters/:chapterId"
           element={<NewStory_2_item />}
         />
-        {/* 
+         
         <Route path="/home" element={<Home />}></Route>
         
-         */}
+         
       </Routes>
     )
   );
