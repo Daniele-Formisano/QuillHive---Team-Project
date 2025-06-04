@@ -5,16 +5,18 @@ export const apiService = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000",
   }),
-  //tagTypes: ["Post", "UserStory", "Chapter", "Story", "User"], //for auto refetching
+  tagTypes: ["Post", "UserStory", "Chapter", "Story", "User"], //for auto refetching
   endpoints: (builder) => ({
     // per ottenere tutti gli users
     getUsers: builder.query({
       query: () => "api/users",
+      providesTags: ["User"],
     }),
 
     // per ottenere le informazioni detagliate di un solo user
     getUserById: builder.query({
       query: (id) => `api/users/${id}`,
+      providesTags: ["User"],
     }),
 
     //rotta per il login
@@ -33,7 +35,7 @@ export const apiService = createApi({
         method: "POST",
         body: user,
       }),
-      //invalidatesTags: ["User"],
+      invalidatesTags: ["User"],
     }),
 
     // rotta validazione username e email utente
@@ -52,25 +54,26 @@ export const apiService = createApi({
         method: "PUT",
         body: updatedUserData,
       }),
+      invalidatesTags: ["User"],
     }),
 
     // per ottenere le storie create da un user
     getUserProjects: builder.query({
       query: (userId) => `api/stories/storiesOfUser/${userId}`,
-      //invalidatesTags: ["Chapter"],
+      invalidatesTags: ["Story"],
     }),
 
     // per ottenere tutte le storie che l'utente ha salvato o inizato a leggere
     getUserStories: builder.query({
       query: (id) => `api/users/userStories/${id}`,
-      //providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
+      providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
     }),
 
     // per ottenere una singola storia che l'utente ha salvato o inizato a leggere
     getUserStory: builder.query({
       query: (userStory) =>
         `api/users/userStories/${userStory.userId}/${userStory.storyId}`,
-      //providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
+      providesTags: ["UserStory"], // tutti gli userStory sono sotto il cachetag userStory
     }),
 
     // per inserire le storie che l'utente ha salvato o inizato a leggere
@@ -80,10 +83,10 @@ export const apiService = createApi({
         method: "POST",
         body: { status: userStories.status, saved: userStories.saved },
       }),
-      //invalidatesTags: ["UserStory"],
+      invalidatesTags: ["UserStory"],
     }),
 
-    // per ottenere tutti i generi
+    // per ottenere tutti i generi dei libri
     getGenres: builder.query({
       query: () => "api/genres",
     }),
@@ -100,8 +103,8 @@ export const apiService = createApi({
 
     // per ottenere tutte le storie
     getStories: builder.query({
-      query: (story) => "api/stories",
-      //providesTags: ["Story"],
+      query: () => "api/stories",
+      providesTags: ["Story"],
     }),
 
     // per aggiungere una storia da parte di un user
@@ -111,13 +114,13 @@ export const apiService = createApi({
         method: "POST",
         body: story,
       }),
-      //invalidatesTags: ["Story"],
+      invalidatesTags: ["Story"],
     }),
 
     // per ottenere i capitoli di una storia
     getChaptersByStoryId: builder.query({
       query: (storyId) => `api/stories/${storyId}/chapters`,
-      //providesTags: ["Chapter"], // Filtro per ottenere solo i capitoli associati alla storia specifica
+      providesTags: ["Chapter"], // Filtro per ottenere solo i capitoli associati alla storia specifica
     }),
 
     // per aggiungere un capitolo in base alla storia
@@ -127,7 +130,7 @@ export const apiService = createApi({
         method: "POST",
         body: chapter,
       }),
-      //invalidatesTags: ["Chapter"],
+      invalidatesTags: ["Chapter"],
     }),
 
     // per aggiornare il capitolo di una storia
@@ -137,7 +140,7 @@ export const apiService = createApi({
         method: "PUT",
         body: chapter,
       }),
-      //invalidatesTags: ["Chapter"],
+      invalidatesTags: ["Chapter"],
     }),
 
     // per eliminare il capitolo di una storia
@@ -146,7 +149,7 @@ export const apiService = createApi({
         url: `api/chapters/${chapter.id}`, // L'ID del capitolo è passato nel body o come parte dell'URL
         method: "DELETE",
       }),
-      //invalidatesTags: ["Chapter"],
+      invalidatesTags: ["Chapter"],
     }),
   }),
 });
