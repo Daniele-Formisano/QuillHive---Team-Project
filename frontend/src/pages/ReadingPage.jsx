@@ -12,6 +12,7 @@ import Button from "../components/Button";
 import { useSelector } from "react-redux";
 import HamburgerForChapters from "../components/HamburgerForChapters";
 import { MDXEditor } from "@mdxeditor/editor";
+import toast from "react-hot-toast";
 
 export default function ReadingPage() {
   const { storyId, chapterOrder } = useParams();
@@ -56,25 +57,27 @@ export default function ReadingPage() {
 
   // funzione per settare lo status della storia a completed e ritornare alla pagina della storia
   async function handleClick() {
-    try {
-      const response = await triggerUserStory({
-        userId: user.id,
-        storyId: storyId,
-      }).unwrap();
+    if (user) {
+      try {
+        const response = await triggerUserStory({
+          userId: user.id,
+          storyId: storyId,
+        }).unwrap();
 
-      const { userStory } = response;
+        const { userStory } = response;
 
-      await addUserStories({
-        userId: user.id,
-        storyId: storyId,
-        status: "completed",
-        saved: userStory[0].user_saved,
-      });
-
-      navigate(`/story/${storyId}/info`);
-    } catch (error) {
-      toast.error(error);
+        await addUserStories({
+          userId: user.id,
+          storyId: storyId,
+          status: "completed",
+          saved: userStory[0].user_saved,
+        });
+      } catch (error) {
+        toast.error(error);
+      }
     }
+
+    navigate(`/story/${storyId}/info`);
   }
 
   if (error) return <div>Error: {error}</div>;
@@ -105,8 +108,6 @@ export default function ReadingPage() {
                 {chapters[chapterOrder - 1].title}
               </h1>
 
-              {/* <p>{chapters[chapterOrder - 1].content}</p> */}
-              {/* re-converting raw mdxtext in readable text */}
               <MDXEditor
                 markdown={chapters[chapterOrder - 1].content}
                 readOnly={true}

@@ -30,29 +30,32 @@ export default function BookInfoList({ story, user }) {
       return;
     }
 
-    try {
-      // per recuperare le informazioni della storia (saved, status) in base all'utente
-      const response = await triggerUserStory({
-        userId: user.id,
-        storyId: story.id,
-      }).unwrap();
-
-      const { userStory } = response;
-
-      // controllo se il record non esiste o lo status è diverso da reading non effetua la chiamata al DB
-      if (!("status" in userStory) || userStory.status !== "reading") {
-        await addUserStories({
+    //s'è presente un utente loggato
+    if (user) {
+      try {
+        // per recuperare le informazioni della storia (saved, status) in base all'utente
+        const response = await triggerUserStory({
           userId: user.id,
           storyId: story.id,
-          status: "reading",
-          saved: userStory[0]?.user_saved || false,
-        });
-      }
+        }).unwrap();
 
-      navigate(`/story/${story.id}/read-story/chapter/${1}`);
-    } catch (error) {
-      console.log(error);
+        const { userStory } = response;
+
+        // controllo se il record non esiste o lo status è diverso da reading non effetua la chiamata al DB
+        if (!("status" in userStory) || userStory.status !== "reading") {
+          await addUserStories({
+            userId: user.id,
+            storyId: story.id,
+            status: "reading",
+            saved: userStory[0]?.user_saved || false,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
+
+    navigate(`/story/${story.id}/read-story/chapter/${1}`);
   }
 
   function handleClickEdit() {

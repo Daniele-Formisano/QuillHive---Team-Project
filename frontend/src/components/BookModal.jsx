@@ -46,9 +46,9 @@ function BookModal({ story, isOpen, onClose, user }) {
       } catch (error) {
         console.log(error);
       }
-
-      navigate(`/story/${story.id}/read-story/chapter/${1}`);
     }
+
+    navigate(`/story/${story.id}/read-story/chapter/${1}`);
   }
 
   return (
