@@ -79,7 +79,7 @@ export default function BookInfoList({ story, user }) {
           <div className="absolute -bottom-4.5 -right-4.5">
             {user && <SaveButton storyId={story.id} userId={user.id} />}
           </div>
-          {story.userId === user?.id && (
+          {story.author_id === user?.id && (
             <div
               className="absolute -bottom-3.5 -left-4.5"
               onClick={handleClickEdit}
@@ -112,7 +112,7 @@ export default function BookInfoList({ story, user }) {
             {story.title}
           </h2>
           <h4 className="font-script-semibold font-medium text-secondary-brand">
-            {story.author_username || "Autore sconosciuto"}
+            {story.author || "Author unknown"}
           </h4>
         </div>
       </div>
