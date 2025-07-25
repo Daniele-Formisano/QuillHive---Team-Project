@@ -11,8 +11,8 @@ import HeaderNavbar from "../components/HeaderNavbar";
 
 function Home() {
   const { data: { users = [] } = {}, isLoading, error } = useGetUsersQuery();
-//attenzione a cosa returnano le chiamate api e cosa riceve il fornt end. in questo caso non riceve più direttamente array
-//ma un oggetto con array all'interno
+  //attenzione a cosa returnano le chiamate api e cosa riceve il fornt end. in questo caso non riceve più direttamente array
+  //ma un oggetto con array all'interno
   const { user: loggedUser } = useSelector((state) => state.global);
 
   const {
@@ -33,14 +33,14 @@ function Home() {
   if (error || storiesError) return <div>Error </div>;
 
   console.log(users);
-  //per evitare di avere tra gli autori anche il proprio profilo, 
+  //per evitare di avere tra gli autori anche il proprio profilo,
   // array per evitare errore dovuto al primo rendering della pagina asincrona chiamata di users
   const selectedUsers = loggedUser
-  ? (users).filter((user) => user.id !== loggedUser.id)
-  : (users);
+    ? users.filter((user) => user.id !== loggedUser.id)
+    : users;
   console.log(selectedUsers);
-  
-console.log(loggedUser);
+
+  console.log(loggedUser);
   //reindirezzamento al proprio profilo se loggato log in se non loggato
   const handleProfileClick = () => {
     if (loggedUser) {
@@ -55,18 +55,21 @@ console.log(loggedUser);
       <HeaderNavbar user={loggedUser} />
 
       <main className=" flex flex-col  justify-center overflow-y-scroll min-h-screen scrollbar-hide">
-        <div className="flex flex-col gap-8 mb-5 pt-18">
-          <p className="flex justify-start text-secondary-brand font-title text-center text-2xl pl-5">
-            Explore the hive
-          </p>
-          <div className="flex flex-row gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
-            {selectedUsers.map((user) => (
-              <AuthorIconButton key={user.id} user={user} />
-            ))}
-          </div>
-        </div>
+        {loggedUser && (
+          <div className="flex flex-col gap-8 mb-5 pt-18">
+            <p className="flex justify-start text-secondary-brand font-title text-center text-2xl pl-5">
+              Explore the hive
+            </p>
 
-        <div className="flex flex-col justify-center">
+            <div className="flex flex-row gap-2 overflow-x-scroll space-x-4 snap-x snap-mandatory scrollbar-hide px-5">
+              {selectedUsers.map((user) => (
+                <AuthorIconButton key={user.id} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className={`flex flex-col justify-center ${!loggedUser && "pt-18"}`}>
           <p className="text-secondary-brand font-title text-2xl pl-5">
             Buzzing for you
           </p>
