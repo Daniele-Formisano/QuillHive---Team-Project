@@ -1,8 +1,8 @@
-# React + Vite
+# Quill Hive - Web App per la creazione e condivisione di storie
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Quill Hive è una web app ancora in fase di sviluppo, progettata principalmente per dispositivi mobile, che offre uno spazio dinamico e creativo per leggere, scrivere e condividere storie e libri digitali.
 
-Currently, two official plugins are available:
+Il progetto è sviluppato con un frontend in React, realizzato utilizzando Vite come tool di build per garantire velocità e reattività in fase di sviluppo. Il frontend è arricchito da librerie come Redux, Tailwind CSS, React Router, Hot-toast e MDX Editor.
+Il backend è costruito con Node.js, sfruttando Fastify per la gestione delle richieste, JWT e bcrypt per l’autenticazione sicura, e PostgreSQL come database relazionale.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[![Guarda il video presentazione](https://drive.google.com/file/d/1sLXCE2IfOhvf9X912AuDiUZE98ockR7t/view?usp=sharing)](https://drive.google.com/file/d/1W2L5QmDj8lZsd_3T90UZaEB08cxqGT9a/view?usp=drive_link)
